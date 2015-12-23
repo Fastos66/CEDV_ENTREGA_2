@@ -1,0 +1,70 @@
+<scene export_time="1450752465.0922892" exported_by="javimendo" previous_export_time="1450751666.9847286" formatVersion="1.0.1" >
+  <nodes >
+    <node name="Armature" >
+      <position z="-0.237774" y="-0.559720" x="-0.095792" />
+      <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+      <scale z="1.000000" y="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <node name="Pacman" >
+        <position z="-0.237774" y="0.180279" x="-0.095792" />
+        <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+        <scale z="1.000000" y="1.000000" x="1.000000" />
+        <game >
+          <sensors />
+          <actuators />
+        </game>
+        <entity lock_rot_y="False" mass_radius="1.0" damping_rot="0.10000000149011612" actor="False" mass="1.0" lock_trans_y="False" physics_type="STATIC" damping_trans="0.03999999910593033" friction_y="1.0" lock_trans_x="False" friction_z="1.0" velocity_max="0.0" meshFile="Pacman.mesh" lock_rot_x="False" name="Pacman" lock_rot_z="False" ghost="False" anisotropic_friction="False" friction_x="1.0" lock_trans_z="False" velocity_min="0.0" inertia_tensor="0.4000000059604645" />
+      </node>
+    </node>
+    <node name="Lamp" >
+      <position z="-1.005454" y="5.903862" x="4.076245" />
+      <rotation qw="0.570947" qx="0.169076" qy="0.755880" qz="-0.272171" />
+      <scale z="1.000000" y="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <light type="point" powerScale="1.0" shadow="true" name="Lamp" >
+        <position z="-1.005454" y="5.903862" x="4.076245" />
+        <lightAttenuation range="5000" quadratic="0.0" constant="1.0" linear="0.03333335240683057" />
+        <colourDiffuse b="1.0" r="1.0" g="1.0" />
+        <colourSpecular b="1.0" r="1.0" g="1.0" />
+        <colourShadow b="1.0" r="1.0" g="1.0" />
+      </light>
+    </node>
+    <node name="Camera" >
+      <position z="6.507640" y="5.343665" x="7.481132" />
+      <rotation qw="0.781600" qx="0.481707" qy="0.334251" qz="-0.212922" />
+      <scale z="1.000000" y="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera projectionType="perspective" fov="0.5033799435163735" name="Camera" >
+        <clipping farPlaneDist="100.0" far="100.0" nearPlaneDist="0.10000000149011612" near="0.10000000149011612" />
+      </camera>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/M2_S17_Animacion/media/PacmanAnimacion/Cuerpo.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/M2_S17_Animacion/media/PacmanAnimacion/Boca.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/M2_S17_Animacion/media/PacmanAnimacion/OJoD.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/M2_S17_Animacion/media/PacmanAnimacion/OjoI.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground b="0.05087608844041824" r="0.05087608844041824" g="0.05087608844041824" />
+    <colourAmbient b="0.0" r="0.0" g="0.0" />
+    <colourDiffuse b="0.05087608844041824" r="0.05087608844041824" g="0.05087608844041824" />
+  </environment>
+</scene>

@@ -1,0 +1,32 @@
+material panelInfoM 
+{
+ technique 
+ {
+   pass 
+   {
+     scene_blend src_alpha one_minus_src_alpha
+     texture_unit 
+     {
+       texture panel.tga
+     }
+   }
+ }
+}
+
+material pointer 
+{
+ technique 
+ {
+   pass 
+   {
+     scene_blend src_alpha one_minus_src_alpha
+     texture_unit 
+     {
+       texture cursor.png
+     }
+   }
+ }
+}
+
+
+
