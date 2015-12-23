@@ -1,3 +1,6 @@
+#ifndef MYFRAMELISTENER_H
+#define MYFRAMELISTENER_H
+
 #include <Ogre.h>
 #include <OIS/OIS.h>
 
@@ -19,3 +22,5 @@ public:
   ~MyFrameListener();
   bool frameStarted(const Ogre::FrameEvent& evt);  
 };
+
+#endif

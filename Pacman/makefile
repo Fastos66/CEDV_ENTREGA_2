@@ -14,8 +14,8 @@ CXX := g++
 CXXFLAGS := -I $(DIRHEA) -Wall -I/usr/local/include/cegui-0/CEGUI -I/usr/local/include/cegui-0 `pkg-config --cflags OGRE` `pkg-config --cflags OIS` `pkg-config --cflags OGRE OGRE-Overlay` 
 
 # Flags del linker ---------------------------------------------------
-LDFLAGS := `pkg-config --libs-only-L OGRE`
-LDLIBS := `pkg-config --libs-only-l OGRE OGRE-Overlay` -lboost_system -lOIS -lGL -lstdc++
+LDFLAGS := `pkg-config --libs OGRE` 
+LDLIBS := `pkg-config --libs-only-l OGRE OGRE-Overlay` -lboost_system -lOIS -lGL -lstdc++ -lCEGUIBase-0 -lCEGUIOgreRenderer-0
 
 # Modo de compilación (-mode=release -mode=debug) --------------------
 ifeq ($(mode), release) 

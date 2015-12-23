@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,-588},{1,-337}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="OgreTray/Button" name="Button" >
+            <Property name="Area" value="{{0,212},{0,41},{0,343},{0,88}}" />
+            <Property name="Text" value="PLAY" />
+        </Window>
+        <Window type="OgreTray/Button" name="Button2" >
+            <Property name="Area" value="{{0,210},{0,110},{0,341},{0,157}}" />
+            <Property name="Text" value="CREDITOS" />
+        </Window>
+        <Window type="OgreTray/Button" name="Button3" >
+            <Property name="Area" value="{{0,210},{0,181},{0,341},{0,228}}" />
+            <Property name="Text" value="RANKING" />
+        </Window>
+        <Window type="OgreTray/Button" name="Button4" >
+            <Property name="Area" value="{{0,210},{0,251},{0,341},{0,298}}" />
+            <Property name="Text" value="EXIT" />
+        </Window>
+    </Window>
+</GUILayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DerrotaL" >
+        <Property name="Area" value="{{0,0},{0,0},{1,49},{1,36}}" />
+        <Property name="MaxSize" value="{{0.25,0},{0.25,0}}" />
+        <Window type="OgreTray/Button" name="ButtonD" >
+            <Property name="Area" value="{{0,107},{0,115},{0,227},{0,163}}" />
+            <Property name="Text" value="EXIT" />
+        </Window>
+    </Window>
+</GUILayout>

@@ -33,10 +33,9 @@ int MyApp::start() {
     _root->saveConfig();
   }
   
-  Ogre::RenderWindow* window = _root->initialise(true,"MyApp Example");
+  Ogre::RenderWindow* window = _root->initialise(true,"PacManian");
   _sceneManager = _root->createSceneManager(Ogre::ST_GENERIC);
   _sceneManager->setAmbientLight(Ogre::ColourValue(1,1,1));
-  
   
   Ogre::Camera* cam = _sceneManager->createCamera("MainCamera");
   cam->setPosition(Ogre::Vector3(5,20,22));
@@ -52,6 +51,7 @@ int MyApp::start() {
   
   loadResources();
   createScene();
+  createGUI();
  
 
   Ogre::SceneNode *node = _sceneManager->getSceneNode("Pacman");
@@ -82,9 +82,42 @@ void MyApp::loadResources() {
   Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
+void MyApp::createGUI(){
+  renderer = &CEGUI::OgreRenderer::bootstrapSystem();
+  CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+  CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+  CEGUI::Font::setDefaultResourceGroup("Fonts");
+  CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+  CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+  //Para los botones
+  CEGUI::SchemeManager::getSingleton().createFromFile("VanillaSkin.scheme");
+  //Para el Raton
+  CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+  //Para nada de momento
+  CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+  
+  CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-12");
+  CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("OgreTrayImages/MouseArrow");
+  CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
+  CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
+  vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
+  sheet->addChild(vent); 
+
+  CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagen");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGO","pacmanname.png");
+  imglogo -> setProperty("Image","ImagenLOGO");
+  imglogo -> setProperty("BackgroundEnabled","False");
+  imglogo -> setProperty("FrameEnabled","False");
+  imglogo -> setSize(CEGUI::USize(CEGUI::UDim(0.36f,0),CEGUI::UDim(0.36f,0)));  
+  imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.53f,0)));
+  sheet -> addChild(imglogo); 
+
+  CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+
+}
+
 void MyApp::createScene() {
 
-  
   Ogre::Entity* ent1 = _sceneManager->createEntity("Pacman", "Pacman.mesh");
   Ogre::SceneNode* node1 = _sceneManager->createSceneNode("Pacman");
   node1->attachObject(ent1);
@@ -119,7 +152,7 @@ void MyApp::createScene() {
   Ogre::Plane plane1(Ogre::Vector3::UNIT_Y, 0);
   Ogre::MeshManager::getSingleton().createPlane("plane1",
 	Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane1,
-	200,200,1,1,true,1,20,20,Ogre::Vector3::UNIT_Z);
+	1024,768,1,1,true,1,20,20,Ogre::Vector3::UNIT_Z);
 
   Ogre::SceneNode* node2 = _sceneManager->createSceneNode("ground");
   Ogre::Entity* groundEnt = _sceneManager->createEntity("planeEnt", "plane1");

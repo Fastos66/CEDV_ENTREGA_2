@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="MenuInicial" >
+        <Property name="Area" value="{{0,50},{0,68},{1,-462},{1,-159}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="Vanilla/Button" name="PlayButton" >
+            <Property name="Area" value="{{0,54},{0,55},{0,207},{0,100}}" />
+            <Property name="Text" value="PLAY" />
+        </Window>
+        <Window type="Vanilla/Button" name="ExitButton" >
+            <Property name="Area" value="{{0,358},{0,236},{0,511},{0,281}}" />
+            <Property name="Text" value="EXIT" />
+        </Window>
+        <Window type="Vanilla/StaticText" name="StaticText" >
+            <Property name="Area" value="{{0,2},{0,423},{0,462},{0,469}}" />
+            <Property name="Text" value="Fco.Javier Mendoza Madroñal,Enrique Forner Diaz " />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="448" />
+            <Property name="VertScrollPageSize" value="34" />
+            <Property name="HorzScrollDocumentSize" value="332" />
+            <Property name="VertScrollDocumentSize" value="13.6796" />
+        </Window>
+    </Window>
+</GUILayout>
