@@ -31,12 +31,15 @@ MyFrameListener::MyFrameListener(Ogre::RenderWindow* win,
   _inputManager = OIS::InputManager::createInputSystem(param);
   _keyboard = static_cast<OIS::Keyboard*>
     (_inputManager->createInputObject(OIS::OISKeyboard, false));
-
+  _mouse = static_cast<OIS::Mouse*>
+    (_inputManager->createInputObject(OIS::OISMouse, true));
+  _mouse->setEventCallback(this);  
   _animState = NULL;
 }
 
 MyFrameListener::~MyFrameListener() {
   _inputManager->destroyInputObject(_keyboard);
+  _inputManager->destroyInputObject(_mouse);
   OIS::InputManager::destroyInputSystem(_inputManager);
 }
 
@@ -46,6 +49,8 @@ bool MyFrameListener::frameStarted(const Ogre::FrameEvent& evt) {
   Ogre::Real deltaT = evt.timeSinceLastFrame;
  
   _keyboard->capture();
+  _mouse->capture();
+
 
   if(_keyboard->isKeyDown(OIS::KC_ESCAPE)) return false;
 
@@ -73,4 +78,42 @@ bool MyFrameListener::frameStarted(const Ogre::FrameEvent& evt) {
   
  
   return true;
+}
+
+bool MyFrameListener::mouseMoved(const OIS::MouseEvent& evt)
+{
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(evt.state.X.rel, evt.state.Y.rel);  
+  return true;
+}
+
+bool MyFrameListener::mousePressed(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+{
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(convertMouseButton(id));
+  return true;
+}
+
+bool MyFrameListener::mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+{
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertMouseButton(id));
+  return true;
+}
+
+CEGUI::MouseButton MyFrameListener::convertMouseButton(OIS::MouseButtonID id)
+{
+  CEGUI::MouseButton ceguiId;
+  switch(id)
+    {
+    case OIS::MB_Left:
+      ceguiId = CEGUI::LeftButton;
+      break;
+    case OIS::MB_Right:
+      ceguiId = CEGUI::RightButton;
+      break;
+    case OIS::MB_Middle:
+      ceguiId = CEGUI::MiddleButton;
+      break;
+    default:
+      ceguiId = CEGUI::LeftButton;
+    }
+  return ceguiId;
 }

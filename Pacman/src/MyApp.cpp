@@ -90,7 +90,7 @@ void MyApp::createGUI(){
   CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
   CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
   //Para los botones
-  CEGUI::SchemeManager::getSingleton().createFromFile("VanillaSkin.scheme");
+  //CEGUI::SchemeManager::getSingleton().createFromFile("VanillaSkin.scheme");
   //Para el Raton
   CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
   //Para nada de momento
@@ -98,10 +98,13 @@ void MyApp::createGUI(){
   
   CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-12");
   CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("OgreTrayImages/MouseArrow");
-  CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
+  CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Pacman/Sheet");
   CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
+  CEGUI::Window* ventinicio = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow");
+  
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
-  sheet->addChild(vent); 
+  ventinicio -> addChild(vent);
+  sheet->addChild(ventinicio); 
 
   CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagen");
   CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGO","pacmanname.png");
@@ -110,8 +113,9 @@ void MyApp::createGUI(){
   imglogo -> setProperty("FrameEnabled","False");
   imglogo -> setSize(CEGUI::USize(CEGUI::UDim(0.36f,0),CEGUI::UDim(0.36f,0)));  
   imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.53f,0)));
-  sheet -> addChild(imglogo); 
-
+  ventinicio -> addChild(imglogo);
+  //ventinicio -> setVisible(false);
+  
   CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 
 }
