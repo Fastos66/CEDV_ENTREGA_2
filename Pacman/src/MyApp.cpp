@@ -101,10 +101,13 @@ void MyApp::createGUI(){
   CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Pacman/Sheet");
   CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
   CEGUI::Window* ventinicio = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow");
+  CEGUI::Window* ventcreditos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creditos.layout");
   
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
+  ventcreditos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.14f,0),CEGUI::UDim(0.30f,0)));
   ventinicio -> addChild(vent);
   sheet->addChild(ventinicio); 
+  sheet->addChild(ventcreditos); 
 
   CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagen");
   CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGO","pacmanname.png");
@@ -115,7 +118,8 @@ void MyApp::createGUI(){
   imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.53f,0)));
   ventinicio -> addChild(imglogo);
   //ventinicio -> setVisible(false);
-  
+  ventcreditos -> setVisible(false);
+
   CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 
 }
