@@ -31,13 +31,16 @@ OBJS := $(subst $(DIRSRC), $(DIROBJ), \
 
 .PHONY: all clean
 
-all: info $(EXEC)
+all: info dirs $(EXEC)
 
 info:
 	@echo '------------------------------------------------------'
 	@echo '>>> Using mode $(mode)'
 	@echo '    (Please, call "make" with [mode=debug|release])  '
 	@echo '------------------------------------------------------'
+
+dirs:
+	mkdir -p $(DIROBJ)
 
 # Enlazado -----------------------------------------------------------
 $(EXEC): $(OBJS)
@@ -49,7 +52,5 @@ $(DIROBJ)%.o: $(DIRSRC)%.cpp
 
 # Limpieza de temporales ---------------------------------------------
 clean:
-	rm -f *.log $(EXEC) *~ $(DIROBJ)* $(DIRSRC)*~ $(DIRHEA)*~ 
-
-edit:
-	emacs $(wildcard $(DIRSRC)*.cpp) $(wildcard $(DIRHEA)*.h) &
+	rm -f *.log $(EXEC) *~ $(DIRSRC)*~ $(DIRHEA)*~ 
+	rm -rf $(DIROBJ)
