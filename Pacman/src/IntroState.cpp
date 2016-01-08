@@ -27,7 +27,10 @@ IntroState::enter ()
  
   _scena = new MyScene(_sceneMgr,_sheet);
   _scena -> crearMenuInicio();
+  _animState = NULL;
+  _lanzaranimacion = true;
   _exitGame = false;
+
 }
 
 void
@@ -51,6 +54,24 @@ bool
 IntroState::frameStarted
 (const Ogre::FrameEvent& evt) 
 {
+  Ogre::Real deltaT = evt.timeSinceLastFrame;
+  if (_lanzaranimacion){
+    _animState = _sceneMgr->getEntity("Pacman")->getAnimationState("VerMenu");
+    _animState->setEnabled(true);
+    _animState->setLoop(true);
+    _animState->setTimePosition(0.0);
+    _lanzaranimacion = false;
+  }
+  if (_animState != NULL) {
+     if (_animState->hasEnded()) {
+       _animState->setTimePosition(0.0);
+       _animState->setEnabled(false);
+     }
+     else {
+       _animState->addTime(deltaT);
+     }
+  }
+
   return true;
 }
 

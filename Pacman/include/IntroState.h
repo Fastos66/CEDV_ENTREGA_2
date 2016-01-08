@@ -42,6 +42,10 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   void loadCEGUI();
   MyScene* _scena;
   CEGUI::Window* _sheet;
+ private:
+  Ogre::AnimationState *_animState;
+  bool _lanzaranimacion;
+
 };
 
 #endif
