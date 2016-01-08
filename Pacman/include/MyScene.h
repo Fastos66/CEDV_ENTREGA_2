@@ -11,13 +11,16 @@
 
 class MyScene {
 public:
-	MyScene(Ogre::SceneManager *sceneManager);
+	MyScene(Ogre::SceneManager *sceneManager, CEGUI::Window* sheet);
 	~MyScene();
 	void crearMenuInicio();
 	void crearMenuInicioCEGUI();
+	void creditos();
+	void retroceder();
+	bool limpiarpantallaCEGUI();
 private:
-	CEGUI::Window* _sheet;
 	Ogre::SceneManager* _sceneManager;
+	CEGUI::Window* _sheet;
 };
 
 

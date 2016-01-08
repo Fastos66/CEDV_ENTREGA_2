@@ -1,8 +1,8 @@
 
 #include "MyScene.h"
 
-MyScene::MyScene(Ogre::SceneManager* sceneManager){
-	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
+MyScene::MyScene(Ogre::SceneManager* sceneManager, CEGUI::Window* sheet){
+	_sheet = sheet;
 	_sceneManager = sceneManager;
 }
 
@@ -60,10 +60,9 @@ void MyScene::crearMenuInicio(){
   _sceneManager->getRootSceneNode()->addChild(node2);
   crearMenuInicioCEGUI();
 }
-
 void MyScene::crearMenuInicioCEGUI(){
   CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
-  CEGUI::Window* ventinicio = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow");
+  CEGUI::Window* ventinicio = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","VI");
   CEGUI::Window* ventcreditos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creditos.layout");
   
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
@@ -82,4 +81,30 @@ void MyScene::crearMenuInicioCEGUI(){
   ventinicio -> addChild(imglogo);
   //ventinicio -> setVisible(false);
   ventcreditos -> setVisible(false);
+}
+void MyScene::creditos(){
+  CEGUI::Window* vent = _sheet-> getChild("VI");
+  CEGUI::Window* ventinicio = vent-> getChild("MenuInicialPacman");
+  ventinicio -> setVisible(false);
+  CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
+  ventcreditos -> setVisible(true);
+}
+void MyScene::retroceder(){
+  CEGUI::Window* vent = _sheet-> getChild("VI");
+  CEGUI::Window* ventinicio = vent-> getChild("MenuInicialPacman");
+  CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
+  if (ventcreditos-> isVisible()){
+    ventcreditos->setVisible(false); 
+    ventinicio->setVisible(true);
+  } 
+}
+bool MyScene::limpiarpantallaCEGUI(){
+  bool dev = false;
+  CEGUI::Window* vent = _sheet-> getChild("VI");
+  CEGUI::Window* ventinicio = vent-> getChild("MenuInicialPacman");
+  if(ventinicio-> isVisible()){
+    vent->setVisible(false);
+    dev = true;
+  }
+  return dev;
 }

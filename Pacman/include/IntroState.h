@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 
 #include "GameState.h"
+#include "MyScene.h"
 
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
@@ -39,6 +40,8 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   CEGUI::OgreRenderer* renderer;
   bool _exitGame;
   void loadCEGUI();
+  MyScene* _scena;
+  CEGUI::Window* _sheet;
 };
 
 #endif

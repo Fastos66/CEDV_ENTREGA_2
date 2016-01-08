@@ -202,3 +202,6 @@ GameManager::mouseReleased
   return true;
 }
 
+OIS::Mouse* GameManager::getMouse(){
+  return _inputMgr -> getMouse();
+}

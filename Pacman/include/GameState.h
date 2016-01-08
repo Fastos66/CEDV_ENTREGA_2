@@ -47,7 +47,9 @@ class GameState {
   void popState () {
     GameManager::getSingletonPtr()->popState();
   }
-
+  OIS::Mouse * getMouse(){
+    return GameManager::getSingletonPtr()->getMouse();
+  }
 };
 
 #endif

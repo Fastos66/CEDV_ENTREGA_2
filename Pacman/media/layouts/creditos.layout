@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <GUILayout version="4" >
-    <Window type="DefaultWindow" name="DefaultWindow" >
+    <Window type="DefaultWindow" name="Creditos" >
         <Property name="Area" value="{{0,1},{0,1},{1,-417},{1,-359}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Window type="OgreTray/StaticText" name="StaticText" >
@@ -57,6 +57,31 @@
         <Window type="OgreTray/Button" name="Button" >
             <Property name="Area" value="{{0,293},{0,255},{0,439},{0,304}}" />
             <Property name="Text" value="ATRAS" />
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText3" >
+            <Property name="Area" value="{{0,213},{0,253},{0,274},{0,305}}" />
+            <Property name="Text" value=" A" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="35" />
+            <Property name="VertScrollPageSize" value="26" />
+            <Property name="HorzScrollDocumentSize" value="11" />
+            <Property name="VertScrollDocumentSize" value="13.6796" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
         </Window>
     </Window>
 </GUILayout>

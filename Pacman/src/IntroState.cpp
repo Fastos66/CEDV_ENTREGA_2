@@ -22,10 +22,11 @@ IntroState::enter ()
   double width = _viewport->getActualWidth();
   double height = _viewport->getActualHeight();
   _camera->setAspectRatio(width / height);
-
+  
   loadCEGUI();
-  MyScene *myscena = new MyScene(_sceneMgr);
-  myscena -> crearMenuInicio();
+ 
+  _scena = new MyScene(_sceneMgr,_sheet);
+  _scena -> crearMenuInicio();
   _exitGame = false;
 }
 
@@ -68,9 +69,17 @@ IntroState::keyPressed
 (const OIS::KeyEvent &e)
 {
   // Transición al siguiente estado.
-  // Espacio --> PlayState
-  if (e.key == OIS::KC_SPACE) {
-    changeState(PlayState::getSingletonPtr());
+  //Espacio --> PlayState
+  if (e.key == OIS::KC_P) {
+    if (_scena->limpiarpantallaCEGUI()){
+       changeState(PlayState::getSingletonPtr());   
+    }
+  }
+  if (e.key == OIS::KC_C) {
+    _scena-> creditos();
+  }
+  if (e.key == OIS::KC_A) {
+    _scena-> retroceder();
   }
 }
 
@@ -79,6 +88,9 @@ IntroState::keyReleased
 (const OIS::KeyEvent &e )
 {
   if (e.key == OIS::KC_ESCAPE) {
+    _exitGame = true;
+  }
+  if (e.key == OIS::KC_X) {
     _exitGame = true;
   }
 }
@@ -93,6 +105,7 @@ void
 IntroState::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+
 }
 
 void
@@ -133,8 +146,8 @@ void IntroState::loadCEGUI(){
   CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-12");
   CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("OgreTrayImages/MouseArrow");
   
-  CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
-  CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+  _sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
+  CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_sheet);
 
 
 }
