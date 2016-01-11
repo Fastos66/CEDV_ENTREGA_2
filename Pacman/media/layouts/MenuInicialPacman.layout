@@ -10,7 +10,7 @@
         </Window>
         <Window type="OgreTray/Button" name="Button2" >
             <Property name="Area" value="{{0,210},{0,110},{0,341},{0,157}}" />
-            <Property name="Text" value="CREDITOS" />
+            <Property name="Text" value="CREDITS" />
         </Window>
         <Window type="OgreTray/Button" name="Button3" >
             <Property name="Area" value="{{0,210},{0,181},{0,341},{0,228}}" />

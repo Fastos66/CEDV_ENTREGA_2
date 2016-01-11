@@ -1,7 +1,7 @@
 #include "IntroState.h"
 #include "PlayState.h"
 #include "MyScene.h"
-
+#include "Ranking.h"
 template<> IntroState* Ogre::Singleton<IntroState>::msSingleton = 0;
 
 void
@@ -27,6 +27,7 @@ IntroState::enter ()
  
   _scena = new MyScene(_sceneMgr,_sheet);
   _scena -> crearMenuInicio();
+  _scena -> ActRanking();
   _animState = NULL;
   _lanzaranimacion = true;
   _exitGame = false;
@@ -71,7 +72,6 @@ IntroState::frameStarted
        _animState->addTime(deltaT);
      }
   }
-
   return true;
 }
 
@@ -101,6 +101,9 @@ IntroState::keyPressed
   }
   if (e.key == OIS::KC_A) {
     _scena-> retroceder();
+  }
+  if (e.key == OIS::KC_R) {
+    _scena-> ranking();
   }
 }
 

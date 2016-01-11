@@ -5,7 +5,7 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
+#include "Ranking.h"
 #include <CEGUI.h>
 #include <RendererModules/Ogre/Renderer.h>
 
@@ -16,13 +16,12 @@ public:
 	void crearMenuInicio();
 	void crearMenuInicioCEGUI();
 	void creditos();
+	void ranking();
 	void retroceder();
 	bool limpiarpantallaCEGUI();
+	void ActRanking();
 private:
 	Ogre::SceneManager* _sceneManager;
 	CEGUI::Window* _sheet;
 };
-
-
-
 #endif

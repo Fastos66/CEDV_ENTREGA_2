@@ -64,12 +64,16 @@ void MyScene::crearMenuInicioCEGUI(){
   CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
   CEGUI::Window* ventinicio = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","VI");
   CEGUI::Window* ventcreditos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creditos.layout");
+  CEGUI::Window* ventranking = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("rankingl.layout");
   
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
   ventcreditos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.14f,0),CEGUI::UDim(0.30f,0)));
+  ventranking->setPosition(CEGUI::UVector2(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.01f,0)));
+  
   ventinicio -> addChild(vent);
   _sheet->addChild(ventinicio); 
   _sheet->addChild(ventcreditos); 
+  _sheet-> addChild(ventranking);
 
   CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagen");
   CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGO","pacmanname.png");
@@ -81,6 +85,7 @@ void MyScene::crearMenuInicioCEGUI(){
   ventinicio -> addChild(imglogo);
   //ventinicio -> setVisible(false);
   ventcreditos -> setVisible(false);
+  ventranking -> setVisible(false);
 }
 void MyScene::creditos(){
   CEGUI::Window* vent = _sheet-> getChild("VI");
@@ -88,14 +93,29 @@ void MyScene::creditos(){
   ventinicio -> setVisible(false);
   CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
   ventcreditos -> setVisible(true);
+  CEGUI::Window* ventranking = _sheet-> getChild("RankingL");
+  ventranking-> setVisible(false);
+}
+
+void MyScene::ranking(){
+  CEGUI::Window* vent = _sheet-> getChild("VI");
+  CEGUI::Window* ventinicio = vent-> getChild("MenuInicialPacman");
+  ventinicio -> setVisible(false);
+  CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
+  ventcreditos -> setVisible(false);
+  CEGUI::Window* ventranking = _sheet-> getChild("RankingL");
+  ventranking-> setVisible(true);
+  
 }
 void MyScene::retroceder(){
   CEGUI::Window* vent = _sheet-> getChild("VI");
   CEGUI::Window* ventinicio = vent-> getChild("MenuInicialPacman");
   CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
-  if (ventcreditos-> isVisible()){
+  CEGUI::Window* ventranking = _sheet-> getChild("RankingL");
+  if (ventcreditos-> isVisible() || ventranking-> isVisible() ){
     ventcreditos->setVisible(false); 
     ventinicio->setVisible(true);
+    ventranking-> setVisible(false);
   } 
 }
 bool MyScene::limpiarpantallaCEGUI(){
@@ -107,4 +127,10 @@ bool MyScene::limpiarpantallaCEGUI(){
     dev = true;
   }
   return dev;
+}
+
+void MyScene::ActRanking(){
+  Ranking* ran = new Ranking();
+  ran -> leerPlayeryPuntos();
+  ran -> acturanking();
 }
