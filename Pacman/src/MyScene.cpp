@@ -83,6 +83,25 @@ void MyScene::crearMenuInicioCEGUI(){
   imglogo -> setSize(CEGUI::USize(CEGUI::UDim(0.36f,0),CEGUI::UDim(0.36f,0)));  
   imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.53f,0)));
   ventinicio -> addChild(imglogo);
+
+  CEGUI::Window* imgnameranking = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenNameRanking");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("INameRanking","nameranking.png");
+  imgnameranking -> setProperty("Image","INameRanking");
+  imgnameranking -> setProperty("BackgroundEnabled","False");
+  imgnameranking -> setProperty("FrameEnabled","False");
+  imgnameranking -> setSize(CEGUI::USize(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.09f,0)));  
+  imgnameranking -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.13f,0)));
+  ventranking -> addChild(imgnameranking);
+
+  CEGUI::Window* imgpointranking = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenPointRanking");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("IPointRanking","pointsranking.png");
+  imgpointranking -> setProperty("Image","IPointRanking");
+  imgpointranking -> setProperty("BackgroundEnabled","False");
+  imgpointranking -> setProperty("FrameEnabled","False");
+  imgpointranking -> setSize(CEGUI::USize(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.09f,0)));  
+  imgpointranking -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.36f,0),CEGUI::UDim(0.13f,0)));
+  ventranking -> addChild(imgpointranking);
+
   //ventinicio -> setVisible(false);
   ventcreditos -> setVisible(false);
   ventranking -> setVisible(false);
