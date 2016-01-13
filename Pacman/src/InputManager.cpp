@@ -259,6 +259,8 @@ bool
 InputManager::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+  //const OIS::MouseState &mouseState = _mouse->getMouseState();
+  //printf("%d \n",mouseState.X.abs);  
   itMouseListener = _mouseListeners.begin();
   itMouseListenerEnd = _mouseListeners.end();
   // Delega en los MouseListener añadidos.

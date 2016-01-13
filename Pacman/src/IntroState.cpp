@@ -33,11 +33,11 @@ IntroState::enter ()
   _exitGame = false;
 
 }
-
 void
 IntroState::exit()
 {
-  _sceneMgr->clearScene();
+  //_sceneMgr->clearScene();
+  _sceneMgr->getSceneNode("Pacman")-> setVisible(false);
   _root->getAutoCreatedWindow()->removeAllViewports();
 }
 
@@ -123,13 +123,14 @@ void
 IntroState::mouseMoved
 (const OIS::MouseEvent &e)
 {
+
 }
 
 void
 IntroState::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
-
+  
 }
 
 void

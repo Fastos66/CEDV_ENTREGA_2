@@ -3,7 +3,6 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
 // Gestor para los eventos de entrada (teclado y ratón).
 class InputManager : public Ogre::Singleton<InputManager>, public OIS::KeyListener, public OIS::MouseListener {
  public:

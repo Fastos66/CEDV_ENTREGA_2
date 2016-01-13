@@ -3,7 +3,6 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
 #include "GameState.h"
 
 class PauseState : public Ogre::Singleton<PauseState>, public GameState

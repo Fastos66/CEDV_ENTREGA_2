@@ -1,6 +1,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
-
+#include "MyScenePlay.h"
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
 void
@@ -13,8 +13,11 @@ PlayState::enter ()
   _camera = _sceneMgr->getCamera("IntroCamera");
   _viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
   // Nuevo background colour.
-  _viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 1.0));
+  _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
 
+  //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground"); 
+  _splay = new MyScenePlay(_sceneMgr);
+  _splay -> cargarscenainicial();
   _exitGame = false;
 }
 
@@ -59,9 +62,9 @@ PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
   // Tecla p --> PauseState.
-  if (e.key == OIS::KC_P) {
-    pushState(PauseState::getSingletonPtr());
-  }
+  //if (e.key == OIS::KC_P) {
+  //  pushState(PauseState::getSingletonPtr());
+  //}
 }
 
 void

@@ -1,12 +1,10 @@
 //PlayState.h
-
-
 #ifndef PlayState_H
 #define PlayState_H
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
+#include "MyScenePlay.h"
 #include "GameState.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
@@ -38,7 +36,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
   Ogre::Camera* _camera;
-
+  MyScenePlay* _splay;
   bool _exitGame;
 };
 
