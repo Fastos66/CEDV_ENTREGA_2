@@ -1,5 +1,5 @@
 #include "IntroState.h"
-#include "PlayState.h"
+#include "ControlState.h"
 #include "MyScene.h"
 #include "Ranking.h"
 template<> IntroState* Ogre::Singleton<IntroState>::msSingleton = 0;
@@ -22,6 +22,7 @@ IntroState::enter ()
   double width = _viewport->getActualWidth();
   double height = _viewport->getActualHeight();
   _camera->setAspectRatio(width / height);
+  printf("Estado:Intro\n");
   
   loadCEGUI();
  
@@ -89,11 +90,10 @@ void
 IntroState::keyPressed
 (const OIS::KeyEvent &e)
 {
-  // Transición al siguiente estado.
-  //Espacio --> PlayState
+  
   if (e.key == OIS::KC_P) {
     if (_scena->limpiarpantallaCEGUI()){
-       changeState(PlayState::getSingletonPtr());   
+      changeState(ControlState::getSingletonPtr()); 
     }
   }
   if (e.key == OIS::KC_C) {

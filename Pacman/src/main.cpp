@@ -19,7 +19,7 @@
 #include "IntroState.h"
 #include "PlayState.h"
 #include "PauseState.h"
-
+#include "ControlState.h"
 
 int main() {
   //MyApp app;
@@ -29,10 +29,13 @@ int main() {
   IntroState* introState = new IntroState();
   PlayState* playState = new PlayState();
   PauseState* pauseState = new PauseState();
+  ControlState* controlState = new ControlState();
 
   UNUSED_VARIABLE(introState);
   UNUSED_VARIABLE(playState);
-  UNUSED_VARIABLE(pauseState);	
+  UNUSED_VARIABLE(pauseState);
+  UNUSED_VARIABLE(controlState);
+
 
   try
     {

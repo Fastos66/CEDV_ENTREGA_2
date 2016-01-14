@@ -15,7 +15,8 @@ PlayState::enter ()
   // Nuevo background colour.
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
 
-  //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground"); 
+  //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground");
+  printf("Estado:Play\n"); 
   _splay = new MyScenePlay(_sceneMgr);
   _splay -> cargarscenainicial();
   _exitGame = false;

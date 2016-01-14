@@ -5,7 +5,10 @@ MyScene::MyScene(Ogre::SceneManager* sceneManager, CEGUI::Window* sheet){
 	_sheet = sheet;
 	_sceneManager = sceneManager;
 }
-
+MyScene::MyScene(Ogre::SceneManager* sceneManager){
+  _sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
+  _sceneManager = sceneManager;
+}
 MyScene::~MyScene(){}
 
 void MyScene::crearMenuInicio(){
@@ -152,4 +155,14 @@ void MyScene::ActRanking(){
   Ranking* ran = new Ranking();
   ran -> leerPlayeryPuntos();
   ran -> acturanking();
+}
+
+void MyScene::controles(){
+  Ogre::SceneNode* node1 = _sceneManager->getSceneNode("Pacman");
+  node1-> setVisible(true);
+   _sceneManager->getSceneNode("FantasmaR")->setVisible(false);
+  node1-> setPosition(8,12,12);
+  node1-> roll(Ogre::Degree(12));
+  node1-> yaw(Ogre::Degree(-7));
+  node1-> setScale(5,5,5); 
 }
