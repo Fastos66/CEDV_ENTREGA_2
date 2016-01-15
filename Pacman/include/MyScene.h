@@ -20,6 +20,7 @@ public:
 	void ranking();
 	void retroceder();
 	bool limpiarpantallaCEGUI();
+	bool limpiarpantallaCEGUIControles();
 	void ActRanking();
 	void controles();
 private:

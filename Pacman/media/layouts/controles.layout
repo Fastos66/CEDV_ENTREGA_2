@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="ControlesLayout" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="OgreTray/Button" name="Button" >
+            <Property name="Area" value="{{0,525},{0,594},{0,638},{0,636}}" />
+            <Property name="Text" value="Go!" />
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText" >
+            <Property name="Area" value="{{0,438},{0,587},{0,507},{0,644}}" />
+            <Property name="Text" value="  G" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="43" />
+            <Property name="VertScrollPageSize" value="31" />
+            <Property name="HorzScrollDocumentSize" value="15" />
+            <Property name="VertScrollDocumentSize" value="13.6796" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+    </Window>
+</GUILayout>

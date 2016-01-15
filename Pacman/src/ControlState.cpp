@@ -83,10 +83,11 @@ ControlState::keyPressed
 (const OIS::KeyEvent &e)
 {
   if (e.key == OIS::KC_G) {
-    changeState(PlayState::getSingletonPtr()); 
+    if(_scena->limpiarpantallaCEGUIControles()){
+       changeState(PlayState::getSingletonPtr()); 
+    }
   }
 }
-
 void
 ControlState::keyReleased
 (const OIS::KeyEvent &e)

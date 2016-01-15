@@ -165,4 +165,45 @@ void MyScene::controles(){
   node1-> roll(Ogre::Degree(12));
   node1-> yaw(Ogre::Degree(-7));
   node1-> setScale(5,5,5); 
+
+  CEGUI::Window* ventcontroles = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("controles.layout");
+  
+  _sheet->addChild(ventcontroles); 
+
+  CEGUI::Window* imgcontroles = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenControles");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("INameControles","controlesName.png");
+  imgcontroles -> setProperty("Image","INameControles");
+  imgcontroles -> setProperty("BackgroundEnabled","False");
+  imgcontroles -> setProperty("FrameEnabled","False");
+  imgcontroles -> setSize(CEGUI::USize(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.14f,0)));  
+  imgcontroles -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.05f,0),CEGUI::UDim(0.02f,0)));
+  ventcontroles -> addChild(imgcontroles);
+
+  CEGUI::Window* imgcontrolesT = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenControlesT");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("IControlesT","controlesTeclado.png");
+  imgcontrolesT -> setProperty("Image","IControlesT");
+  imgcontrolesT -> setProperty("BackgroundEnabled","False");
+  imgcontrolesT -> setProperty("FrameEnabled","False");
+  imgcontrolesT -> setSize(CEGUI::USize(CEGUI::UDim(0.15f,0),CEGUI::UDim(0.15f,0)));  
+  imgcontrolesT -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.16f,0),CEGUI::UDim(0.13f,0)));
+  ventcontroles -> addChild(imgcontrolesT);
+
+  CEGUI::Window* imgpuntos = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenPuntos");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("INamePuntos","puntosName.png");
+  imgpuntos -> setProperty("Image","INamePuntos");
+  imgpuntos -> setProperty("BackgroundEnabled","False");
+  imgpuntos -> setProperty("FrameEnabled","False");
+  imgpuntos -> setSize(CEGUI::USize(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.14f,0)));  
+  imgpuntos -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.05f,0),CEGUI::UDim(0.30f,0)));
+  ventcontroles -> addChild(imgpuntos);
+}
+
+bool MyScene::limpiarpantallaCEGUIControles(){
+  bool dev = false;
+  CEGUI::Window* ventcontroles = _sheet-> getChild("ControlesLayout");
+  if(ventcontroles->isVisible()){
+    ventcontroles->setVisible(false);
+    dev=true;
+  }
+  return dev;
 }
