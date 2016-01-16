@@ -163,7 +163,7 @@ void MyScene::controles(){
    _sceneManager->getSceneNode("FantasmaR")->setVisible(false);
   node1-> setPosition(8,12,12);
   node1-> roll(Ogre::Degree(12));
-  node1-> yaw(Ogre::Degree(-7));
+  node1-> yaw(Ogre::Degree(-12));
   node1-> setScale(5,5,5); 
 
   CEGUI::Window* ventcontroles = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("controles.layout");
