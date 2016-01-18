@@ -2,6 +2,7 @@
 Ranking::Ranking(){
 	_pl = new std::vector<Player>;
 	_plcolocados = new std::stack<Player>;
+	_puntosUltimoplayer = 0;
 }
 Ranking::~Ranking(){}
 void Ranking::leerPlayeryPuntos(){
@@ -32,6 +33,10 @@ void Ranking::acturanking(){
 		uno -> setText(_plcolORDEN->top().getname());
 		uno = ranking -> getChild(osP.str());
 		uno -> setText(_plcolORDEN->top().getpuntos());
+		if (lugar==8){
+			setpuntosultimo(atoi(_plcolORDEN->top().getpuntos().c_str()));
+			cout << "Puntos del Ultimo" << _puntosUltimoplayer << endl;
+		}
 		lugar++;
 		_plcolORDEN->pop();		
 	}
@@ -76,6 +81,14 @@ void Ranking::colocarJugadoresPILA(){
 		cout << poseliminar << endl;		
 	}		
 }
+
+void Ranking::setpuntosultimo(int puntosnew){
+	_puntosUltimoplayer = puntosnew;
+}
+int Ranking::getpuntosultimo(){
+	return _puntosUltimoplayer;
+}
+
 /* Cristal 89
 size() --> 10	
 Emp 0 Termina 9

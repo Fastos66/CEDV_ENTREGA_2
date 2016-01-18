@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="OgreTray/Editbox" name="Editbox" >
+            <Property name="Area" value="{{0,90},{0,214},{0,356},{0,252}}" />
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText" >
+            <Property name="Area" value="{{0,86},{0,141},{0,410},{0,208}}" />
+            <Property name="Font" value="Jura-18" />
+            <Property name="Text" value="Introduce tu nombre:" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="298" />
+            <Property name="VertScrollPageSize" value="41" />
+            <Property name="HorzScrollDocumentSize" value="252" />
+            <Property name="VertScrollDocumentSize" value="24.6328" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText2" >
+            <Property name="Area" value="{{0,415},{0,167},{0,559},{0,253}}" />
+            <Property name="Font" value="Jura-18" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="118" />
+            <Property name="VertScrollPageSize" value="60" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+    </Window>
+</GUILayout>

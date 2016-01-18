@@ -20,9 +20,12 @@ public:
 	void acturanking();
 	void crearvectorPlayers(string s);
 	void colocarJugadoresPILA();
+	int getpuntosultimo();
+	void setpuntosultimo(int puntosnew);
 private:
 	std::vector<Player>* _pl;
 	std::stack<Player>* _plcolocados;
+	int _puntosUltimoplayer;
 	
 };
 
