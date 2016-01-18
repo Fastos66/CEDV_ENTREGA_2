@@ -89,6 +89,13 @@ int Ranking::getpuntosultimo(){
 	return _puntosUltimoplayer;
 }
 
+void Ranking::setrankingtxt(string name, string puntos){
+    std::fstream fs;
+  	fs.open ("./ranking.txt", std::fstream::out | std::fstream::app);
+	fs << endl << name << " " << puntos;
+	fs.close();
+}
+
 /* Cristal 89
 size() --> 10	
 Emp 0 Termina 9

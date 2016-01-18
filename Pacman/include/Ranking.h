@@ -22,6 +22,7 @@ public:
 	void colocarJugadoresPILA();
 	int getpuntosultimo();
 	void setpuntosultimo(int puntosnew);
+	void setrankingtxt(string name, string puntos);
 private:
 	std::vector<Player>* _pl;
 	std::stack<Player>* _plcolocados;
