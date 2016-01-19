@@ -75,6 +75,7 @@ void
 InputManager::capture ()
 {
   // Capturar y actualizar cada frame.
+ 
   if (_mouse)
     _mouse->capture();
   
@@ -240,6 +241,43 @@ InputManager::keyReleased
 
   return true;
 }
+// bool InputManager::mouseMoved(const OIS::MouseEvent& evt)
+// {
+//   CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(evt.state.X.rel, evt.state.Y.rel);  
+//   return true;
+// }
+
+// bool InputManager::mousePressed(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+// {
+//   CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(convertMouseButton(id));
+//   return true;
+// }
+
+// bool InputManager::mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+// {
+//   CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertMouseButton(id));
+//   return true;
+// }
+
+// CEGUI::MouseButton InputManager::convertMouseButton(OIS::MouseButtonID id)
+// {
+//   CEGUI::MouseButton ceguiId;
+//   switch(id)
+//     {
+//     case OIS::MB_Left:
+//       ceguiId = CEGUI::LeftButton;
+//       break;
+//     case OIS::MB_Right:
+//       ceguiId = CEGUI::RightButton;
+//       break;
+//     case OIS::MB_Middle:
+//       ceguiId = CEGUI::MiddleButton;
+//       break;
+//     default:
+//       ceguiId = CEGUI::LeftButton;
+//     }
+//   return ceguiId;
+// }
 
 bool
 InputManager::mouseMoved
