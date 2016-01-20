@@ -4,6 +4,8 @@
 #include <OIS/OIS.h>
 #include <CEGUI.h>
 #include <RendererModules/Ogre/Renderer.h>
+
+
 class MyScenePlay
 {
 	public:
@@ -13,7 +15,8 @@ class MyScenePlay
 		void codigoParapedirelnombreFUTURO();
 	private:
 		Ogre::SceneManager* _sceneManager;
-		CEGUI::Window* _sheet;	
+		CEGUI::Window* _sheet;
+		
 };
 
 
