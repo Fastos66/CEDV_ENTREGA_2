@@ -12,6 +12,13 @@ MyScene::MyScene(Ogre::SceneManager* sceneManager){
 MyScene::~MyScene(){}
 
 void MyScene::crearMenuInicio(){
+  Ogre::Entity* mapae = _sceneManager->createEntity("MapaR", "ParedesM.mesh");
+  Ogre::SceneNode* nodemapa = _sceneManager->createSceneNode("MapaM");
+  nodemapa->attachObject(mapae);
+  _sceneManager->getRootSceneNode()->addChild(nodemapa);
+
+   Ogre::SceneNode* nodeinv = _sceneManager->createSceneNode("nodeinv");
+  _sceneManager->getRootSceneNode()->addChild(nodeinv);
 
   Ogre::Entity* ent1 = _sceneManager->createEntity("Pacman", "Pacman.mesh");
   Ogre::SceneNode* node1 = _sceneManager->createSceneNode("Pacman");
@@ -160,7 +167,8 @@ void MyScene::ActRanking(){
 void MyScene::controles(){
   Ogre::SceneNode* node1 = _sceneManager->getSceneNode("Pacman");
   node1-> setVisible(true);
-   _sceneManager->getSceneNode("FantasmaR")->setVisible(false);
+  _sceneManager->getSceneNode("FantasmaR")->setVisible(false);
+  _sceneManager->getSceneNode("MapaM")->setVisible(false);
   node1-> setPosition(8,12,12);
   node1-> roll(Ogre::Degree(12));
   node1-> yaw(Ogre::Degree(-12));

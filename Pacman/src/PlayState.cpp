@@ -25,7 +25,7 @@ PlayState::enter ()
 void
 PlayState::exit ()
 {
-  _sceneMgr->clearScene();
+  //_sceneMgr->clearScene();
   _root->getAutoCreatedWindow()->removeAllViewports();
 }
 

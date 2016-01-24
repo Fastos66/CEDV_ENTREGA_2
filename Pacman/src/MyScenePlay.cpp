@@ -2,20 +2,22 @@
 
 #include "MyScenePlay.h"
 MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager){
-	sceneManager=_sceneManager;
+	_sceneManager=sceneManager;
 	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
 }
 
 MyScenePlay::~MyScenePlay() {}
 
 void MyScenePlay::cargarscenainicial(){
-
+  
+  //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
+  
 }	
 
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
-	CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
-	ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));
-	CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenTop");
+	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
+	  ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));
+	  CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenTop");
   	CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGOTop","puntuaciontop.png");
   	imglogo -> setProperty("Image","ImagenLOGOTop");
   	imglogo -> setProperty("BackgroundEnabled","False");
