@@ -50,7 +50,7 @@ ControlState::frameStarted
 {
   Ogre::Real deltaT = evt.timeSinceLastFrame;
   if (_lanzaranimacion){
-    _animState = _sceneMgr->getEntity("Pacman")->getAnimationState("VerMenu");
+    _animState = _sceneMgr->getEntity("Pacman")->getAnimationState("VerControles");
     _animState->setEnabled(true);
     _animState->setLoop(true);
     _animState->setTimePosition(0.0);
