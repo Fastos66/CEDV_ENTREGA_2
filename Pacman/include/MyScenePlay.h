@@ -5,7 +5,9 @@
 #include <CEGUI.h>
 #include <RendererModules/Ogre/Renderer.h>
 #include "Scene.h"
-
+#include <iostream>
+#include <sstream>
+#include <string> 
 class MyScenePlay
 {
 	public:

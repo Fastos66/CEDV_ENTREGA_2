@@ -15,6 +15,7 @@ void MyScene::crearMenuInicio(){
   Ogre::Entity* mapae = _sceneManager->createEntity("MapaR", "ParedesM.mesh");
   Ogre::SceneNode* nodemapa = _sceneManager->createSceneNode("MapaM");
   nodemapa->attachObject(mapae);
+  nodemapa-> setPosition(0,1,0);
   _sceneManager->getRootSceneNode()->addChild(nodemapa);
 
    Ogre::SceneNode* nodeinv = _sceneManager->createSceneNode("nodeinv");

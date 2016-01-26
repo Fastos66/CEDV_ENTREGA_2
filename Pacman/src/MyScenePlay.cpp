@@ -6,30 +6,31 @@ MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene){
 	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
   _scene = scene;
 }
-
 MyScenePlay::~MyScenePlay() {}
-
-void MyScenePlay::cargarscenainicial(){
-  
+void MyScenePlay::cargarscenainicial(){  
   Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
   nodemapa-> setVisible(true);
-  
+  nodemapa-> setScale(1.1,1.1,1.1);
+  nodemapa-> setPosition(0,3,2);
+  nodemapa-> yaw(Ogre::Degree(12.5));
+  nodemapa-> pitch(Ogre::Degree(13));
 }	
-
 void MyScenePlay::pruebasGRAFO(){
     GraphVertex* pactual;
     int tamgrafo= _scene->getGraph()->getVertexes().size();
-    //for (int i = 0; i < tamgrafo; ++i){
-    pactual = _scene->getGraph()->getVertex(1);
-    cout << "1Vertex " << pactual->getData().getPosition()  << endl;
-
-    Ogre::Entity* ebola = _sceneManager->createEntity("Bolita", "BolaComer.mesh");
-    Ogre::SceneNode* nodebola = _sceneManager->createSceneNode("Bolita");
-    nodebola->attachObject(ebola);
-    _sceneManager->getRootSceneNode()->addChild(nodebola);
-    nodebola-> setPosition(pactual->getData().getPosition());
-    //}
-
+    Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
+    for (int i = 0; i < tamgrafo; ++i){
+        ostringstream os;
+        os << "BolaC" << i;
+        pactual = _scene->getGraph()->getVertex(i+1);
+        cout << "1Vertex " << pactual->getData().getPosition()  << endl;
+        Ogre::Entity* ebola = _sceneManager->createEntity(os.str(), "BolaComer.mesh");
+        Ogre::SceneNode* nodebola = _sceneManager->createSceneNode(os.str());
+        nodebola->attachObject(ebola);
+        nodemapa->addChild(nodebola);
+        //_sceneManager->getRootSceneNode()->addChild(nodebola);
+        nodebola-> setPosition(pactual->getData().getPosition());
+    }
 }
 
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
