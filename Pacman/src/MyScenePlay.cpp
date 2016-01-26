@@ -1,18 +1,36 @@
 //MyScenePlay.cpp
 
 #include "MyScenePlay.h"
-MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager){
+MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene){
 	_sceneManager=sceneManager;
 	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
+  _scene = scene;
 }
 
 MyScenePlay::~MyScenePlay() {}
 
 void MyScenePlay::cargarscenainicial(){
   
-  //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
+  Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
+  nodemapa-> setVisible(true);
   
 }	
+
+void MyScenePlay::pruebasGRAFO(){
+    GraphVertex* pactual;
+    int tamgrafo= _scene->getGraph()->getVertexes().size();
+    //for (int i = 0; i < tamgrafo; ++i){
+    pactual = _scene->getGraph()->getVertex(1);
+    cout << "1Vertex " << pactual->getData().getPosition()  << endl;
+
+    Ogre::Entity* ebola = _sceneManager->createEntity("Bolita", "BolaComer.mesh");
+    Ogre::SceneNode* nodebola = _sceneManager->createSceneNode("Bolita");
+    nodebola->attachObject(ebola);
+    _sceneManager->getRootSceneNode()->addChild(nodebola);
+    nodebola-> setPosition(pactual->getData().getPosition());
+    //}
+
+}
 
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
 	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");

@@ -6,6 +6,8 @@
 #include <OIS/OIS.h>
 #include "MyScenePlay.h"
 #include "GameState.h"
+#include "Importer.h"
+#include "Scene.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
@@ -38,6 +40,8 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Ogre::Camera* _camera;
   MyScenePlay* _splay;
   bool _exitGame;
+  Importer* _importer;
+  Scene* _scene;
 };
 
 #endif

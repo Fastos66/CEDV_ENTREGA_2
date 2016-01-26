@@ -17,8 +17,19 @@ PlayState::enter ()
 
   //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground");
   printf("Estado:Play\n"); 
-  _splay = new MyScenePlay(_sceneMgr);
+  try {
+    _importer = new Importer;
+    _scene = new Scene;
+    _importer->parseScene("./data/grafo.xml",_scene);
+  }catch (...){
+    cerr << "Unexpected exception!" << endl;
+  }
+  //cout << "\t#Vertexes: " << _scene->getGraph()->getVertexes().size() << endl;
+  //cout << "\t#Edges: " << _scene->getGraph()->getEdges().size() << endl;
+  
+  _splay = new MyScenePlay(_sceneMgr,_scene);
   _splay -> cargarscenainicial();
+  _splay -> pruebasGRAFO();
   _exitGame = false;
 }
 

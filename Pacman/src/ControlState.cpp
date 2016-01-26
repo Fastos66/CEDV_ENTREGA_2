@@ -19,6 +19,7 @@ ControlState::enter ()
   //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground"); 
   _scena = new MyScene(_sceneMgr);
   _scena -> controles();
+  _animState = NULL;
   _lanzaranimacion = true;
   _exitGame = false;
 }
@@ -51,9 +52,9 @@ ControlState::frameStarted
   Ogre::Real deltaT = evt.timeSinceLastFrame;
   if (_lanzaranimacion){
     _animState = _sceneMgr->getEntity("Pacman")->getAnimationState("VerControles");
+    _animState->setTimePosition(0.0);
     _animState->setEnabled(true);
     _animState->setLoop(true);
-    _animState->setTimePosition(0.0);
     _lanzaranimacion = false;
   }
   if (_animState != NULL) {
