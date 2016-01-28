@@ -30,7 +30,7 @@ char Character::getDirection(){
 double Character::getPositionX(){
 	return _positionX;
 }
-double Character::getPosition_Y){
+double Character::getPositionY(){
 	return _positionY;
 }
 		

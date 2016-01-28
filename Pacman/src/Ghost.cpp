@@ -6,7 +6,7 @@ Ghost::Ghost(Ogre::SceneNode * node){
 	_direction = '-';
 	_positionX = 0.0;
 	_positionY = 0.0;
-	_type = '-'
+	_type = '-';
 	_weak = false;
 }
 Ghost::Ghost(){
@@ -15,7 +15,7 @@ Ghost::Ghost(){
 	_direction = '-';
 	_positionX = 0.0;
 	_positionY = 0.0;
-	_type = '-'
+	_type = '-';
 	_weak = false;
 }
 Ghost::~Ghost(){
