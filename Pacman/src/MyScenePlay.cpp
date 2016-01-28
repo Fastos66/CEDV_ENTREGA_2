@@ -20,18 +20,31 @@ void MyScenePlay::pruebasGRAFO(){
     int tamgrafo= _scene->getGraph()->getVertexes().size();
     Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
     for (int i = 0; i < tamgrafo; ++i){
-        ostringstream os;
-        os << "BolaC" << i;
         pactual = _scene->getGraph()->getVertex(i+1);
         cout << "1Vertex " << pactual->getData().getPosition()  << endl;
-        Ogre::Entity* ebola = _sceneManager->createEntity(os.str(), "BolaComer.mesh");
-        Ogre::SceneNode* nodebola = _sceneManager->createSceneNode(os.str());
-        nodebola->attachObject(ebola);
-        nodemapa->addChild(nodebola);
-        //_sceneManager->getRootSceneNode()->addChild(nodebola);
-        const Ogre::Vector3& position = pactual->getData().getPosition();
-        cout << position.x << " " << position.y << " " << position.z << endl; 
-        nodebola-> setPosition(position.x,position.z,position.y);  
+        if (pactual->getData().getType().compare("gummelon")==0){
+            ostringstream os;
+            os << "Gum" << i;
+            Ogre::Entity* egum = _sceneManager->createEntity(os.str(), "Melon.mesh");
+            Ogre::SceneNode* nodegum = _sceneManager->createSceneNode(os.str());
+            nodegum->attachObject(egum);
+            nodegum -> setScale(0.45,0.45,0.45);
+            nodegum-> yaw(Ogre::Degree(-45));
+            nodemapa->addChild(nodegum);
+            const Ogre::Vector3& position = pactual->getData().getPosition();
+            nodegum-> setPosition(position.x,position.z,position.y);  
+        }else{
+            ostringstream os;
+            os << "BolaC" << i;
+            Ogre::Entity* ebola = _sceneManager->createEntity(os.str(), "BolaComer.mesh");
+            Ogre::SceneNode* nodebola = _sceneManager->createSceneNode(os.str());
+            nodebola->attachObject(ebola);
+            nodemapa->addChild(nodebola);
+            //_sceneManager->getRootSceneNode()->addChild(nodebola);
+            const Ogre::Vector3& position = pactual->getData().getPosition();
+            cout << position.x << " " << position.y << " " << position.z << endl; 
+            nodebola-> setPosition(position.x,position.z,position.y);  
+        }
     }
 }
 

@@ -3,7 +3,7 @@
 <data>
 
 <graph>
-  <vertex index="1" type="">
+  <vertex index="1" type ="gummelon">
     <x>6.413755</x> <y>6.413755</y> <z>0.000000</z>
   </vertex>
   <vertex index="2" type="">
@@ -30,7 +30,7 @@
   <vertex index="9" type="">
     <x>-4.988477</x> <y>6.413755</y> <z>0.000000</z>
   </vertex>
-  <vertex index="10" type="">
+  <vertex index="10" type ="gummelon">
     <x>-6.413754</x> <y>6.413755</y> <z>0.000000</z>
   </vertex>
   <vertex index="11" type="">
@@ -42,7 +42,7 @@
   <vertex index="13" type="">
     <x>2.163826</x> <y>4.431401</y> <z>0.000000</z>
   </vertex>
-  <vertex index="14" type="">
+  <vertex index="14" type ="enemys">
     <x>0.025907</x> <y>4.431401</y> <z>0.000000</z>
   </vertex>
   <vertex index="15" type="">
@@ -84,13 +84,13 @@
   <vertex index="27" type="">
     <x>3.526734</x> <y>1.469427</y> <z>0.000000</z>
   </vertex>
-  <vertex index="28" type="">
+  <vertex index="28" type ="enemys">
     <x>1.505464</x> <y>2.467099</y> <z>0.000000</z>
   </vertex>
-  <vertex index="29" type="">
+  <vertex index="29" type ="enemys">
     <x>0.025907</x> <y>2.467099</y> <z>0.000000</z>
   </vertex>
-  <vertex index="30" type="">
+  <vertex index="30" type ="enemys">
     <x>-1.428912</x> <y>2.467099</y> <z>0.000000</z>
   </vertex>
   <vertex index="31" type="">
@@ -216,7 +216,7 @@
   <vertex index="71" type="">
     <x>-6.413754</x> <y>-4.988476</y> <z>0.000000</z>
   </vertex>
-  <vertex index="72" type="">
+  <vertex index="72" type ="gummelon">
     <x>6.413755</x> <y>-6.413755</y> <z>0.000000</z>
   </vertex>
   <vertex index="73" type="">
@@ -243,7 +243,7 @@
   <vertex index="80" type="">
     <x>-4.988477</x> <y>-6.413755</y> <z>0.000000</z>
   </vertex>
-  <vertex index="81" type="">
+  <vertex index="81" type ="gummelon">
     <x>-6.413754</x> <y>-6.413755</y> <z>0.000000</z>
   </vertex>
   <edge>
