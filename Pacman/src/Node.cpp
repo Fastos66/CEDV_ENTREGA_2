@@ -25,3 +25,4 @@ std::string() const
     << _position.z << ")]";
   return r.str();
 }
+

@@ -11,9 +11,9 @@ void MyScenePlay::cargarscenainicial(){
   Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
   nodemapa-> setVisible(true);
   nodemapa-> setScale(1.1,1.1,1.1);
-  nodemapa-> setPosition(0,3,2);
+  nodemapa-> setPosition(0,5,2);
   nodemapa-> yaw(Ogre::Degree(12.5));
-  nodemapa-> pitch(Ogre::Degree(13));
+  nodemapa-> pitch(Ogre::Degree(20));
 }	
 void MyScenePlay::pruebasGRAFO(){
     GraphVertex* pactual;
@@ -29,7 +29,9 @@ void MyScenePlay::pruebasGRAFO(){
         nodebola->attachObject(ebola);
         nodemapa->addChild(nodebola);
         //_sceneManager->getRootSceneNode()->addChild(nodebola);
-        nodebola-> setPosition(pactual->getData().getPosition());
+        const Ogre::Vector3& position = pactual->getData().getPosition();
+        cout << position.x << " " << position.y << " " << position.z << endl; 
+        nodebola-> setPosition(position.x,position.z,position.y);  
     }
 }
 
