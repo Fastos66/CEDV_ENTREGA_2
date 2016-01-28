@@ -1,6 +1,7 @@
 #include "Ghost.h"
 
-Ghost::Ghost(Ogre::SceneNode * node){
+Ghost::Ghost(Ogre::SceneNode * node, GraphVertex * vertex){
+	_vertex = vertex;
 	_node = node;
 	_health = 1; //por ejemplo
 	_direction = '-';
@@ -11,6 +12,7 @@ Ghost::Ghost(Ogre::SceneNode * node){
 }
 Ghost::Ghost(){
 	_node = NULL;
+	_vertex = NULL;
 	_health = 1; //por ejemplo
 	_direction = '-';
 	_positionX = 0.0;
@@ -24,6 +26,9 @@ Ghost::~Ghost(){
 		
 Ogre::SceneNode * Ghost::getSceneNode(){
 	return _node;
+}
+GraphVertex * Ghost::getGraphVertex(){
+	return _vertex;
 }
 int Ghost::getHealth(){
 	return _health;
@@ -46,6 +51,9 @@ bool Ghost::isWeak(){
 		
 void Ghost::setSceneNode(Ogre::SceneNode * node){
 	_node = node;
+}
+void Ghost::setGraphVertex(GraphVertex * vertex){
+	_vertex = vertex;
 }
 void Ghost::setHealth(int hp){
 	_health = hp;
