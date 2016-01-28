@@ -1,51 +1,51 @@
 #include "Character.h"
 
-Character(Ogre::SceneNode * node){
+Character::Character(Ogre::SceneNode * node){
 	_node = node;
 	_health = 3;
 	_direction = '-';
 	_positionX = 0.0;
 	_positionY = 0.0;
 }
-Character(){
+Character::Character(){
 	_node = NULL;
 	_health = 3;
 	_direction = '-';
 	_positionX = 0.0;
 	_positionY = 0.0;
 }
-~Character(){
+Character::~Character(){
 
 }
 		
-Ogre::SceneNode * getSceneNode(){
+Ogre::SceneNode * Character::getSceneNode(){
 	return _node;
 }
-int getHealth(){
+int Character::getHealth(){
 	return _health;
 }
-char getDirection(){
+char Character::getDirection(){
 	return _direction;
 }
-double getPositionX(){
+double Character::getPositionX(){
 	return _positionX;
 }
-double getPosition_Y){
+double Character::getPosition_Y){
 	return _positionY;
 }
 		
-void setSceneNode(Ogre::SceneNode * node){
+void Character::setSceneNode(Ogre::SceneNode * node){
 	_node = node;
 }
-void setHealth(int hp){
+void Character::setHealth(int hp){
 	_health = hp;
 }
-void setDirection(char direction){
+void Character::setDirection(char direction){
 	_direction = direction;
 }
-double setPositionX(double posX){
+void Character::setPositionX(double posX){
 	_positionX = posX;
 }
-double setPositionY(double posY){
+void Character::setPositionY(double posY){
 	_positionY = posY;
 }

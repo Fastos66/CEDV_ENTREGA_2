@@ -1,5 +1,5 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef GHOST_H
+#define GHOST_H
 
 #include <iostream>
 #include <sstream>
@@ -8,24 +8,28 @@
 
 using namespace std;
 
-class Character
+class Ghost
 {
 	public:
-		Character(Ogre::SceneNode * node);
-		Character();
-		~Character();
+		Ghost(Ogre::SceneNode * node);
+		Ghost();
+		~Ghost();
 		
 		Ogre::SceneNode * getSceneNode();
 		int getHealth();
 		char getDirection();
 		double getPositionX();
 		double getPositionY();
+		char getType();
+		bool isWeak();
 		
 		void setSceneNode(Ogre::SceneNode * node);
 		void setHealth(int hp);
 		void setDirection(char direction);
 		void setPositionX(double posX);
 		void setPositionY(double posY);
+		void setType(char type);
+		void setWeak(char weak);
 
 	private:
 		Ogre::SceneNode * _node;	
@@ -33,6 +37,9 @@ class Character
 		char _direction; // U-> up, R-> right, D-> down, L-> left
 		double _positionX;
 		double _positionY;
+		char _type;
+    	bool _weak;
+
 };
 
 #endif
