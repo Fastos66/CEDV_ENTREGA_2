@@ -27,7 +27,7 @@ PlayState::enter ()
   //cout << "\t#Vertexes: " << _scene->getGraph()->getVertexes().size() << endl;
   //cout << "\t#Edges: " << _scene->getGraph()->getEdges().size() << endl;
   
-  _splay = new MyScenePlay(_sceneMgr,_scene);
+  _splay = new MyScenePlay(_sceneMgr,_scene,_camera);
   _splay -> cargarscenainicial();
   _splay -> pruebasGRAFO();
   _exitGame = false;

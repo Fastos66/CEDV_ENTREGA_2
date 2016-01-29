@@ -11,7 +11,7 @@
 class MyScenePlay
 {
 	public:
-		MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene);
+		MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene, Ogre::Camera* _camera);
 		~MyScenePlay();
 		void cargarscenainicial();
 		void codigoParapedirelnombreFUTURO();
@@ -20,6 +20,7 @@ class MyScenePlay
 		Ogre::SceneManager* _sceneManager;
 		CEGUI::Window* _sheet;
 		Scene* _scene;
+		Ogre::Camera* _camera;
 };
 
 
