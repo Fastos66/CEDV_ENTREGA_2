@@ -36,7 +36,6 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   bool playButtonC(const CEGUI::EventArgs& e);
  protected:
   
-  bool playButtonC();
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;

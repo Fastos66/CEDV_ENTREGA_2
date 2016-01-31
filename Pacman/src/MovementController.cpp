@@ -70,7 +70,8 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 	return _validDirections;	
 }
 char MovementController::getGhostNextDirection(Ghost *ghost){
-	return '-';
+	return getGhostValidDirections(ghost)->at(0);
+	//return '-';
 	//TO_DO
 }
 		

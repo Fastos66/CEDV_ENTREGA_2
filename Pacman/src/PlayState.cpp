@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "MyScenePlay.h"
+
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
 void
@@ -14,7 +15,6 @@ PlayState::enter ()
   _viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
   // Nuevo background colour.
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
-
   //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground");
   printf("Estado:Play\n"); 
   try {
@@ -32,6 +32,10 @@ PlayState::enter ()
   _splay -> cargarscenainicial();
   _splay -> pruebasGRAFO();
   _exitGame = false;
+
+  std::vector<Ghost> *ghosts;
+  _movementController = new MovementController(ghosts, _chara);
+  pruebaCharacter();
 }
 
 void
@@ -57,6 +61,18 @@ bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
+  if(_chara->getDirection() == 'R'){
+    _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(-0.005,0,0));
+  }
+  else if(_chara->getDirection() == 'D'){
+    _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-0.005));
+  }
+  else if(_chara->getDirection() == 'L'){
+    _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0.005,0,0));
+  }
+  else if(_chara->getDirection() == 'U'){
+    _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,0.005));
+  }
   return true;
 }
 
@@ -74,6 +90,18 @@ void
 PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
+  if (e.key == OIS::KC_W) { // para arriba
+    _chara->setDirection('U');
+  }
+  if (e.key == OIS::KC_A) { // para izquierda
+    _chara->setDirection('L');
+  }
+  if (e.key == OIS::KC_S) { // para abajo
+    _chara->setDirection('D');
+  }
+  if (e.key == OIS::KC_D) { // para derecha
+    _chara->setDirection('R');
+  }
   // Tecla p --> PauseState.
   //if (e.key == OIS::KC_P) {
   //  pushState(PauseState::getSingletonPtr());
@@ -118,4 +146,37 @@ PlayState::getSingleton ()
 { 
   assert(msSingleton);
   return *msSingleton;
+}
+
+MovementController * PlayState::getMovementController(){
+  return _movementController;
+}
+void PlayState::setMovementController(MovementController* movementController){
+  _movementController = movementController;
+}
+
+
+void PlayState::pruebaCharacter(){
+  Graph *myGraph = _scene->getGraph();
+  Ogre::Entity *myEntity = _sceneMgr->createEntity("character","Melon.mesh");
+  Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
+  myNode->attachObject(myEntity); 
+  Character *character = new Character(myNode, myGraph->getVertexes().at(0));
+  _chara = character;
+  _sceneMgr->getRootSceneNode()->addChild(myNode);
+  cout <<"CREADO CHARACTER \n";
+  cout <<character->getPositionX() << "\n";
+  cout <<character->getPositionY() << "\n";
+}
+
+void PlayState::pruebaGhost(){
+  Graph *myGraph = _scene->getGraph();
+  Ogre::Entity *myEntity = _sceneMgr->createEntity("fantasmaQ","Melon.mesh");
+  Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("fantasmaQ");
+  myNode->attachObject(myEntity); 
+  Ghost *ghost = new Ghost(myNode, myGraph->getVertexes().at(0));
+  _sceneMgr->getRootSceneNode()->addChild(myNode);
+  cout <<"CREADO GHOST \n";
+  cout <<ghost->getPositionX() << "\n";
+  cout <<ghost->getPositionY() << "\n";
 }

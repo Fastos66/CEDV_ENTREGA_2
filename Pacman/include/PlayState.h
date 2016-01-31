@@ -8,6 +8,9 @@
 #include "GameState.h"
 #include "Importer.h"
 #include "Scene.h"
+#include "MovementController.h"
+#include "Ghost.h"
+#include "Character.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
@@ -28,6 +31,10 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
   bool frameStarted (const Ogre::FrameEvent& evt);
   bool frameEnded (const Ogre::FrameEvent& evt);
+  void pruebaCharacter();
+  void pruebaGhost();
+  MovementController * getMovementController();
+  void setMovementController(MovementController* movementController);
 
   // Heredados de Ogre::Singleton.
   static PlayState& getSingleton ();
@@ -43,6 +50,9 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   bool _exitGame;
   Importer* _importer;
   Scene* _scene;
+  MovementController* _movementController;
+  Character* _chara;
+
 };
 
 #endif
