@@ -16,7 +16,7 @@ IntroState::enter ()
   _camera->lookAt(Ogre::Vector3(0,0,0));
   _camera->setNearClipDistance(5);
   _camera->setFarClipDistance(10000);
-  
+  _play = false;
   _viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
   double width = _viewport->getActualWidth();
@@ -123,20 +123,49 @@ void
 IntroState::mouseMoved
 (const OIS::MouseEvent &e)
 {
-
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(e.state.X.rel, e.state.Y.rel);  
 }
 
 void
 IntroState::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
-  
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(convertMouseButton(id)); 
 }
 
 void
 IntroState::mouseReleased
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertMouseButton(id));
+}
+
+CEGUI::MouseButton IntroState::convertMouseButton(OIS::MouseButtonID id)
+{
+  CEGUI::MouseButton ceguiId;
+  switch(id)
+    {
+    case OIS::MB_Left:
+      ceguiId = CEGUI::LeftButton;
+      break;
+    case OIS::MB_Right:
+      ceguiId = CEGUI::RightButton;
+      break;
+    case OIS::MB_Middle:
+      ceguiId = CEGUI::MiddleButton;
+      break;
+    default:
+      ceguiId = CEGUI::LeftButton;
+    }
+  return ceguiId;
+}
+
+bool IntroState::playCEGUIB(const CEGUI::EventArgs& e){
+    cout << "Hola" << endl;
+    if (_scena->limpiarpantallaCEGUI()){
+      changeState(ControlState::getSingletonPtr()); 
+    }
+    return true;
 }
 
 IntroState*
@@ -173,6 +202,5 @@ void IntroState::loadCEGUI(){
   
   _sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
   CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_sheet);
-
 
 }

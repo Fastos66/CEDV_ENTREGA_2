@@ -34,6 +34,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   static PlayState* getSingletonPtr ();
 
  protected:
+  
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;

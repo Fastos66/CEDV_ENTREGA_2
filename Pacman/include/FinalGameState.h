@@ -1,16 +1,14 @@
-//ControlState.h
-#ifndef ControlState_H
-#define ControlState_H
+#ifndef FinalGameState_H
+#define FinalGameState_H
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-#include "MyScene.h"
 #include "GameState.h"
 
-class ControlState : public Ogre::Singleton<ControlState>, public GameState
+class FinalGameState : public Ogre::Singleton<FinalGameState>, public GameState
 {
  public:
-  ControlState () { }
+  FinalGameState(){ }
 
   void enter ();
   void exit ();
@@ -28,18 +26,16 @@ class ControlState : public Ogre::Singleton<ControlState>, public GameState
   bool frameEnded (const Ogre::FrameEvent& evt);
 
   // Heredados de Ogre::Singleton.
-  static ControlState& getSingleton ();
-  static ControlState* getSingletonPtr ();
-  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+  static FinalGameState& getSingleton ();
+  static FinalGameState* getSingletonPtr ();
+
  protected:
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
   Ogre::Camera* _camera;
+
   bool _exitGame;
-  bool _lanzaranimacion;
-  MyScene* _scena;
-  Ogre::AnimationState *_animState;
 };
 
 #endif

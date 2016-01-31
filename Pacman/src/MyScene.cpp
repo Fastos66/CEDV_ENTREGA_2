@@ -1,5 +1,6 @@
 
 #include "MyScene.h"
+#include "IntroState.h"
 
 MyScene::MyScene(Ogre::SceneManager* sceneManager, CEGUI::Window* sheet){
 	_sheet = sheet;

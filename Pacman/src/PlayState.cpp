@@ -24,6 +24,7 @@ PlayState::enter ()
   }catch (...){
     cerr << "Unexpected exception!" << endl;
   }
+  CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setVisible(false);
   //cout << "\t#Vertexes: " << _scene->getGraph()->getVertexes().size() << endl;
   //cout << "\t#Edges: " << _scene->getGraph()->getEdges().size() << endl;
   

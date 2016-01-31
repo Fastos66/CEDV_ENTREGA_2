@@ -26,5 +26,6 @@ public:
 private:
 	Ogre::SceneManager* _sceneManager;
 	CEGUI::Window* _sheet;
+	
 };
 #endif

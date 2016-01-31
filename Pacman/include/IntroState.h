@@ -31,8 +31,11 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   // Heredados de Ogre::Singleton.
   static IntroState& getSingleton ();
   static IntroState* getSingletonPtr ();
+  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+  bool playCEGUIB(const CEGUI::EventArgs& e);
 
  protected:
+  bool _play;
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
@@ -42,6 +45,7 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   void loadCEGUI();
   MyScene* _scena;
   CEGUI::Window* _sheet;
+
  private:
   Ogre::AnimationState *_animState;
   bool _lanzaranimacion;
