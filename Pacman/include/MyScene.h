@@ -23,9 +23,11 @@ public:
 	bool limpiarpantallaCEGUIControles();
 	void ActRanking();
 	void controles();
+	
 private:
 	Ogre::SceneManager* _sceneManager;
 	CEGUI::Window* _sheet;
+	//bool *_play;
 	
 };
 #endif

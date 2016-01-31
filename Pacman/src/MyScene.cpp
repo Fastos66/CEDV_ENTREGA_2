@@ -78,6 +78,11 @@ void MyScene::crearMenuInicioCEGUI(){
   CEGUI::Window* ventcreditos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creditos.layout");
   CEGUI::Window* ventranking = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("rankingl.layout");
   
+  CEGUI::Window* playButton = vent->getChild("PlayButton");
+  playButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::playButtonC, 
+                IntroState::getSingletonPtr()));  
+
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
   ventcreditos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.14f,0),CEGUI::UDim(0.30f,0)));
   ventranking->setPosition(CEGUI::UVector2(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.01f,0)));
@@ -217,3 +222,4 @@ bool MyScene::limpiarpantallaCEGUIControles(){
   }
   return dev;
 }
+

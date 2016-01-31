@@ -32,10 +32,11 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   static IntroState& getSingleton ();
   static IntroState* getSingletonPtr ();
   CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
-  bool playCEGUIB(const CEGUI::EventArgs& e);
-
+  //bool playCEGUIB(const CEGUI::EventArgs& e);
+  bool playButtonC(const CEGUI::EventArgs& e);
  protected:
-  bool _play;
+  
+  bool playButtonC();
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;

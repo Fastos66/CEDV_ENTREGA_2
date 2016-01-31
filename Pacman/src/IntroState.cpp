@@ -16,7 +16,6 @@ IntroState::enter ()
   _camera->lookAt(Ogre::Vector3(0,0,0));
   _camera->setNearClipDistance(5);
   _camera->setFarClipDistance(10000);
-  _play = false;
   _viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
   double width = _viewport->getActualWidth();
@@ -160,12 +159,11 @@ CEGUI::MouseButton IntroState::convertMouseButton(OIS::MouseButtonID id)
   return ceguiId;
 }
 
-bool IntroState::playCEGUIB(const CEGUI::EventArgs& e){
-    cout << "Hola" << endl;
+bool IntroState::playButtonC(const CEGUI::EventArgs& e){
     if (_scena->limpiarpantallaCEGUI()){
       changeState(ControlState::getSingletonPtr()); 
     }
-    return true;
+    return true; 
 }
 
 IntroState*
@@ -202,5 +200,5 @@ void IntroState::loadCEGUI(){
   
   _sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
   CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_sheet);
-
+  
 }
