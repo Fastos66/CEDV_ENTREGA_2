@@ -18,25 +18,31 @@ class Character
 		
 		Ogre::SceneNode * getSceneNode();
 		GraphVertex * getGraphVertex();
+		GraphVertex * getTarget();
 		int getHealth();
 		char getDirection();
 		double getPositionX();
 		double getPositionY();
+		double getSpeed();
 		
 		void setSceneNode(Ogre::SceneNode * node);
 		void setGraphVertex(GraphVertex * vertex);
+		void setTarget(GraphVertex * target);
 		void setHealth(int hp);
 		void setDirection(char direction);
 		void setPositionX(double posX);
 		void setPositionY(double posY);
+		void setSpeed(double speed);
 
 	private:
 		Ogre::SceneNode * _node;
 		GraphVertex	* _vertex;
+		GraphVertex * _target;
 		int _health;
 		char _direction; // U-> up, R-> right, D-> down, L-> left
 		double _positionX;
 		double _positionY;
+		double _speed;
 };
 
 #endif

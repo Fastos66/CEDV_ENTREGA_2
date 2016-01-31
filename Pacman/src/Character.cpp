@@ -26,6 +26,9 @@ Ogre::SceneNode * Character::getSceneNode(){
 GraphVertex * Character::getGraphVertex(){
 	return _vertex;
 }
+GraphVertex * Character::getTarget(){
+	return _target;
+}
 int Character::getHealth(){
 	return _health;
 }
@@ -38,12 +41,18 @@ double Character::getPositionX(){
 double Character::getPositionY(){
 	return _positionY;
 }
+double Character::getSpeed(){
+	return _speed;
+}
 		
 void Character::setSceneNode(Ogre::SceneNode * node){
 	_node = node;
 }
 void Character::setGraphVertex(GraphVertex * vertex){
 	_vertex = vertex;
+}
+void Character::setTarget(GraphVertex * target){
+	_target = target;
 }
 void Character::setHealth(int hp){
 	_health = hp;
@@ -56,4 +65,7 @@ void Character::setPositionX(double posX){
 }
 void Character::setPositionY(double posY){
 	_positionY = posY;
+}
+void Character::setSpeed(double speed){
+	_speed = speed;
 }
