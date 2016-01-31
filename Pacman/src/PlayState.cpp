@@ -160,13 +160,19 @@ void PlayState::pruebaCharacter(){
   Graph *myGraph = _scene->getGraph();
   Ogre::Entity *myEntity = _sceneMgr->createEntity("character","Melon.mesh");
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
+  myNode->setScale(0.75,0.75,0.75);
   myNode->attachObject(myEntity); 
-  Character *character = new Character(myNode, myGraph->getVertexes().at(0));
+  Character *character = new Character(myNode, myGraph->getVertexes().at(5));
   _chara = character;
   _sceneMgr->getRootSceneNode()->addChild(myNode);
+  Ogre::Vector3 vectAux = myGraph->getVertexes().at(5)->getData().getPosition();
+  Ogre::Vector3 vect;
+  //Coordenadas cambiadas. El grafo sigue mal
+  vect.x = vectAux.x;
+  vect.y = vectAux.z;
+  vect.z = vectAux.y;
+  _chara->getSceneNode()->setPosition(vect);
   cout <<"CREADO CHARACTER \n";
-  cout <<character->getPositionX() << "\n";
-  cout <<character->getPositionY() << "\n";
 }
 
 void PlayState::pruebaGhost(){
@@ -177,6 +183,4 @@ void PlayState::pruebaGhost(){
   Ghost *ghost = new Ghost(myNode, myGraph->getVertexes().at(0));
   _sceneMgr->getRootSceneNode()->addChild(myNode);
   cout <<"CREADO GHOST \n";
-  cout <<ghost->getPositionX() << "\n";
-  cout <<ghost->getPositionY() << "\n";
 }

@@ -21,8 +21,6 @@ class Character
 		GraphVertex * getTarget();
 		int getHealth();
 		char getDirection();
-		double getPositionX();
-		double getPositionY();
 		double getSpeed();
 		
 		void setSceneNode(Ogre::SceneNode * node);
@@ -30,8 +28,6 @@ class Character
 		void setTarget(GraphVertex * target);
 		void setHealth(int hp);
 		void setDirection(char direction);
-		void setPositionX(double posX);
-		void setPositionY(double posY);
 		void setSpeed(double speed);
 
 	private:
