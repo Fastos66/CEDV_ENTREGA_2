@@ -1,4 +1,5 @@
 #include "MovementController.h"
+#include <algorithm>
 
 MovementController::MovementController(std::vector<Ghost> *ghosts, Character *chara){
 	_ghosts = ghosts;
@@ -26,10 +27,10 @@ std::vector<char> * MovementController::getGhostValidDirections(Ghost *ghost){
 	 	for(i=0; i<adjacentVertices.size(); i++){
 	 		aux = adjacentVertices.at(i);
 	 		auxPosition = aux->getData().getPosition();
-	 		if(ghostPosition.x < auxPosition.x){
+	 		if(ghostPosition.x > auxPosition.x){
 	 			_validDirections->push_back('R');  //Hay un vecino a la derecha
 	 		}
-	 		else if(ghostPosition.x > auxPosition.x){
+	 		else if(ghostPosition.x < auxPosition.x){
 	 			_validDirections->push_back('L');  //Hay un vecino a la izquierda
 	 		}
 	 		if(ghostPosition.y < auxPosition.y){
@@ -53,17 +54,21 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 	 	for(i=0; i<adjacentVertices.size(); i++){
 	 		aux = adjacentVertices.at(i);
 	 		auxPosition = aux->getData().getPosition();
-	 		if(charaPosition.x < auxPosition.x){
+	 		if(charaPosition.x > auxPosition.x){
 	 			_validDirections->push_back('R');  //Hay un vecino a la derecha
+	 			//cout << "R ";
 	 		}
-	 		else if(charaPosition.x > auxPosition.x){
+	 		else if(charaPosition.x < auxPosition.x){
 	 			_validDirections->push_back('L');  //Hay un vecino a la izquierda
+	 			//cout << "L ";
 	 		}
 	 		if(charaPosition.y < auxPosition.y){
 	 			_validDirections->push_back('U');  //Hay un vecino arriba
+	 			//cout << "U ";
 	 		}
 	 		else if(charaPosition.y > auxPosition.y){
 	 			_validDirections->push_back('D');  //Hay un vecino abajo
+	 			//cout << "D ";
 	 		}
 	 	}
 	}
@@ -74,7 +79,44 @@ char MovementController::getGhostNextDirection(Ghost *ghost){
 	//return '-';
 	//TO_DO
 }
+
+bool MovementController::isCharValidDirection(Character *chara){
+	bool res = false;
+	_validDirections = getCharaValidDirections(chara);
+	if (std::find(_validDirections->begin(), _validDirections->end(), chara->getDirection()) != _validDirections->end()){
+  		res = true;
+	}
+	return res;
+}
 		
+GraphVertex * MovementController::getVertexByDirection(Character *chara){
+	std::vector<GraphVertex*> adjacentVertices; 
+	GraphVertex *aux;
+	Ogre::Vector3 auxPosition;
+	Ogre::Vector3 charaPosition = chara->getGraphVertex()->getData().getPosition();
+	int i = 0;
+	if(_graph != NULL){
+	 	adjacentVertices = _graph->adjacents(chara->getGraphVertex()->getData().getIndex());
+	 	for(i=0; i<adjacentVertices.size(); i++){
+	 		aux = adjacentVertices.at(i);
+	 		auxPosition = aux->getData().getPosition();
+	 		if((charaPosition.x > auxPosition.x) && chara->getDirection()=='R') {
+	 			break;
+	 		}
+	 		else if((charaPosition.x < auxPosition.x) && chara->getDirection()=='L'){
+	 			break;
+	 		}
+	 		if((charaPosition.y < auxPosition.y) && chara->getDirection()=='U'){
+	 			break;
+	 		}
+	 		else if((charaPosition.y > auxPosition.y) && chara->getDirection()=='D'){
+	 			break;
+	 		}
+	 	}
+	}
+	return aux;
+}
+
 void MovementController::setGhosts(std::vector<Ghost> *ghosts){
 	_ghosts = ghosts;
 }
