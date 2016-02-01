@@ -31,7 +31,7 @@ PlayState::enter ()
   
   _splay = new MyScenePlay(_sceneMgr,_scene,_camera);
   _splay -> cargarscenainicial();
-  _splay -> pruebasGRAFO();
+  _splay -> creacionMapa();
   _exitGame = false;
 
   std::vector<Ghost> *ghosts;

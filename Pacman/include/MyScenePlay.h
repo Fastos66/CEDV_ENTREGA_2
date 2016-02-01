@@ -15,7 +15,8 @@ class MyScenePlay
 		~MyScenePlay();
 		void cargarscenainicial();
 		void codigoParapedirelnombreFUTURO();
-		void pruebasGRAFO();
+		void creacionMapa();
+		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
 	private:
 		Ogre::SceneManager* _sceneManager;
 		CEGUI::Window* _sheet;

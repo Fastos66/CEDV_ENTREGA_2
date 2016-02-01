@@ -13,13 +13,10 @@ void MyScenePlay::cargarscenainicial(){
   _camera->lookAt(Ogre::Vector3(0,0,0));
   Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");
   nodemapa-> setVisible(true);
-  //nodemapa-> setScale(1.1,1.1,1.1);
   nodemapa-> setPosition(0,0.1,0);
-  //nodemapa-> yaw(Ogre::Degree(12.5));
-  //nodemapa-> pitch(Ogre::Degree(20));
   nodemapa-> yaw(Ogre::Degree(180));
 }	
-void MyScenePlay::pruebasGRAFO(){
+void MyScenePlay::creacionMapa(){
     GraphVertex* pactual;
     int tamgrafo= _scene->getGraph()->getVertexes().size();
     Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
@@ -37,7 +34,7 @@ void MyScenePlay::pruebasGRAFO(){
             //nodemapa->addChild(nodegum);
             _sceneManager->getRootSceneNode()->addChild(nodegum);
             const Ogre::Vector3& position = pactual->getData().getPosition();
-            nodegum-> setPosition(position.x,position.z+0.1,position.y);  
+            convertCoordinates(position,nodegum,0.1);
         }else{
             ostringstream os;
             os << "BolaC" << i;
@@ -47,10 +44,13 @@ void MyScenePlay::pruebasGRAFO(){
             //nodemapa->addChild(nodebola);
             _sceneManager->getRootSceneNode()->addChild(nodebola);
             const Ogre::Vector3& position = pactual->getData().getPosition();
-            cout << position.x << " " << position.y << " " << position.z << endl; 
-            nodebola-> setPosition(position.x,position.z+0.1,position.y);  
+            convertCoordinates(position,nodebola,0.1); 
         }
     }
+}
+
+void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset){
+    node-> setPosition(vect.x,vect.z+offset,vect.y); 
 }
 
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
