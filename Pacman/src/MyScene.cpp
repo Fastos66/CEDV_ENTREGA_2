@@ -1,6 +1,7 @@
 
 #include "MyScene.h"
 #include "IntroState.h"
+#include "ControlState.h"
 
 MyScene::MyScene(Ogre::SceneManager* sceneManager, CEGUI::Window* sheet){
 	_sheet = sheet;
@@ -78,16 +79,43 @@ void MyScene::crearMenuInicioCEGUI(){
   CEGUI::Window* ventcreditos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creditos.layout");
   CEGUI::Window* ventranking = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("rankingl.layout");
   
+  //BOTONES
   CEGUI::Window* playButton = vent->getChild("PlayButton");
   playButton->subscribeEvent(CEGUI::PushButton::EventClicked,
           CEGUI::Event::Subscriber(&IntroState::playButtonC, 
-                IntroState::getSingletonPtr()));  
+                IntroState::getSingletonPtr())); 
+
+  CEGUI::Window* creditsButton = vent->getChild("CreditsButton");
+  creditsButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::creditsButtonC, 
+                IntroState::getSingletonPtr())); 
+
+  CEGUI::Window* rankingButton = vent->getChild("RankingButton");
+  rankingButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::rankingButtonC, 
+                IntroState::getSingletonPtr())); 
+
+  CEGUI::Window* exitButton = vent->getChild("ExitButton");
+  exitButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::exitButtonC, 
+                IntroState::getSingletonPtr())); 
+
+  CEGUI::Window* atrasCButton = ventcreditos->getChild("AtrasCredits");
+  atrasCButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::atrasCreditsButtonC, 
+                IntroState::getSingletonPtr())); 
+
+  CEGUI::Window* atrasRButton = ventranking->getChild("AtrasRanking");
+  atrasRButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&IntroState::atrasRankingButtonC, 
+                IntroState::getSingletonPtr())); 
 
   vent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.30f,0)));
   ventcreditos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.14f,0),CEGUI::UDim(0.30f,0)));
   ventranking->setPosition(CEGUI::UVector2(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.01f,0)));
   
   ventinicio -> addChild(vent);
+  ventinicio-> moveToFront(); //Mover al frente para que otras ventanas no interfieran.
   _sheet->addChild(ventinicio); 
   _sheet->addChild(ventcreditos); 
   _sheet-> addChild(ventranking);
@@ -129,6 +157,7 @@ void MyScene::creditos(){
   ventinicio -> setVisible(false);
   CEGUI::Window* ventcreditos = _sheet-> getChild("Creditos");
   ventcreditos -> setVisible(true);
+  ventcreditos -> moveToFront();
   CEGUI::Window* ventranking = _sheet-> getChild("RankingL");
   ventranking-> setVisible(false);
 }
@@ -141,6 +170,7 @@ void MyScene::ranking(){
   ventcreditos -> setVisible(false);
   CEGUI::Window* ventranking = _sheet-> getChild("RankingL");
   ventranking-> setVisible(true);
+  ventranking-> moveToFront();
   
 }
 void MyScene::retroceder(){
@@ -183,6 +213,11 @@ void MyScene::controles(){
 
   CEGUI::Window* ventcontroles = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("controles.layout");
   
+  CEGUI::Window* goButton = ventcontroles->getChild("GoButton");
+  goButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&ControlState::goButtonC, 
+                ControlState::getSingletonPtr())); 
+
   _sheet->addChild(ventcontroles); 
 
   CEGUI::Window* imgcontroles = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenControles");

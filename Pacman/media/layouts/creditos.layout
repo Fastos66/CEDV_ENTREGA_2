@@ -2,7 +2,7 @@
 
 <GUILayout version="4" >
     <Window type="DefaultWindow" name="Creditos" >
-        <Property name="Area" value="{{0,1},{0,1},{1,-417},{1,-359}}" />
+        <Property name="Area" value="{{0,1},{0,1},{1,-417},{1,-247}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Window type="OgreTray/StaticText" name="StaticText" >
             <Property name="Area" value="{{0,155},{0,53},{0,576},{0,122}}" />
@@ -54,7 +54,7 @@
                 </AutoWindow>
             </AutoWindow>
         </Window>
-        <Window type="OgreTray/Button" name="Button" >
+        <Window type="OgreTray/Button" name="AtrasCredits" >
             <Property name="Area" value="{{0,293},{0,255},{0,439},{0,304}}" />
             <Property name="Text" value="ATRAS" />
         </Window>

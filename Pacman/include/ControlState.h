@@ -31,6 +31,8 @@ class ControlState : public Ogre::Singleton<ControlState>, public GameState
   static ControlState& getSingleton ();
   static ControlState* getSingletonPtr ();
   CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+  bool goButtonC(const CEGUI::EventArgs& e);
+
  protected:
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;

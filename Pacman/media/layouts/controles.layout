@@ -4,7 +4,7 @@
     <Window type="DefaultWindow" name="ControlesLayout" >
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
-        <Window type="OgreTray/Button" name="Button" >
+        <Window type="OgreTray/Button" name="GoButton" >
             <Property name="Area" value="{{0,525},{0,594},{0,638},{0,636}}" />
             <Property name="Text" value="Go!" />
         </Window>

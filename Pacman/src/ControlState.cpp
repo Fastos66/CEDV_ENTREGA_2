@@ -119,6 +119,13 @@ ControlState::mouseReleased
   CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertMouseButton(id));
 }
 
+bool ControlState::goButtonC(const CEGUI::EventArgs& e){
+    if(_scena->limpiarpantallaCEGUIControles()){
+       changeState(PlayState::getSingletonPtr()); 
+    }
+    return true; 
+}
+
 CEGUI::MouseButton ControlState::convertMouseButton(OIS::MouseButtonID id)
 {
   CEGUI::MouseButton ceguiId;

@@ -556,7 +556,7 @@
                 </AutoWindow>
             </AutoWindow>
         </Window>
-        <Window type="OgreTray/Button" name="Button" >
+        <Window type="OgreTray/Button" name="AtrasRanking" >
             <Property name="Area" value="{{0,308},{0,568},{0,404},{0,600}}" />
             <Property name="Text" value="ATRAS" />
         </Window>

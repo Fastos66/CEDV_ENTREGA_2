@@ -165,6 +165,26 @@ bool IntroState::playButtonC(const CEGUI::EventArgs& e){
     }
     return true; 
 }
+bool IntroState::creditsButtonC(const CEGUI::EventArgs& e){
+    _scena-> creditos();
+    return true; 
+}
+bool IntroState::rankingButtonC(const CEGUI::EventArgs& e){
+    _scena-> ranking();
+    return true; 
+}
+bool IntroState::exitButtonC(const CEGUI::EventArgs& e){
+    _exitGame = true;
+    return true; 
+}
+bool IntroState::atrasCreditsButtonC(const CEGUI::EventArgs& e){
+    _scena-> retroceder();
+    return true; 
+}
+bool IntroState::atrasRankingButtonC(const CEGUI::EventArgs& e){
+    _scena-> retroceder();
+    return true; 
+}
 
 IntroState*
 IntroState::getSingletonPtr ()
