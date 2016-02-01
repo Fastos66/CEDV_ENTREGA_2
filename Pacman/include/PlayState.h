@@ -35,6 +35,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   void pruebaGhost();
   MovementController * getMovementController();
   void setMovementController(MovementController* movementController);
+  void convertCoordinates(Ogre::Vector3 &vector, double offset);
 
   // Heredados de Ogre::Singleton.
   static PlayState& getSingleton ();
