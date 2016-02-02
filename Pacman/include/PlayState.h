@@ -53,6 +53,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Scene* _scene;
   MovementController* _movementController;
   Character* _chara;
+  bool _inMovement;
 
 };
 

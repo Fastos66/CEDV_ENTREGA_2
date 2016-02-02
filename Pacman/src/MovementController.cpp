@@ -91,7 +91,7 @@ bool MovementController::isCharValidDirection(Character *chara){
 		
 GraphVertex * MovementController::getVertexByDirection(Character *chara){
 	std::vector<GraphVertex*> adjacentVertices; 
-	GraphVertex *aux;
+	GraphVertex *aux = chara->getGraphVertex(); // si no tiene vecinos en la direccion deseada, te devuelve a ti mismo
 	Ogre::Vector3 auxPosition;
 	Ogre::Vector3 charaPosition = chara->getGraphVertex()->getData().getPosition();
 	int i = 0;
@@ -112,6 +112,7 @@ GraphVertex * MovementController::getVertexByDirection(Character *chara){
 	 		else if((charaPosition.y > auxPosition.y) && chara->getDirection()=='D'){
 	 			break;
 	 		}
+	 		aux = chara->getGraphVertex();
 	 	}
 	}
 	return aux;
