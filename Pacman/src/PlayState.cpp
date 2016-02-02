@@ -150,7 +150,6 @@ PlayState::keyPressed
     _inMovement = true;
   }
   if (e.key == OIS::KC_P) {
-    _sceneMgr->getSceneNode("MapaM")->setVisible(false);
     Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
     Ogre::Vector3 charaTargetPosition;
     Ogre::Vector3 charaVertexPosition;
@@ -159,12 +158,19 @@ PlayState::keyPressed
     if(_chara->getTarget()!= NULL){
       charaTargetPosition = _chara->getTarget()->getData().getPosition();
       cout<< "DIRECTION: " << _chara->getDirection();
-      cout<< "\nSCENE NODE: X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " \nMI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
-      cout<< "VERTEX: X "<< charaVertexPosition.x <<"Y " << charaVertexPosition.y <<"Z " << charaVertexPosition.z << "\n";
+      cout<< "\nSCENE NODE: X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " \nMI TARGET ES: "<<_chara->getTarget()->getData().getIndex()<<" X= "<< charaTargetPosition.x <<" Y= " << charaTargetPosition.y <<" Z=" << charaTargetPosition.z << "\n";
+      cout<< "VERTEX: "<<_chara->getGraphVertex()->getData().getIndex()<<" X= "<< charaVertexPosition.x <<" Y= " << charaVertexPosition.y <<" Z= " << charaVertexPosition.z << "\n";
+      _movementController->printVecinos(_chara->getGraphVertex());
     }
     else{
       cout<< "MI TARGET ES NULL\n";
     }
+  }
+  if (e.key == OIS::KC_V) {
+    _sceneMgr->getSceneNode("MapaM")->setVisible(true);
+  }
+  if (e.key == OIS::KC_B) {
+    _sceneMgr->getSceneNode("MapaM")->setVisible(false);
   }
   // Tecla p --> PauseState.
   //if (e.key == OIS::KC_P) {

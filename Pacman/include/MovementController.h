@@ -29,6 +29,7 @@ class MovementController
 		void setGhosts(std::vector<Ghost> *ghosts);
 		void setChara(Character *chara);
 		void setGraph(Graph *graph);
+		void printVecinos(GraphVertex *vertex);
 
 	private:
 		Graph *_graph;

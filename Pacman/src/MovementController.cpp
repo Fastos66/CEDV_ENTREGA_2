@@ -127,3 +127,11 @@ void MovementController::setChara(Character *chara){
 void MovementController::setGraph(Graph *graph){
 	_graph = graph;
 }
+void MovementController::printVecinos(GraphVertex *vertex){
+	std::vector<GraphVertex*> adjacentVertices;
+	unsigned int i = 0;
+	adjacentVertices = _graph->adjacents(vertex->getData().getIndex());
+	for(i=0; i<adjacentVertices.size(); i++){
+		cout<<adjacentVertices.at(i)->getData().getIndex()<<" ";
+	}
+}
