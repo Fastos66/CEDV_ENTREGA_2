@@ -19,7 +19,7 @@ void MyScenePlay::cargarscenainicial(){
 void MyScenePlay::creacionMapa(){
     GraphVertex* pactual;
     int tamgrafo= _scene->getGraph()->getVertexes().size();
-    Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
+    //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
     for (int i = 0; i < tamgrafo; ++i){
         pactual = _scene->getGraph()->getVertex(i+1);
         cout << "1Vertex " << pactual->getData().getPosition()  << endl;
@@ -47,6 +47,22 @@ void MyScenePlay::creacionMapa(){
             convertCoordinates(position,nodebola,0.1); 
         }
     }
+}
+
+void MyScenePlay::crearmenuCEGUI(){
+    CEGUI::Window* imglivespuntos = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenLivesPoints");
+    CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLivesPuntos","Livespuntos.png");
+    imglivespuntos -> setProperty("Image","ImagenLivesPuntos");
+    imglivespuntos -> setProperty("BackgroundEnabled","False");
+    imglivespuntos -> setProperty("FrameEnabled","False");
+    imglivespuntos -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.23f,0),CEGUI::UDim(0.02f,0)));
+    imglivespuntos -> setSize(CEGUI::USize(CEGUI::UDim(0.56f,0),CEGUI::UDim(0.17f,0)));  
+
+    CEGUI::Window* actpoints = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("textpoints.layout");
+    actpoints -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.62f,0),CEGUI::UDim(0.05f,0)));
+    
+    _sheet -> addChild(imglivespuntos);
+    _sheet -> addChild(actpoints);
 }
 
 void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset){

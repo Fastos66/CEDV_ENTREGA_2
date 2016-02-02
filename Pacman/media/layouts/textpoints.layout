@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="Vanilla/StaticText" name="StaticText" >
+        <Property name="Area" value="{{0,130},{0,68},{0,209},{0,119}}" />
+        <Property name="Font" value="DejaVuSans-14-NoScale" />
+        <Property name="Text" value="0" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="HorzScrollPageSize" value="67" />
+        <Property name="VertScrollPageSize" value="39" />
+        <Property name="HorzScrollDocumentSize" value="12" />
+        <Property name="VertScrollDocumentSize" value="21.7352" />
+    </Window>
+</GUILayout>

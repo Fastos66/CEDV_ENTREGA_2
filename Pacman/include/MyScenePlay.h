@@ -17,6 +17,7 @@ class MyScenePlay
 		void codigoParapedirelnombreFUTURO();
 		void creacionMapa();
 		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
+		void crearmenuCEGUI();
 	private:
 		Ogre::SceneManager* _sceneManager;
 		CEGUI::Window* _sheet;

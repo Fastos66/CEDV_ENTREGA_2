@@ -32,6 +32,7 @@ PlayState::enter ()
   _splay = new MyScenePlay(_sceneMgr,_scene,_camera);
   _splay -> cargarscenainicial();
   _splay -> creacionMapa();
+  _splay -> crearmenuCEGUI();
   _exitGame = false;
 
   std::vector<Ghost> *ghosts;
