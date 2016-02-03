@@ -186,9 +186,14 @@ PlayState::keyPressed
   }
   if (e.key == OIS::KC_V) {
     _sceneMgr->getSceneNode("MapaM")->setVisible(true);
+    _movementController->printVecinos(_chara->getGraphVertex());
   }
   if (e.key == OIS::KC_B) {
     _sceneMgr->getSceneNode("MapaM")->setVisible(false);
+  }
+  if (e.key == OIS::KC_G) {
+     Graph *myGraph = _scene->getGraph();
+    _movementController->printAdjList(myGraph);
   }
   // Tecla p --> PauseState.
   //if (e.key == OIS::KC_P) {

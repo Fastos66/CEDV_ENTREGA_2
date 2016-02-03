@@ -21,7 +21,7 @@ std::vector<char> * MovementController::getGhostValidDirections(Ghost *ghost){
 	GraphVertex *aux;
 	Ogre::Vector3 auxPosition;
 	Ogre::Vector3 ghostPosition = ghost->getGraphVertex()->getData().getPosition();
-	int i = 0;
+	unsigned int i = 0;
 	if(_graph != NULL){
 	 	adjacentVertices = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
 	 	for(i=0; i<adjacentVertices.size(); i++){
@@ -48,7 +48,7 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 	GraphVertex *aux;
 	Ogre::Vector3 auxPosition;
 	Ogre::Vector3 charaPosition = chara->getGraphVertex()->getData().getPosition();
-	int i = 0;
+	unsigned int i = 0;
 	if(_graph != NULL){
 	 	adjacentVertices = _graph->adjacents(chara->getGraphVertex()->getData().getIndex());
 	 	for(i=0; i<adjacentVertices.size(); i++){
@@ -94,7 +94,7 @@ GraphVertex * MovementController::getVertexByDirection(Character *chara){
 	GraphVertex *aux = chara->getGraphVertex(); // si no tiene vecinos en la direccion deseada, te devuelve a ti mismo
 	Ogre::Vector3 auxPosition;
 	Ogre::Vector3 charaPosition = chara->getGraphVertex()->getData().getPosition();
-	int i = 0;
+	unsigned int i = 0;
 	if(_graph != NULL){
 	 	adjacentVertices = _graph->adjacents(chara->getGraphVertex()->getData().getIndex());
 	 	for(i=0; i<adjacentVertices.size(); i++){
@@ -131,7 +131,50 @@ void MovementController::printVecinos(GraphVertex *vertex){
 	std::vector<GraphVertex*> adjacentVertices;
 	unsigned int i = 0;
 	adjacentVertices = _graph->adjacents(vertex->getData().getIndex());
+	cout<<"VECINOS DE "<<vertex->getData().getIndex()<<": ";
 	for(i=0; i<adjacentVertices.size(); i++){
 		cout<<adjacentVertices.at(i)->getData().getIndex()<<" ";
 	}
+	cout<<"\n";
+}
+int ** MovementController::setAdjListGraph(Graph *graph){
+	std::vector<GraphVertex*> graphVertices = graph->getVertexes(); 
+	std::vector<GraphVertex*> adjacents;
+	int adjListGraph[graphVertices.size()][graphVertices.size()];
+	int * adjListGraphRows[graphVertices.size()]; 
+	int ** result;
+	unsigned int i = 0, j = 0;
+	// inicializar la matriz de adyacencias a 0
+	for(i=0;i<graphVertices.size();i++){
+		for(j=0;j<graphVertices.size();j++){
+			adjListGraph[i][j]=0;
+		}
+	}
+	//poner 1 donde sean adyacentes
+	for(i=0;i<graphVertices.size();i++){
+		adjacents = graph->adjacents(graphVertices.at(i)->getData().getIndex()); //coger los vecinos de cada nodo
+		for(j=0; j<adjacents.size();j++){
+			adjListGraph[i][adjacents.at(j)->getData().getIndex()] = 1; //poner un 1 si son vecinos
+		}
+		adjListGraphRows[i]=adjListGraph[i];
+	}
+
+	result = adjListGraphRows;
+	return result;
+}
+void MovementController::printAdjList(Graph* graph){
+	unsigned int i = 0, j = 0;
+	int ** adjList = setAdjListGraph(graph);
+	std::vector<GraphVertex*> graphVertices = _graph->getVertexes();
+	cout << "\n";
+	for(i=0;i<graphVertices.size();i++){
+		cout << "V " << graphVertices.at(i)->getData().getIndex()<< ": ";
+		for(j=0; j<graphVertices.size();j++){
+			cout << adjList[i][j] << " ";
+			if(j%10==9)
+				cout <<"|"<<j<<"|";
+		}
+		cout << "\n";
+	}
+	//cout << adjList[0][0] << " " << adjList[0][1] << " " << adjList[0][2] << " " << adjList[0][3] << " " << adjList[0][4] << " " << adjList[0][5] << " " << adjList[0][6] << " " << adjList[0][7] << " " << adjList[0][8] << " " << adjList[0][9]       << "\n";
 }

@@ -30,13 +30,16 @@ class MovementController
 		void setChara(Character *chara);
 		void setGraph(Graph *graph);
 		void printVecinos(GraphVertex *vertex);
+		int ** setAdjListGraph(Graph *graph);
+		void printAdjList(Graph *graph);
 
 	private:
 		Graph *_graph;
 		std::vector<Ghost> *_ghosts;
 		Character *_chara;
 		std::vector<char> *_validDirections;
-		
+		//int _adjListGraph[N_VERTICES][N_VERTICES];
+		//int **_adjListGraph;
 };
 
 #endif
