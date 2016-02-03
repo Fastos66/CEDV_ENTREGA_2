@@ -32,7 +32,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   bool frameStarted (const Ogre::FrameEvent& evt);
   bool frameEnded (const Ogre::FrameEvent& evt);
   void pruebaCharacter();
-  void pruebaGhost();
+  void creacionGhosts();
   MovementController * getMovementController();
   void setMovementController(MovementController* movementController);
   void convertCoordinates(Ogre::Vector3 &vector, double offset);
@@ -42,7 +42,8 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   static PlayState* getSingletonPtr ();
 
  protected:
-  
+  Ogre::AnimationState *_animStatePacmanG;
+  bool _lanzaranimationPG;
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
@@ -54,7 +55,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   MovementController* _movementController;
   Character* _chara;
   bool _inMovement;
-
+  std::vector<Ghost>* _ghosts;
 };
 
 #endif

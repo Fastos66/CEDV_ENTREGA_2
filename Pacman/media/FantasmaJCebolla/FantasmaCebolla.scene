@@ -1,0 +1,58 @@
+<scene exported_by="javimendo" export_time="1454518659.460128" previous_export_time="1454518650.0767732" formatVersion="1.0.1" >
+  <nodes >
+    <node name="FantasmaJCebolla" >
+      <position x="0.000000" z="-0.000000" y="-1.000000" />
+      <rotation qx="0.000000" qz="-0.000000" qy="0.000000" qw="1.000000" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <entity name="FantasmaJCebolla" lock_trans_x="False" lock_trans_y="False" mass_radius="1.0" actor="False" physics_type="STATIC" velocity_max="0.0" lock_rot_y="False" anisotropic_friction="False" inertia_tensor="0.4000000059604645" velocity_min="0.0" friction_y="1.0" meshFile="FantasmaJCebolla.mesh" lock_trans_z="False" friction_z="1.0" damping_rot="0.10000000149011612" friction_x="1.0" ghost="False" lock_rot_z="False" lock_rot_x="False" mass="1.0" damping_trans="0.03999999910593033" />
+    </node>
+    <node name="Lamp" >
+      <position x="0.140838" z="3.751519" y="1.799345" />
+      <rotation qx="0.169076" qz="-0.272171" qy="0.755880" qw="0.570947" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <light type="point" shadow="true" name="Lamp" powerScale="1.0" >
+        <position x="0.140838" z="3.751519" y="1.799345" />
+        <lightAttenuation range="5000" quadratic="0.0" constant="1.0" linear="0.03333335240683057" />
+        <colourDiffuse g="1.0" b="1.0" r="1.0" />
+        <colourSpecular g="1.0" b="1.0" r="1.0" />
+        <colourShadow g="1.0" b="1.0" r="1.0" />
+      </light>
+    </node>
+    <node name="Camera" >
+      <position x="7.481132" z="6.507640" y="5.343665" />
+      <rotation qx="0.481707" qz="-0.212922" qy="0.334251" qw="0.781600" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera fov="0.5033799435163735" projectionType="perspective" name="Camera" >
+        <clipping near="0.10000000149011612" farPlaneDist="100.0" nearPlaneDist="0.10000000149011612" far="100.0" />
+      </camera>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJCebolla/MatCebolla.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJCebolla/OjosFantasmaCeb.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJCebolla/OjosFantasmaCebD.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourAmbient g="0.0" b="0.0" r="0.0" />
+    <colourBackground g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourDiffuse g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+  </environment>
+</scene>

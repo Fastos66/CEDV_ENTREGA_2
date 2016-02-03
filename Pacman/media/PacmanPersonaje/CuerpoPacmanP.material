@@ -1,0 +1,35 @@
+// CuerpoPacmanP genrated by blender2ogre 0.6.0
+
+material CuerpoPacmanP 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass CuerpoPacmanP
+        {
+            ambient 0.8000000715255737 0.6780029535293579 0.014393043704330921 1.0
+            diffuse 0.640000066757203 0.5424023709059114 0.011514435135043188 1.0
+            specular 0.46576374769210815 0.5 0.09083366394042969 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

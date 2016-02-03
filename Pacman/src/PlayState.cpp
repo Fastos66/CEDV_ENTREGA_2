@@ -36,10 +36,12 @@ PlayState::enter ()
   _exitGame = false;
   _inMovement = false;
 
-  std::vector<Ghost> *ghosts;
-  _movementController = new MovementController(ghosts, _chara);
+  _ghosts = new std::vector<Ghost>;
+  _movementController = new MovementController(_ghosts, _chara);
   _movementController->setGraph(_scene->getGraph());
   pruebaCharacter();
+  creacionGhosts();
+  _lanzaranimationPG = true;
 }
 
 void
@@ -110,7 +112,23 @@ PlayState::frameStarted
       }*/
     }
   }
-  
+  Ogre::Real deltaT = evt.timeSinceLastFrame;
+  if (_lanzaranimationPG){
+    _animStatePacmanG = _sceneMgr->getEntity("character")->getAnimationState("moveMouth");
+    _animStatePacmanG->setTimePosition(0.0);
+    _animStatePacmanG->setEnabled(true);
+    _animStatePacmanG->setLoop(true);
+    _lanzaranimationPG = false;
+  }
+  if (_animStatePacmanG != NULL) {
+     if (_animStatePacmanG->hasEnded()) {
+       _animStatePacmanG->setTimePosition(0.0);
+       _animStatePacmanG->setEnabled(false);
+     }
+     else {
+       _animStatePacmanG->addTime(deltaT);
+     }
+  }
   return true;
 }
 
@@ -228,7 +246,7 @@ void PlayState::setMovementController(MovementController* movementController){
 
 void PlayState::pruebaCharacter(){
   Graph *myGraph = _scene->getGraph();
-  Ogre::Entity *myEntity = _sceneMgr->createEntity("character","Melon.mesh");
+  Ogre::Entity *myEntity = _sceneMgr->createEntity("character","PacmanP.mesh");
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
   myNode->setScale(0.75,0.75,0.75);
   myNode->attachObject(myEntity); 
@@ -245,22 +263,41 @@ void PlayState::pruebaCharacter(){
   cout <<"CREADO CHARACTER \n";
 }
 
-void PlayState::pruebaGhost(){
+void PlayState::creacionGhosts(){
   Graph *myGraph = _scene->getGraph();
-  Ogre::Entity *myEntity = _sceneMgr->createEntity("fantasmaQ","Melon.mesh");
-  Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("fantasmaQ");
-  myNode->setScale(0.75,0.75,0.75);
-  myNode->attachObject(myEntity);
-  Ghost *ghost = new Ghost(myNode, myGraph->getVertexes().at(0));
-  ghost->setSpeed(0.015);
-  ghost->setDirection('-');
-  ghost->setTarget(myGraph->getVertexes().at(0));
-  _sceneMgr->getRootSceneNode()->addChild(myNode);
-  Ogre::Vector3 vectAux = myGraph->getVertexes().at(0)->getData().getPosition();
-  convertCoordinates(vectAux,0.0);
-  //Coordenadas cambiadas. El grafo sigue mal
-  _chara->getSceneNode()->setPosition(vectAux);
-  cout <<"CREADO GHOST \n";
+  //CREACION FANTASMAS
+  int verticesf[4] = {13,27,28,29};
+  string nombresfantasma[4] = {"Cebolla","Tomate","Berenjena","Guisante"};
+  string nombresfantasmamesh[4] = {"FantasmaJCebolla","FantasmaJTomate",
+                                    "FantasmaJBerenjena","FantasmaJGuisante"};
+  for (int i = 0; i < 4; ++i){
+      ostringstream os;
+      os << "fantasma" << nombresfantasma[i];
+      ostringstream osA;
+      osA << nombresfantasmamesh[i]<<".mesh";
+
+      Ogre::Entity *myEntityG = _sceneMgr->createEntity(os.str(),osA.str());
+      Ogre::SceneNode *myNodeG = _sceneMgr->createSceneNode(os.str());
+      myNodeG->setScale(0.75,0.75,0.75);
+      myNodeG->attachObject(myEntityG);
+      Ghost *ghost = new Ghost(myNodeG, myGraph->getVertexes().at(verticesf[i]));
+      ghost->setSpeed(0.015);
+      ghost->setDirection('-');
+      ghost->setTarget(myGraph->getVertexes().at(verticesf[i]));
+      if (nombresfantasma[i].compare("Tomate")==0 ||nombresfantasma[i].compare("Guisante")==0){
+           myNodeG->yaw(Ogre::Degree(82.5)); 
+      }else{
+           myNodeG->yaw(Ogre::Degree(-180));   
+      }
+      _sceneMgr->getRootSceneNode()->addChild(myNodeG);
+      Ogre::Vector3 vectAux = myGraph->getVertexes().at(verticesf[i])->getData().getPosition();
+      convertCoordinates(vectAux,0.0);
+      //Coordenadas cambiadas. El grafo sigue mal
+      ghost->getSceneNode()->setPosition(vectAux);
+      _ghosts->push_back(*ghost);
+      cout <<"CREADO GHOST: " << os.str() << endl;
+  }
+  
 }
 
 void PlayState::convertCoordinates(Ogre::Vector3 &vect, double offset){

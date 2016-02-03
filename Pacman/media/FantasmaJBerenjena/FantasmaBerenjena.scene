@@ -1,0 +1,64 @@
+<scene previous_export_time="0" export_time="1454518454.4640665" exported_by="javimendo" formatVersion="1.0.1" >
+  <nodes >
+    <node name="FantasmaJBerenjena" >
+      <position y="-1.188978" z="-0.000000" x="0.000000" />
+      <rotation qx="0.000000" qy="0.000000" qw="1.000000" qz="-0.000000" />
+      <scale y="1.000000" z="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <entity meshFile="FantasmaJBerenjena.mesh" lock_trans_x="False" ghost="False" friction_z="1.0" friction_x="1.0" damping_trans="0.03999999910593033" lock_trans_z="False" actor="False" friction_y="1.0" physics_type="STATIC" mass="1.0" lock_rot_y="False" velocity_max="0.0" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" lock_rot_x="False" mass_radius="1.0" lock_rot_z="False" lock_trans_y="False" velocity_min="0.0" anisotropic_friction="False" name="FantasmaJBerenjena" />
+    </node>
+    <node name="Lamp" >
+      <position y="5.903862" z="-1.005454" x="4.076245" />
+      <rotation qx="0.169076" qy="0.755880" qw="0.570947" qz="-0.272171" />
+      <scale y="1.000000" z="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <light name="Lamp" shadow="true" type="point" powerScale="1.0" >
+        <position y="5.903862" z="-1.005454" x="4.076245" />
+        <lightAttenuation quadratic="0.0" range="5000" constant="1.0" linear="0.03333335240683057" />
+        <colourDiffuse g="1.0" b="1.0" r="1.0" />
+        <colourSpecular g="1.0" b="1.0" r="1.0" />
+        <colourShadow g="1.0" b="1.0" r="1.0" />
+      </light>
+    </node>
+    <node name="Camera" >
+      <position y="5.343665" z="6.507640" x="7.481132" />
+      <rotation qx="0.481707" qy="0.334251" qw="0.781600" qz="-0.212922" />
+      <scale y="1.000000" z="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera projectionType="perspective" fov="0.5033799435163735" name="Camera" >
+        <clipping farPlaneDist="100.0" near="0.10000000149011612" nearPlaneDist="0.10000000149011612" far="100.0" />
+      </camera>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJBerenjena/NegroBerenjena.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJBerenjena/MoradoBerenjena.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJBerenjena/DientesBerenjena.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJBerenjena/VerdeBerenjena.material" />
+    </item>
+    <item type="material" >
+      <file name="/home/javimendo/Escritorio/CEDV_ENTREGA_2/Pacman/media/FantasmaJBerenjena/NegroBerenjenaD.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourDiffuse g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourAmbient g="0.0" b="0.0" r="0.0" />
+  </environment>
+</scene>
