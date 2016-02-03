@@ -34,7 +34,7 @@ void MyScenePlay::creacionMapa(){
             //nodemapa->addChild(nodegum);
             _sceneManager->getRootSceneNode()->addChild(nodegum);
             const Ogre::Vector3& position = pactual->getData().getPosition();
-            convertCoordinates(position,nodegum,0.1);
+            convertCoordinates(position,nodegum,0.4);
         }else{
             ostringstream os;
             os << "BolaC" << i;
@@ -44,7 +44,7 @@ void MyScenePlay::creacionMapa(){
             //nodemapa->addChild(nodebola);
             _sceneManager->getRootSceneNode()->addChild(nodebola);
             const Ogre::Vector3& position = pactual->getData().getPosition();
-            convertCoordinates(position,nodebola,0.1); 
+            convertCoordinates(position,nodebola,0.2); 
         }
     }
 }

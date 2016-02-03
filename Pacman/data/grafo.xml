@@ -391,6 +391,9 @@
     <vertex>39</vertex> <vertex>44</vertex>
   </edge>
   <edge>
+    <vertex>39</vertex> <vertex>54</vertex>
+  </edge>
+  <edge>
     <vertex>44</vertex> <vertex>43</vertex>
   </edge>
   <edge>
