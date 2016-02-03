@@ -69,6 +69,10 @@ void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode*
     node-> setPosition(vect.x,vect.z+offset,vect.y); 
 }
 
+void MyScenePlay::acualizarPuntos(int newpuntos){
+    //string puntosv = _sceneManager
+}
+
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
 	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
 	  ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));

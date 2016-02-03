@@ -1,7 +1,7 @@
-<scene export_time="1454521289.0331016" formatVersion="1.0.1" exported_by="javimendo" previous_export_time="1454498564.8712718" >
+<scene export_time="1454524060.5161715" formatVersion="1.0.1" exported_by="javimendo" previous_export_time="1454523834.5661843" >
   <nodes >
     <node name="PacmanPJ" >
-      <position x="0.004144" z="-0.006142" y="-0.998569" />
+      <position x="1.000000" z="0.000000" y="-0.000000" />
       <rotation qx="-0.000000" qz="0.707107" qw="0.707107" qy="-0.000000" />
       <scale x="1.000000" z="1.000000" y="1.000000" />
       <game >
@@ -9,8 +9,8 @@
         <actuators />
       </game>
       <node name="PacmanP" >
-        <position x="0.000000" z="-0.000000" y="0.000000" />
-        <rotation qx="0.000000" qz="-0.707107" qw="0.707107" qy="0.000000" />
+        <position x="-0.662200" z="0.000000" y="1.749328" />
+        <rotation qx="0.000000" qz="-0.896868" qw="0.442298" qy="0.000000" />
         <scale x="1.000000" z="1.000000" y="1.000000" />
         <game >
           <sensors />

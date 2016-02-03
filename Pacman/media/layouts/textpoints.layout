@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <GUILayout version="4" >
-    <Window type="Vanilla/StaticText" name="StaticText" >
+    <Window type="Vanilla/StaticText" name="PointsPlayer" >
         <Property name="Area" value="{{0,130},{0,68},{0,209},{0,119}}" />
         <Property name="Font" value="DejaVuSans-14-NoScale" />
         <Property name="Text" value="0" />
