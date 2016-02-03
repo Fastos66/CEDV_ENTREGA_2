@@ -232,13 +232,13 @@ void PlayState::pruebaCharacter(){
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
   myNode->setScale(0.75,0.75,0.75);
   myNode->attachObject(myEntity); 
-  Character *character = new Character(myNode, myGraph->getVertexes().at(2));
+  Character *character = new Character(myNode, myGraph->getVertexes().at(57));
   _chara = character;
   _chara->setSpeed(0.005);
   _chara->setDirection('-');
-  _chara->setTarget(myGraph->getVertexes().at(2));
+  _chara->setTarget(myGraph->getVertexes().at(57));
   _sceneMgr->getRootSceneNode()->addChild(myNode);
-  Ogre::Vector3 vectAux = myGraph->getVertexes().at(2)->getData().getPosition();
+  Ogre::Vector3 vectAux = myGraph->getVertexes().at(57)->getData().getPosition();
   convertCoordinates(vectAux,0.0);
   //Coordenadas cambiadas. El grafo sigue mal
   _chara->getSceneNode()->setPosition(vectAux);

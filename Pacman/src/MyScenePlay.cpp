@@ -21,7 +21,7 @@ void MyScenePlay::creacionMapa(){
     int tamgrafo= _scene->getGraph()->getVertexes().size();
     //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
     for (int i = 0; i < tamgrafo; ++i){
-        pactual = _scene->getGraph()->getVertex(i+1);
+        pactual = _scene->getGraph()->getVertex(i);
         cout << "1Vertex " << pactual->getData().getPosition()  << endl;
         if (pactual->getData().getType().compare("gummelon")==0){
             ostringstream os;
