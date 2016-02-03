@@ -234,7 +234,7 @@ void PlayState::pruebaCharacter(){
   myNode->attachObject(myEntity); 
   Character *character = new Character(myNode, myGraph->getVertexes().at(57));
   _chara = character;
-  _chara->setSpeed(0.005);
+  _chara->setSpeed(0.015);
   _chara->setDirection('-');
   _chara->setTarget(myGraph->getVertexes().at(57));
   _sceneMgr->getRootSceneNode()->addChild(myNode);
@@ -249,9 +249,17 @@ void PlayState::pruebaGhost(){
   Graph *myGraph = _scene->getGraph();
   Ogre::Entity *myEntity = _sceneMgr->createEntity("fantasmaQ","Melon.mesh");
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("fantasmaQ");
-  myNode->attachObject(myEntity); 
+  myNode->setScale(0.75,0.75,0.75);
+  myNode->attachObject(myEntity);
   Ghost *ghost = new Ghost(myNode, myGraph->getVertexes().at(0));
+  ghost->setSpeed(0.015);
+  ghost->setDirection('-');
+  ghost->setTarget(myGraph->getVertexes().at(0));
   _sceneMgr->getRootSceneNode()->addChild(myNode);
+  Ogre::Vector3 vectAux = myGraph->getVertexes().at(0)->getData().getPosition();
+  convertCoordinates(vectAux,0.0);
+  //Coordenadas cambiadas. El grafo sigue mal
+  _chara->getSceneNode()->setPosition(vectAux);
   cout <<"CREADO GHOST \n";
 }
 
