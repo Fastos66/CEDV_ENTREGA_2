@@ -14,6 +14,7 @@ class GraphVertex
 {
  public:
   GraphVertex (const Node& data);
+  GraphVertex();
   ~GraphVertex ();
 
   Node getData () const { return _data; }

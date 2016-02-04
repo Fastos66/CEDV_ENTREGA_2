@@ -23,7 +23,7 @@ class MovementController
 		
 		std::vector<char> *getGhostValidDirections(Ghost *ghost);
 		std::vector<char> *getCharaValidDirections(Character *chara);
-		char getGhostNextDirection(Ghost *ghost);
+		char getGhostNextDirection(Ghost *ghost, Character *chara);
 		bool isCharValidDirection(Character *chara);
 		bool isGhostValidDirection(Ghost *ghost);
 		GraphVertex * getVertexByDirection(Character *chara);

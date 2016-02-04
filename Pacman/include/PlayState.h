@@ -59,6 +59,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Character* _chara;
   bool _inMovement;
   std::vector<Ghost*> *_ghosts;
+  Ogre::Vector3 _vectAux;
 };
 
 #endif

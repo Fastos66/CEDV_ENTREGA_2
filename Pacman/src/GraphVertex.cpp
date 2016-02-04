@@ -6,6 +6,10 @@ GraphVertex::GraphVertex
 {
 }
 
+GraphVertex::GraphVertex(){
+  
+}
+
 GraphVertex::~GraphVertex ()
 {
   std::vector<GraphEdge*>::iterator itEdge; 

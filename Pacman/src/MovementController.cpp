@@ -74,24 +74,24 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 	}
 	return _validDirections;	
 }
-char MovementController::getGhostNextDirection(Ghost *ghost){
+char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 	//return getGhostValidDirections(ghost)->at(0);
-	std::vector<GraphVertex*> adjacents;
+	std::vector<GraphVertex*> adjacentVerts;
 	int i = 0;
 	char direction = '-';
-	GraphVertex *vertex; 
-	GraphVertex *chosenVertex;
+	GraphVertex *vertex = new GraphVertex(); 
+	GraphVertex *chosenVertex = NULL;
 	double auxDistance = 0.0;
 	double minDistance = 0.0;
-	double difX = ghost->getTarget()->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
-	double difY = ghost->getTarget()->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+	double difX = chara->getGraphVertex()->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+	double difY = chara->getGraphVertex()->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
 	auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
 	minDistance = auxDistance;
-	adjacents = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
-	for(i=0;i<adjacents.size();i++){
-		vertex = adjacents.at(i);
-		difX = ghost->getTarget()->getData().getPosition().x - vertex->getData().getPosition().x;
-		difY = ghost->getTarget()->getData().getPosition().y - vertex->getData().getPosition().y;
+	adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
+	for(i=0;i<adjacentVerts.size();i++){
+		vertex = adjacentVerts.at(i);
+		difX = chara->getGraphVertex()->getData().getPosition().x - vertex->getData().getPosition().x;
+		difY = chara->getGraphVertex()->getData().getPosition().y - vertex->getData().getPosition().y;
 		auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
 		if(minDistance > auxDistance){
 			minDistance = auxDistance;
@@ -113,7 +113,7 @@ char MovementController::getGhostNextDirection(Ghost *ghost){
 			direction = 'D';
 		}
 	}
-
+	//cout << "DIR GHOST 0: "<<direction << "\n";
 	return direction;
 	//TO_DO
 }

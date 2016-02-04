@@ -67,9 +67,11 @@ bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
-  if((_ghosts->at(0)->getSceneNode()->getPosition() == _ghosts->at(0)->getGraphVertex()->getData().getPosition()) || (_ghosts->at(0)->getSceneNode()->getPosition() == _ghosts->at(0)->getTarget()->getData().getPosition())){
+  _vectAux = _ghosts->at(0)->getSceneNode()->getPosition();
+  convertCoordinates(_vectAux,0.0);
+  if((_vectAux == _ghosts->at(0)->getGraphVertex()->getData().getPosition()) || (_vectAux == _ghosts->at(0)->getTarget()->getData().getPosition())){
     //si se encuentra en un nodo, calcular la direccion
-    _ghosts->at(0)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(0)));
+    _ghosts->at(0)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(0),_chara));
   }
   moveCharacter();
   moveGhosts();
@@ -107,6 +109,7 @@ void
 PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
+  Ogre::Vector3 vectAux;
   //char previousDirection = _chara->getDirection();
   if (e.key == OIS::KC_W && !_inMovement) { // para arriba
     _chara->setDirection('U');
@@ -140,6 +143,12 @@ PlayState::keyPressed
       cout<< "\nSCENE NODE: X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " \nMI TARGET ES: "<<_chara->getTarget()->getData().getIndex()<<" X= "<< charaTargetPosition.x <<" Y= " << charaTargetPosition.y <<" Z=" << charaTargetPosition.z << "\n";
       cout<< "VERTEX: "<<_chara->getGraphVertex()->getData().getIndex()<<" X= "<< charaVertexPosition.x <<" Y= " << charaVertexPosition.y <<" Z= " << charaVertexPosition.z << "\n";
       _movementController->printVecinos(_chara->getGraphVertex());
+      //_movementController->getGhostNextDirection(_ghosts->at(0),_chara);
+      vectAux = _ghosts->at(0)->getSceneNode()->getPosition();
+      convertCoordinates(vectAux,0.0);
+      cout <<vectAux<<"\n";
+      //cout << "DIR GHOST 0: "<<_ghosts->at(0)->getDirection()<< "\n";
+      cout << "DIR GHOST 0: "<<_movementController->getGhostNextDirection(_ghosts->at(0),_chara)<< "\n";
     }
     else{
       cout<< "MI TARGET ES NULL\n";
@@ -154,7 +163,7 @@ PlayState::keyPressed
   }
   if (e.key == OIS::KC_G) {
      Graph *myGraph = _scene->getGraph();
-    _movementController->printAdjList(myGraph);
+    //_movementController->printAdjList(myGraph);
   }
   // Tecla p --> PauseState.
   //if (e.key == OIS::KC_P) {
@@ -328,7 +337,7 @@ void PlayState::moveGhosts(){
       Ogre::Vector3 vecPos = _ghosts->at(0)->getTarget()->getData().getPosition();
       convertCoordinates(vecPos,0.0);
       _ghosts->at(0)->getSceneNode()->setPosition(vecPos);
-      _inMovement = false;
+      //_inMovement = false;
       _ghosts->at(0)->setGraphVertex(_ghosts->at(0)->getTarget());
       if(_movementController->isGhostValidDirection(_ghosts->at(0))){
          _ghosts->at(0)->setTarget(_movementController->getVertexByDirection(_ghosts->at(0)));
@@ -338,8 +347,8 @@ void PlayState::moveGhosts(){
       //recalculo target
     }
   }
-  if(_ghosts->at(0)->getGraphVertex()->getData().getIndex()!=_ghosts->at(0)->getTarget()->getData().getIndex()){
-    if(_movementController->isGhostValidDirection(_ghosts->at(0))){
+  //if(_ghosts->at(0)->getGraphVertex()->getData().getIndex()!=_ghosts->at(0)->getTarget()->getData().getIndex()){
+    //if(_movementController->isGhostValidDirection(_ghosts->at(0))){
       if(_ghosts->at(0)->getDirection() == 'R'){
       _ghosts->at(0)->getSceneNode()->setPosition(_ghosts->at(0)->getSceneNode()->getPosition() + Ogre::Vector3(-_ghosts->at(0)->getSpeed(),0,0));
       }
@@ -359,8 +368,8 @@ void PlayState::moveGhosts(){
       else{
         cout<< "MI TARGET ES NULL\n";
       }*/
-    }
-  }
+    //}
+  //}
 }
 
 void PlayState::convertCoordinates(Ogre::Vector3 &vect, double offset){
