@@ -60,7 +60,6 @@ void MyScenePlay::crearmenuCEGUI(){
 
     CEGUI::Window* actpoints = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("textpoints.layout");
     actpoints -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.62f,0),CEGUI::UDim(0.05f,0)));
-    
     _sheet -> addChild(imglivespuntos);
     _sheet -> addChild(actpoints);
 }
@@ -68,11 +67,15 @@ void MyScenePlay::crearmenuCEGUI(){
 void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset){
     node-> setPosition(vect.x,vect.z+offset,vect.y); 
 }
-
 void MyScenePlay::acualizarPuntos(int newpuntos){
-    //string puntosv = _sceneManager
+    CEGUI::Window* points = _sheet -> getChild("PointsPlayer");
+    int points_actuales = atoi(points->getText().c_str());
+    cout << "Puntos Actuales:" << points_actuales << endl; 
+    points_actuales = newpuntos + points_actuales;
+    ostringstream os;
+    os << points_actuales;
+    points -> setText(os.str());
 }
-
 void MyScenePlay::codigoParapedirelnombreFUTURO(){
 	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
 	  ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));
