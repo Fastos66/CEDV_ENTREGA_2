@@ -10,13 +10,14 @@
 #include "Character.h"
 #include "Graph.h"
 #include <OgreVector3.h>
+#include <cmath>
 
 using namespace std;
 
 class MovementController
 {
 	public:
-		MovementController(std::vector<Ghost> *ghosts, Character *chara);
+		MovementController(std::vector<Ghost*> *ghosts, Character *chara);
 		MovementController(Graph *graph);
 		~MovementController();
 		
@@ -24,9 +25,11 @@ class MovementController
 		std::vector<char> *getCharaValidDirections(Character *chara);
 		char getGhostNextDirection(Ghost *ghost);
 		bool isCharValidDirection(Character *chara);
+		bool isGhostValidDirection(Ghost *ghost);
 		GraphVertex * getVertexByDirection(Character *chara);
+		GraphVertex * getVertexByDirection(Ghost * ghost);
 		
-		void setGhosts(std::vector<Ghost> *ghosts);
+		void setGhosts(std::vector<Ghost*> *ghosts);
 		void setChara(Character *chara);
 		void setGraph(Graph *graph);
 		void printVecinos(GraphVertex *vertex);
@@ -35,7 +38,7 @@ class MovementController
 
 	private:
 		Graph *_graph;
-		std::vector<Ghost> *_ghosts;
+		std::vector<Ghost*> *_ghosts;
 		Character *_chara;
 		std::vector<char> *_validDirections;
 		//int _adjListGraph[N_VERTICES][N_VERTICES];

@@ -36,11 +36,11 @@ PlayState::enter ()
   _exitGame = false;
   _inMovement = false;
 
-  _ghosts = new std::vector<Ghost>;
+  _ghosts = new std::vector<Ghost*>;
   _movementController = new MovementController(_ghosts, _chara);
   _movementController->setGraph(_scene->getGraph());
-  pruebaCharacter();
-  creacionGhosts();
+  createCharacter();
+  createGhosts();
   _lanzaranimationPG = true;
 }
 
@@ -67,51 +67,12 @@ bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
-  Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
-  Ogre::Vector3 charaTargetPosition;
-  convertCoordinates(charaSNPosition, 0.0);
-  
-  charaTargetPosition = _chara->getTarget()->getData().getPosition();
-  if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
-    if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
-      // si el personaje esta muy cerca del nodo target
-      //cout<<"ESTOY EN TARGET\n";
-      Ogre::Vector3 vecPos = _chara->getTarget()->getData().getPosition();
-      convertCoordinates(vecPos,0.0);
-      _chara->getSceneNode()->setPosition(vecPos);
-      _inMovement = false;
-      _chara->setGraphVertex(_chara->getTarget());
-      if(_movementController->isCharValidDirection(_chara)){
-         _chara->setTarget(_movementController->getVertexByDirection(_chara));
-      }
-      _chara->setDirection('-');
-      _chara->setTarget(_chara->getGraphVertex());
-      //recalculo target
-    }
+  if((_ghosts->at(0)->getSceneNode()->getPosition() == _ghosts->at(0)->getGraphVertex()->getData().getPosition()) || (_ghosts->at(0)->getSceneNode()->getPosition() == _ghosts->at(0)->getTarget()->getData().getPosition())){
+    //si se encuentra en un nodo, calcular la direccion
+    _ghosts->at(0)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(0)));
   }
-  if(_chara->getGraphVertex()->getData().getIndex()!=_chara->getTarget()->getData().getIndex()){
-    if(_movementController->isCharValidDirection(_chara)){
-      if(_chara->getDirection() == 'R'){
-      _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(-_chara->getSpeed(),0,0));
-      }
-      else if(_chara->getDirection() == 'D'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-_chara->getSpeed()));
-      }
-      else if(_chara->getDirection() == 'L'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(_chara->getSpeed(),0,0));
-      }
-      else if(_chara->getDirection() == 'U'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_chara->getSpeed()));
-      }
-      //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
-      /*if(_chara->getTarget()!= NULL){
-        cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
-      }
-      else{
-        cout<< "MI TARGET ES NULL\n";
-      }*/
-    }
-  }
+  moveCharacter();
+  moveGhosts();
   Ogre::Real deltaT = evt.timeSinceLastFrame;
   if (_lanzaranimationPG){
     _animStatePacmanG = _sceneMgr->getEntity("character")->getAnimationState("moveMouth");
@@ -146,7 +107,7 @@ void
 PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
-  char previousDirection = _chara->getDirection();
+  //char previousDirection = _chara->getDirection();
   if (e.key == OIS::KC_W && !_inMovement) { // para arriba
     _chara->setDirection('U');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
@@ -249,7 +210,7 @@ void PlayState::setMovementController(MovementController* movementController){
 }
 
 
-void PlayState::pruebaCharacter(){
+void PlayState::createCharacter(){
   Graph *myGraph = _scene->getGraph();
   Ogre::Entity *myEntity = _sceneMgr->createEntity("character","PacmanP.mesh");
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
@@ -268,7 +229,7 @@ void PlayState::pruebaCharacter(){
   cout <<"CREADO CHARACTER \n";
 }
 
-void PlayState::creacionGhosts(){
+void PlayState::createGhosts(){
   Graph *myGraph = _scene->getGraph();
   //CREACION FANTASMAS
   int verticesf[4] = {13,27,28,29};
@@ -299,10 +260,107 @@ void PlayState::creacionGhosts(){
       convertCoordinates(vectAux,0.0);
       //Coordenadas cambiadas. El grafo sigue mal
       ghost->getSceneNode()->setPosition(vectAux);
-      _ghosts->push_back(*ghost);
+      _ghosts->push_back(ghost);
       cout <<"CREADO GHOST: " << os.str() << endl;
   }
   
+}
+
+//meter el codigo de mover las cositas en estas funciones
+void PlayState::moveCharacter(){
+  Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
+  Ogre::Vector3 charaTargetPosition;
+  convertCoordinates(charaSNPosition, 0.0);
+  
+  charaTargetPosition = _chara->getTarget()->getData().getPosition();
+  if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
+    if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
+      // si el personaje esta muy cerca del nodo target
+      //cout<<"ESTOY EN TARGET\n";
+      Ogre::Vector3 vecPos = _chara->getTarget()->getData().getPosition();
+      convertCoordinates(vecPos,0.0);
+      _chara->getSceneNode()->setPosition(vecPos);
+      _inMovement = false;
+      _chara->setGraphVertex(_chara->getTarget());
+      if(_movementController->isCharValidDirection(_chara)){
+         _chara->setTarget(_movementController->getVertexByDirection(_chara));
+      }
+      _chara->setDirection('-');
+      _chara->setTarget(_chara->getGraphVertex());
+      //recalculo target
+    }
+  }
+  if(_chara->getGraphVertex()->getData().getIndex()!=_chara->getTarget()->getData().getIndex()){
+    if(_movementController->isCharValidDirection(_chara)){
+      if(_chara->getDirection() == 'R'){
+      _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(-_chara->getSpeed(),0,0));
+      }
+      else if(_chara->getDirection() == 'D'){
+        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-_chara->getSpeed()));
+      }
+      else if(_chara->getDirection() == 'L'){
+        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(_chara->getSpeed(),0,0));
+      }
+      else if(_chara->getDirection() == 'U'){
+        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_chara->getSpeed()));
+      }
+      //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
+      /*if(_chara->getTarget()!= NULL){
+        cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
+      }
+      else{
+        cout<< "MI TARGET ES NULL\n";
+      }*/
+    }
+  }
+}
+
+void PlayState::moveGhosts(){
+  Ogre::Vector3 ghostSNPosition = _ghosts->at(0)->getSceneNode()->getPosition();
+  Ogre::Vector3 ghostTargetPosition;
+  convertCoordinates(ghostSNPosition, 0.0);
+  
+  ghostTargetPosition = _ghosts->at(0)->getTarget()->getData().getPosition();
+  if(std::abs(ghostSNPosition.x - ghostTargetPosition.x) <= EPSILON){
+    if(std::abs(ghostSNPosition.y - ghostTargetPosition.y) <= EPSILON){
+      // si el personaje esta muy cerca del nodo target
+      //cout<<"ESTOY EN TARGET\n";
+      Ogre::Vector3 vecPos = _ghosts->at(0)->getTarget()->getData().getPosition();
+      convertCoordinates(vecPos,0.0);
+      _ghosts->at(0)->getSceneNode()->setPosition(vecPos);
+      _inMovement = false;
+      _ghosts->at(0)->setGraphVertex(_ghosts->at(0)->getTarget());
+      if(_movementController->isGhostValidDirection(_ghosts->at(0))){
+         _ghosts->at(0)->setTarget(_movementController->getVertexByDirection(_ghosts->at(0)));
+      }
+      _ghosts->at(0)->setDirection('-');
+      _ghosts->at(0)->setTarget(_ghosts->at(0)->getGraphVertex());
+      //recalculo target
+    }
+  }
+  if(_ghosts->at(0)->getGraphVertex()->getData().getIndex()!=_ghosts->at(0)->getTarget()->getData().getIndex()){
+    if(_movementController->isGhostValidDirection(_ghosts->at(0))){
+      if(_ghosts->at(0)->getDirection() == 'R'){
+      _ghosts->at(0)->getSceneNode()->setPosition(_ghosts->at(0)->getSceneNode()->getPosition() + Ogre::Vector3(-_ghosts->at(0)->getSpeed(),0,0));
+      }
+      else if(_ghosts->at(0)->getDirection() == 'D'){
+        _ghosts->at(0)->getSceneNode()->setPosition(_ghosts->at(0)->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-_ghosts->at(0)->getSpeed()));
+      }
+      else if(_ghosts->at(0)->getDirection() == 'L'){
+        _ghosts->at(0)->getSceneNode()->setPosition(_ghosts->at(0)->getSceneNode()->getPosition() + Ogre::Vector3(_ghosts->at(0)->getSpeed(),0,0));
+      }
+      else if(_ghosts->at(0)->getDirection() == 'U'){
+        _ghosts->at(0)->getSceneNode()->setPosition(_ghosts->at(0)->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_ghosts->at(0)->getSpeed()));
+      }
+      //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
+      /*if(_chara->getTarget()!= NULL){
+        cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
+      }
+      else{
+        cout<< "MI TARGET ES NULL\n";
+      }*/
+    }
+  }
 }
 
 void PlayState::convertCoordinates(Ogre::Vector3 &vect, double offset){
@@ -311,4 +369,18 @@ void PlayState::convertCoordinates(Ogre::Vector3 &vect, double offset){
   vect.z = aux;
 }
 
+void PlayState::changeCharaFacing(Character *chara){
+  //Ogre::SceneNode *sceneNode = chara->getSceneNode();
+  char direction = chara->getDirection();
+  switch(direction){
+    case 'R':
+      break;
+    case 'L':
+      break;
+    case 'U':
+      break;
+    case 'D':
+      break;
+  }
+}
 

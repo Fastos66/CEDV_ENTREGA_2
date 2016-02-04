@@ -31,11 +31,14 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
   bool frameStarted (const Ogre::FrameEvent& evt);
   bool frameEnded (const Ogre::FrameEvent& evt);
-  void pruebaCharacter();
-  void creacionGhosts();
+  void createCharacter();
+  void createGhosts();
+  void moveCharacter();
+  void moveGhosts();
   MovementController * getMovementController();
   void setMovementController(MovementController* movementController);
   void convertCoordinates(Ogre::Vector3 &vector, double offset);
+  void changeCharaFacing(Character *chara);
 
   // Heredados de Ogre::Singleton.
   static PlayState& getSingleton ();
@@ -55,7 +58,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   MovementController* _movementController;
   Character* _chara;
   bool _inMovement;
-  std::vector<Ghost>* _ghosts;
+  std::vector<Ghost*> *_ghosts;
 };
 
 #endif

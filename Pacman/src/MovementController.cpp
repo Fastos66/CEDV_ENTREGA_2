@@ -1,14 +1,14 @@
 #include "MovementController.h"
 #include <algorithm>
 
-MovementController::MovementController(std::vector<Ghost> *ghosts, Character *chara){
+MovementController::MovementController(std::vector<Ghost*> *ghosts, Character *chara){
 	_ghosts = ghosts;
 	_chara = chara;
 	_validDirections = new vector<char>;
 }
 MovementController::MovementController(Graph * graph){
 	_graph = graph;
-	_ghosts = new vector<Ghost>;
+	_ghosts = new vector<Ghost*>;
 	_chara = new Character();
 	_validDirections = new vector<char>;
 }
@@ -75,8 +75,46 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 	return _validDirections;	
 }
 char MovementController::getGhostNextDirection(Ghost *ghost){
-	return getGhostValidDirections(ghost)->at(0);
-	//return '-';
+	//return getGhostValidDirections(ghost)->at(0);
+	std::vector<GraphVertex*> adjacents;
+	int i = 0;
+	char direction = '-';
+	GraphVertex *vertex; 
+	GraphVertex *chosenVertex;
+	double auxDistance = 0.0;
+	double minDistance = 0.0;
+	double difX = ghost->getTarget()->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+	double difY = ghost->getTarget()->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+	auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+	minDistance = auxDistance;
+	adjacents = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
+	for(i=0;i<adjacents.size();i++){
+		vertex = adjacents.at(i);
+		difX = ghost->getTarget()->getData().getPosition().x - vertex->getData().getPosition().x;
+		difY = ghost->getTarget()->getData().getPosition().y - vertex->getData().getPosition().y;
+		auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+		if(minDistance > auxDistance){
+			minDistance = auxDistance;
+			chosenVertex = vertex;
+		}
+	}
+
+	if(chosenVertex != NULL){
+		if((ghost->getGraphVertex()->getData().getPosition().x - chosenVertex->getData().getPosition().x)<0){
+			direction = 'L';
+		}
+		else if((ghost->getGraphVertex()->getData().getPosition().x - chosenVertex->getData().getPosition().x)>0){
+			direction = 'R';
+		}
+		else if((ghost->getGraphVertex()->getData().getPosition().y - chosenVertex->getData().getPosition().y)<0){
+			direction = 'U';
+		}
+		else{
+			direction = 'D';
+		}
+	}
+
+	return direction;
 	//TO_DO
 }
 
@@ -84,6 +122,15 @@ bool MovementController::isCharValidDirection(Character *chara){
 	bool res = false;
 	_validDirections = getCharaValidDirections(chara);
 	if (std::find(_validDirections->begin(), _validDirections->end(), chara->getDirection()) != _validDirections->end()){
+  		res = true;
+	}
+	return res;
+}
+
+bool MovementController::isGhostValidDirection(Ghost *ghost){
+	bool res = false;
+	_validDirections = getGhostValidDirections(ghost);
+	if (std::find(_validDirections->begin(), _validDirections->end(), ghost->getDirection()) != _validDirections->end()){
   		res = true;
 	}
 	return res;
@@ -117,8 +164,36 @@ GraphVertex * MovementController::getVertexByDirection(Character *chara){
 	}
 	return aux;
 }
+GraphVertex * MovementController::getVertexByDirection(Ghost *ghost){
+	std::vector<GraphVertex*> adjacentVertices; 
+	GraphVertex *aux = ghost->getGraphVertex(); // si no tiene vecinos en la direccion deseada, te devuelve a ti mismo
+	Ogre::Vector3 auxPosition;
+	Ogre::Vector3 ghostPosition = ghost->getGraphVertex()->getData().getPosition();
+	unsigned int i = 0;
+	if(_graph != NULL){
+	 	adjacentVertices = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
+	 	for(i=0; i<adjacentVertices.size(); i++){
+	 		aux = adjacentVertices.at(i);
+	 		auxPosition = aux->getData().getPosition();
+	 		if((ghostPosition.x > auxPosition.x) && ghost->getDirection()=='R') {
+	 			break;
+	 		}
+	 		else if((ghostPosition.x < auxPosition.x) && ghost->getDirection()=='L'){
+	 			break;
+	 		}
+	 		if((ghostPosition.y < auxPosition.y) && ghost->getDirection()=='U'){
+	 			break;
+	 		}
+	 		else if((ghostPosition.y > auxPosition.y) && ghost->getDirection()=='D'){
+	 			break;
+	 		}
+	 		aux = ghost->getGraphVertex();
+	 	}
+	}
+	return aux;
+}
 
-void MovementController::setGhosts(std::vector<Ghost> *ghosts){
+void MovementController::setGhosts(std::vector<Ghost*> *ghosts){
 	_ghosts = ghosts;
 }
 void MovementController::setChara(Character *chara){
