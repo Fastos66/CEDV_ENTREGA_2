@@ -2,6 +2,7 @@
 
 #include "MyScenePlay.h"
 #include "PauseState.h"
+#include "FinalGameState.h"
 MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene, Ogre::Camera* camera){
 	_sceneManager = sceneManager;
 	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
@@ -93,15 +94,21 @@ void MyScenePlay::acualizarPuntos(int newpuntos){
     os << points_actuales;
     points -> setText(os.str());
 }
-void MyScenePlay::codigoParapedirelnombreFUTURO(){
+void MyScenePlay::pedirelnombre_actualizar_ranking(){
 	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
 	  ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));
-	  CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenTop");
+	  
+    CEGUI::Window* exitbutton = ventpuntos->getChild("ExitButton");
+      exitbutton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&FinalGameState::exitButtonC, 
+                FinalGameState::getSingletonPtr())); 
+
+    CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenTop");
   	CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGOTop","puntuaciontop.png");
   	imglogo -> setProperty("Image","ImagenLOGOTop");
   	imglogo -> setProperty("BackgroundEnabled","False");
   	imglogo -> setProperty("FrameEnabled","False");
-  	imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.42f,0),CEGUI::UDim(0.13f,0)));
+  	imglogo -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.47f,0),CEGUI::UDim(0.13f,0)));
   	imglogo -> setSize(CEGUI::USize(CEGUI::UDim(0.12f,0),CEGUI::UDim(0.12f,0)));  
   	ventpuntos -> addChild(imglogo);
 
@@ -124,4 +131,11 @@ void MyScenePlay::menupausa(){
 void MyScenePlay::salirpausa(){
      CEGUI::Window* menupausa = _sheet-> getChild("Menupausa");
      menupausa -> setVisible(false);  
+}
+
+string MyScenePlay::getpuntosjugador(){
+     return _sheet->getChild("Puntuacion")->getChild("PuntosPlayer")->getText().c_str();
+}
+string MyScenePlay::getnombrejugador(){
+     return _sheet->getChild("Puntuacion")->getChild("NombrePlayer")->getText().c_str();
 }

@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include "GameState.h"
+#include "MyScenePlay.h"
 
 class FinalGameState : public Ogre::Singleton<FinalGameState>, public GameState
 {
@@ -29,12 +30,19 @@ class FinalGameState : public Ogre::Singleton<FinalGameState>, public GameState
   static FinalGameState& getSingleton ();
   static FinalGameState* getSingletonPtr ();
 
+  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+
+  bool actualizarranking();
+
+  bool exitButtonC(const CEGUI::EventArgs& e);
+
  protected:
+ 
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
   Ogre::Camera* _camera;
-
+  MyScenePlay* _scplay;
   bool _exitGame;
 };
 

@@ -4,8 +4,10 @@
     <Window type="DefaultWindow" name="Puntuacion" >
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
-        <Window type="OgreTray/Editbox" name="Editbox" >
-            <Property name="Area" value="{{0,90},{0,214},{0,356},{0,252}}" />
+        <Window type="OgreTray/Editbox" name="NombrePlayer" >
+            <Property name="Area" value="{{0,90},{0,214},{0,407},{0,252}}" />
+            <Property name="Font" value="DejaVuSans-12-NoScale" />
+            <Property name="Text" value="NewName" />
         </Window>
         <Window type="OgreTray/StaticText" name="StaticText" >
             <Property name="Area" value="{{0,86},{0,141},{0,410},{0,208}}" />
@@ -33,12 +35,73 @@
                 </AutoWindow>
             </AutoWindow>
         </Window>
-        <Window type="OgreTray/StaticText" name="StaticText2" >
-            <Property name="Area" value="{{0,415},{0,167},{0,559},{0,253}}" />
+        <Window type="OgreTray/StaticText" name="PuntosPlayer" >
+            <Property name="Area" value="{{0,415},{0,139},{0,559},{0,253}}" />
             <Property name="Font" value="Jura-18" />
+            <Property name="Text" value="0" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="HorzScrollPageSize" value="118" />
-            <Property name="VertScrollPageSize" value="60" />
+            <Property name="VertScrollPageSize" value="88" />
+            <Property name="HorzScrollDocumentSize" value="14" />
+            <Property name="VertScrollDocumentSize" value="24.6328" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+        <Window type="OgreTray/Button" name="MainMenuButton" >
+            <Property name="Area" value="{{0,258},{0,277},{0,429},{0,326}}" />
+            <Property name="Text" value="Main Menu" />
+        </Window>
+        <Window type="OgreTray/Button" name="ExitButton" >
+            <Property name="Area" value="{{0,258},{0,342},{0,429},{0,392}}" />
+            <Property name="Text" value="Exit" />
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText3" >
+            <Property name="Area" value="{{0,165},{0,338},{0,233},{0,398}}" />
+            <Property name="Text" value="  X" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="42" />
+            <Property name="VertScrollPageSize" value="34" />
+            <Property name="HorzScrollDocumentSize" value="14" />
+            <Property name="VertScrollDocumentSize" value="13.6796" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+        <Window type="OgreTray/StaticText" name="StaticText4" >
+            <Property name="Area" value="{{0,164},{0,271},{0,231},{0,327}}" />
+            <Property name="Text" value="  M" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="41" />
+            <Property name="VertScrollPageSize" value="30" />
+            <Property name="HorzScrollDocumentSize" value="15" />
+            <Property name="VertScrollDocumentSize" value="13.6796" />
             <AutoWindow namePath="__auto_hscrollbar__" >
                 <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="false" />

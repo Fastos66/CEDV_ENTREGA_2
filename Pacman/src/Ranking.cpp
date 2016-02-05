@@ -45,7 +45,7 @@ void Ranking::crearvectorPlayers(string s){
 	string name;
 	string puntos;
 	int separacion = 0;
-	for (int i = 0; i < s.size(); ++i){
+	for (unsigned int i = 0; i < s.size(); ++i){
 		if(s[i]==' '){
 			separacion = i;
 		}
@@ -90,6 +90,7 @@ int Ranking::getpuntosultimo(){
 }
 
 void Ranking::setrankingtxt(string name, string puntos){
+    cout << "Modificando Ranking" << endl; 
     std::fstream fs;
   	fs.open ("./ranking.txt", std::fstream::out | std::fstream::app);
 	fs << endl << name << " " << puntos;

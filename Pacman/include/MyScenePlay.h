@@ -15,12 +15,15 @@ class MyScenePlay
 		MyScenePlay(Ogre::SceneManager* sceneManager, Ogre::Camera* _camera);
 		~MyScenePlay();
 		void cargarscenainicial();
-		void codigoParapedirelnombreFUTURO();
+		void pedirelnombre_actualizar_ranking();
 		void creacionMapa();
 		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
 		void crearmenuCEGUI();
 		void acualizarPuntos(int newpuntos);
 		
+		string getpuntosjugador();
+		string getnombrejugador();
+
 		void menupausa();
 		void salirpausa();
 	

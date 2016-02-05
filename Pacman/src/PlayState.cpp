@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
+#include "FinalGameState.h"
 #include "MyScenePlay.h"
 #define EPSILON 0.02
 
@@ -185,12 +186,15 @@ PlayState::keyPressed
     _sceneMgr->getSceneNode("MapaM")->setVisible(false);
   }
   if (e.key == OIS::KC_G) {
-     Graph *myGraph = _scene->getGraph();
+     //Graph *myGraph = _scene->getGraph();
     //_movementController->printAdjList(myGraph);
   }
   // Tecla p --> PauseState.
   if (e.key == OIS::KC_M) {
       pushState(PauseState::getSingletonPtr());
+  }
+  if (e.key == OIS::KC_F) {
+      pushState(FinalGameState::getSingletonPtr());
   }
 }
 

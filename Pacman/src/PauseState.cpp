@@ -56,6 +56,9 @@ void
 PauseState::keyPressed
 (const OIS::KeyEvent &e) {
   // Tecla p --> Estado anterior.
+  if (e.key == OIS::KC_ESCAPE) {
+    _exitGame = true;
+  }
   if (e.key == OIS::KC_C) {
     _scplay -> salirpausa();
     popState();
