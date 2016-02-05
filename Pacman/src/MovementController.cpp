@@ -1,5 +1,6 @@
 #include "MovementController.h"
 #include <algorithm>
+#define CHASINGDIST 8
 
 MovementController::MovementController(std::vector<Ghost*> *ghosts, Character *chara){
 	_ghosts = ghosts;
@@ -77,26 +78,108 @@ std::vector<char> * MovementController::getCharaValidDirections(Character *chara
 char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 	//return getGhostValidDirections(ghost)->at(0);
 	std::vector<GraphVertex*> adjacentVerts;
-	int i = 0;
+	unsigned int i=0, vertIndex=0;
 	char direction = '-';
 	GraphVertex *vertex = new GraphVertex(); 
 	GraphVertex *chosenVertex = NULL;
 	double auxDistance = 0.0;
-	double minDistance = 0.0;
-	double difX = chara->getGraphVertex()->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
-	double difY = chara->getGraphVertex()->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
-	auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
-	minDistance = auxDistance;
-	adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
-	for(i=0;i<adjacentVerts.size();i++){
-		vertex = adjacentVerts.at(i);
-		difX = chara->getGraphVertex()->getData().getPosition().x - vertex->getData().getPosition().x;
-		difY = chara->getGraphVertex()->getData().getPosition().y - vertex->getData().getPosition().y;
+	double minDistance = 0.0;  //Si el fantasma es weak, minDistance se comporta como maxDistance
+	double difX = 0.0;
+	double difY = 0.0;
+	std::srand(std::time(0));
+	//si el fantasma es de tipo inteligente
+	if(ghost->getType() == 'I'){
+		difX = chara->getGraphVertex()->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+		difY = chara->getGraphVertex()->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
 		auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
-		if(minDistance > auxDistance){
-			minDistance = auxDistance;
-			chosenVertex = vertex;
+		if((auxDistance <= CHASINGDIST) && (ghost->getMode()!= 'W')){ //si esta cerca de pacman, que lo siga
+			ghost->setMode('C');
 		}
+		else if((auxDistance >= CHASINGDIST) && (ghost->getMode()!= 'W')){
+			ghost->setMode('S');
+		}
+		minDistance = auxDistance;
+		if(ghost->getMode() == 'S'){
+			//TO DO
+			if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
+				//Va hacia arriba a la izquierda
+				difX = _graph->getVertex(0)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+				difY = _graph->getVertex(0)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+				minDistance = auxDistance;
+
+			}
+			else if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
+				//Va hacia arriba a la derecha
+				difX = _graph->getVertex(9)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+				difY = _graph->getVertex(9)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+				minDistance = auxDistance;
+
+			}
+			else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
+				//Va hacia abajo a la izquierda
+				difX = _graph->getVertex(71)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+				difY = _graph->getVertex(71)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+				minDistance = auxDistance;
+			
+			}
+			else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
+				//Va hacia abajo a la derecha
+				difX = _graph->getVertex(80)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
+				difY = _graph->getVertex(80)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+				minDistance = auxDistance;
+
+			} 
+		}
+		
+		adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
+		
+		for(i=0;i<adjacentVerts.size();i++){
+			vertex = adjacentVerts.at(i);
+			if((ghost->getMode() == 'C')||(ghost->getMode() == 'W')){
+				difX = chara->getGraphVertex()->getData().getPosition().x - vertex->getData().getPosition().x;
+				difY = chara->getGraphVertex()->getData().getPosition().y - vertex->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));	
+				if((ghost->getMode() == 'C')&& (minDistance > auxDistance)){
+					minDistance = auxDistance;
+					chosenVertex = vertex;
+				}
+				else if((ghost->getMode() == 'W')&&(minDistance < auxDistance)){ //si esta debil, se aleja
+					minDistance = auxDistance;
+					chosenVertex = vertex;
+				}
+			}
+			else{
+				if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
+					vertIndex=0;
+				}
+				else if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
+					vertIndex=9;
+				}
+				else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
+					vertIndex=71;
+				}
+				else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
+					vertIndex=80;
+				}
+				difX = _graph->getVertex(vertIndex)->getData().getPosition().x - vertex->getData().getPosition().x;
+				difY = _graph->getVertex(vertIndex)->getData().getPosition().y - vertex->getData().getPosition().y;
+				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+				if(minDistance > auxDistance){
+					minDistance = auxDistance;
+					chosenVertex = vertex;
+				}
+			}
+
+		}
+	}
+	else{  // si no es inteligente
+		adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
+		int randomIndex = std::rand()%adjacentVerts.size();
+		chosenVertex = adjacentVerts.at(randomIndex);
 	}
 
 	if(chosenVertex != NULL){
