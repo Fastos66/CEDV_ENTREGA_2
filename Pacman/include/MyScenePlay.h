@@ -12,6 +12,7 @@ class MyScenePlay
 {
 	public:
 		MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene, Ogre::Camera* _camera);
+		MyScenePlay(Ogre::SceneManager* sceneManager, Ogre::Camera* _camera);
 		~MyScenePlay();
 		void cargarscenainicial();
 		void codigoParapedirelnombreFUTURO();
@@ -19,6 +20,10 @@ class MyScenePlay
 		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
 		void crearmenuCEGUI();
 		void acualizarPuntos(int newpuntos);
+		
+		void menupausa();
+		void salirpausa();
+	
 	private:
 		Ogre::SceneManager* _sceneManager;
 		CEGUI::Window* _sheet;

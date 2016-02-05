@@ -35,24 +35,28 @@ void MyScene::crearMenuInicio(){
   // yaw --> y
   _sceneManager->getRootSceneNode()->addChild(node1);
 
-  Ogre::Entity* entf = _sceneManager->createEntity("FantasmaP", "Fantasma.mesh");
+  Ogre::Entity* entf = _sceneManager->createEntity("FantasmaP", "FantasmaJGuisante.mesh");
   Ogre::SceneNode* nodef = _sceneManager->createSceneNode("FantasmaP");
   nodef->attachObject(entf);
   node1->addChild(nodef);
-  nodef->yaw(Ogre::Degree(158));
-  nodef->roll(Ogre::Degree(-5));
+  //nodef->yaw(Ogre::Degree(158));
+  nodef->yaw(Ogre::Degree(-10));
+  nodef->roll(Ogre::Degree(-7));
+  nodef-> setScale(1.5,1.5,1.5);
   nodef->pitch(Ogre::Degree(-1));
-  nodef->setPosition(-3,0.2,-2);
+  nodef->setPosition(-3,-1,-2);
 
-  Ogre::Entity* entfr = _sceneManager->createEntity("FantasmaR", "FantasmaR.mesh");
+  Ogre::Entity* entfr = _sceneManager->createEntity("FantasmaR", "FantasmaJCebolla.mesh");
   Ogre::SceneNode* nodefr = _sceneManager->createSceneNode("FantasmaR");
   nodefr->attachObject(entfr);
   node1->addChild(nodefr);
-  nodefr->yaw(Ogre::Degree(210));
+  //nodefr->yaw(Ogre::Degree(210));
+  nodefr->yaw(Ogre::Degree(120));
   nodefr->roll(Ogre::Degree(-5));
-  nodefr->pitch(Ogre::Degree(-1));
+  nodefr-> setScale(1.4,1.4,1.4);
+  //nodefr->pitch(Ogre::Degree(-1));
   
-  nodefr->setPosition(-3,0.2,3);
+  nodefr->setPosition(-4,-1,3);
 
   Ogre::Plane plane1(Ogre::Vector3::UNIT_Y, 0);
   Ogre::MeshManager::getSingleton().createPlane("plane1",

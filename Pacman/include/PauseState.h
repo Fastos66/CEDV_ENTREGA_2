@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include "GameState.h"
+#include "MyScenePlay.h"
 
 class PauseState : public Ogre::Singleton<PauseState>, public GameState
 {
@@ -29,12 +30,16 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   static PauseState& getSingleton ();
   static PauseState* getSingletonPtr ();
 
+  bool continuarButtonC(const CEGUI::EventArgs& e);
+
+  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+
  protected:
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
   Ogre::Camera* _camera;
-
+  MyScenePlay* _scplay;
   bool _exitGame;
 };
 

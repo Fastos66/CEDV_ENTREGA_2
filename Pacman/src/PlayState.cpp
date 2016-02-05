@@ -61,6 +61,7 @@ void
 PlayState::resume()
 {
   // Se restaura el background colour.
+  CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setVisible(false);
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 1.0));
 }
 
@@ -188,9 +189,9 @@ PlayState::keyPressed
     //_movementController->printAdjList(myGraph);
   }
   // Tecla p --> PauseState.
-  //if (e.key == OIS::KC_P) {
-  //  pushState(PauseState::getSingletonPtr());
-  //}
+  if (e.key == OIS::KC_M) {
+      pushState(PauseState::getSingletonPtr());
+  }
 }
 
 void

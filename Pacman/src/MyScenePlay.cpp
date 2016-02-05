@@ -1,12 +1,20 @@
 //MyScenePlay.cpp
 
 #include "MyScenePlay.h"
+#include "PauseState.h"
 MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager, Scene* scene, Ogre::Camera* camera){
-	_sceneManager=sceneManager;
+	_sceneManager = sceneManager;
 	_sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
   _scene = scene;
   _camera = camera;
 }
+
+MyScenePlay::MyScenePlay(Ogre::SceneManager* sceneManager, Ogre::Camera* camera){
+  _sceneManager = sceneManager;
+  _sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
+  _camera = camera;
+}
+
 MyScenePlay::~MyScenePlay() {}
 void MyScenePlay::cargarscenainicial(){  
   _camera->setPosition(Ogre::Vector3(0,15,-15));
@@ -62,6 +70,15 @@ void MyScenePlay::crearmenuCEGUI(){
     actpoints -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.62f,0),CEGUI::UDim(0.05f,0)));
     _sheet -> addChild(imglivespuntos);
     _sheet -> addChild(actpoints);
+
+    CEGUI::Window* menupausa = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("pausaState.layout");
+    menupausa -> setVisible(false);
+    CEGUI::Window* lista = menupausa->getChild("ListaPausa");
+    CEGUI::Window* continuar = lista->getChild("ContinuarButton");
+      continuar->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&PauseState::continuarButtonC, 
+                PauseState::getSingletonPtr())); 
+    _sheet -> addChild(menupausa);  
 }
 
 void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset){
@@ -97,4 +114,14 @@ void MyScenePlay::codigoParapedirelnombreFUTURO(){
   	imgtexto -> setSize(CEGUI::USize(CEGUI::UDim(0.24f,0),CEGUI::UDim(0.16f,0)));  
   	ventpuntos -> addChild(imgtexto);
   	_sheet-> addChild(ventpuntos);
+}
+
+void MyScenePlay::menupausa(){
+     CEGUI::Window* menupausa = _sheet-> getChild("Menupausa");
+     menupausa -> setVisible(true);
+     menupausa -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.18f,0),CEGUI::UDim(0.14f,0)));      
+}
+void MyScenePlay::salirpausa(){
+     CEGUI::Window* menupausa = _sheet-> getChild("Menupausa");
+     menupausa -> setVisible(false);  
 }

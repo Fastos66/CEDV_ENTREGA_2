@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="Menupausa" >
+        <Property name="Area" value="{{0,0},{0,0},{1,-1},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="OgreTray/ItemListbox" name="ListaPausa" >
+            <Property name="Area" value="{{0,171},{0,142},{0,496},{0,353}}" />
+            <AutoWindow namePath="__auto_content_pane__" >
+                <Property name="MouseInputPropagationEnabled" value="true" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="AlwaysOnTop" value="true" />
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <Property name="AlwaysOnTop" value="true" />
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="Visible" value="false" />
+                </AutoWindow>
+            </AutoWindow>
+            <Window type="OgreTray/StaticText" name="StaticText2" >
+                <Property name="Area" value="{{0,4},{0,7},{0,69},{0,65}}" />
+                <Property name="Text" value="  C" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzScrollPageSize" value="39" />
+                <Property name="VertScrollPageSize" value="32" />
+                <Property name="HorzScrollDocumentSize" value="20" />
+                <Property name="VertScrollDocumentSize" value="13.6796" />
+                <AutoWindow namePath="__auto_hscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                </AutoWindow>
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                </AutoWindow>
+            </Window>
+            <Window type="OgreTray/StaticText" name="StaticText" >
+                <Property name="Area" value="{{0,4},{0,97},{0,71},{0,153}}" />
+                <Property name="Text" value="   X" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzScrollPageSize" value="41" />
+                <Property name="VertScrollPageSize" value="30" />
+                <Property name="HorzScrollDocumentSize" value="23" />
+                <Property name="VertScrollDocumentSize" value="13.6796" />
+                <AutoWindow namePath="__auto_hscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                </AutoWindow>
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="Visible" value="false" />
+                    </AutoWindow>
+                </AutoWindow>
+            </Window>
+            <Window type="Vanilla/Button" name="ContinuarButton" >
+                <Property name="Area" value="{{0,91},{0,17},{0,288},{0,57}}" />
+                <Property name="Text" value="Continuar" />
+            </Window>
+            <Window type="Vanilla/Button" name="MenuPrincipalButton" >
+                <Property name="Area" value="{{0,91},{0,103},{0,288},{0,146}}" />
+                <Property name="Text" value="Menú Principal" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
