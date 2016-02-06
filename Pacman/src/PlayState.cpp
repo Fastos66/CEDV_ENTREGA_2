@@ -4,6 +4,7 @@
 #include "MyScenePlay.h"
 #define EPSILON 0.02
 #define OMICRON 0.4
+#define INVSTEPS 8
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
@@ -296,10 +297,29 @@ void PlayState::createGhosts(){
 
 //meter el codigo de mover las cositas en estas funciones
 void PlayState::moveCharacter(){
+  Graph *myGraph = _scene->getGraph();
   Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
   Ogre::Vector3 charaTargetPosition;
   convertCoordinates(charaSNPosition, 0.0);
-  
+  unsigned int i = 0;
+  int verticesm[4] = {0,9,71,80};
+  Ogre::Vector3 auxPosition;
+  for(i=0;i<4;i++){
+    auxPosition = myGraph->getVertex(verticesm[i])->getData().getPosition();
+    if(abs(charaSNPosition.x - auxPosition.x) <= OMICRON){
+      if(abs(charaSNPosition.y - auxPosition.y) <= OMICRON){
+        _chara->setInvincibleSteps(INVSTEPS);
+        //cambiar color?
+      }
+    }
+  }
+  if(_chara->getInvincibleSteps()>0){
+    //hacer fantasmas debiles
+    for(i=0;i<_ghosts->size();i++){
+      _ghosts->at(i)->setMode('W');
+    }
+  }
+
   charaTargetPosition = _chara->getTarget()->getData().getPosition();
   if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
     if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
@@ -353,6 +373,17 @@ void PlayState::moveCharacter(){
       }*/
     }
   }
+  if(_chara->getInvincibleSteps()>0){
+    //le quitamos 1 paso de invencibilidad
+    _chara->setInvincibleSteps(-1);
+  }
+  if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
+    //poner fantasmas no debiles otra vez
+    for(i=0;i<_ghosts->size();i++){
+      _ghosts->at(i)->setMode('C');
+    }
+    //volver a color original??
+  }
 }
 
 void PlayState::moveGhosts(){
@@ -360,6 +391,7 @@ void PlayState::moveGhosts(){
   for(i=0;i<_ghosts->size();i++){
     Ogre::Vector3 ghostSNPosition = _ghosts->at(i)->getSceneNode()->getPosition();
     Ogre::Vector3 ghostTargetPosition;
+    Ogre::Vector3 auxPosition;
     Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
     convertCoordinates(ghostSNPosition, 0.0);
     convertCoordinates(charaSNPosition, 0.0);
@@ -372,11 +404,15 @@ void PlayState::moveGhosts(){
           loseLife();
         }
         else{
+          //el fantasma ha sido comido
+          _splay->actualizarPuntos(_ghosts->at(i)->getPoints());
           Graph *myGraph = _scene->getGraph();
           int verticesf[4] = {13,27,28,29};
           _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
           _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
-          _ghosts->at(i)->getSceneNode()->setPosition(_ghosts->at(i)->getGraphVertex()->getData().getPosition());
+          auxPosition = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
+          convertCoordinates(auxPosition, 0.0);
+          _ghosts->at(i)->getSceneNode()->setPosition(auxPosition);
         }      
       }
     }

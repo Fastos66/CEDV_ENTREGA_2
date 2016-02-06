@@ -22,6 +22,7 @@ class Character
 		int getHealth();
 		char getDirection();
 		double getSpeed();
+		int getInvincibleSteps();
 		
 		void setSceneNode(Ogre::SceneNode * node);
 		void setGraphVertex(GraphVertex * vertex);
@@ -29,6 +30,7 @@ class Character
 		void setHealth(int hp);
 		void setDirection(char direction);
 		void setSpeed(double speed);
+		void setInvincibleSteps(int invincibleSteps);
 
 	private:
 		Ogre::SceneNode * _node;
@@ -39,6 +41,7 @@ class Character
 		double _positionX;
 		double _positionY;
 		double _speed;
+		int _invincibleSteps;
 };
 
 #endif

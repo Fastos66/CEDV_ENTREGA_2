@@ -6,6 +6,7 @@ Character::Character(Ogre::SceneNode * node, GraphVertex * vertex){
 	_target = NULL;
 	_health = 3;
 	_direction = '-';
+	_invincibleSteps = 0;
 }
 Character::Character(){
 	_node = NULL;
@@ -13,6 +14,7 @@ Character::Character(){
 	_target = NULL;
 	_health = 3;
 	_direction = '-';
+	_invincibleSteps = 0;
 }
 Character::~Character(){
 
@@ -36,6 +38,9 @@ char Character::getDirection(){
 double Character::getSpeed(){
 	return _speed;
 }
+int Character::getInvincibleSteps(){
+	return _invincibleSteps;
+}
 		
 void Character::setSceneNode(Ogre::SceneNode * node){
 	_node = node;
@@ -54,4 +59,7 @@ void Character::setDirection(char direction){
 }
 void Character::setSpeed(double speed){
 	_speed = speed;
+}
+void Character::setInvincibleSteps(int invincibleSteps){
+	_invincibleSteps += invincibleSteps;
 }
