@@ -35,6 +35,7 @@ void MyScenePlay::creacionMapa(vector<Item*> *vItems){
         
         if (pactual->getData().getType().compare("gummelon")==0){
            
+            cout << "Gum" << i << endl;
             ostringstream os;
             os << "Gum" << i;
             Ogre::Entity* egum = _sceneManager->createEntity(os.str(), "Melon.mesh");
@@ -44,7 +45,7 @@ void MyScenePlay::creacionMapa(vector<Item*> *vItems){
             vItems->push_back(ite);
 
             nodegum->attachObject(egum);
-            nodegum -> setScale(0.45,0.45,0.45);
+            nodegum -> setScale(0.90,0.90,0.90);
             nodegum-> yaw(Ogre::Degree(-45));
             //nodemapa->addChild(nodegum);
             _sceneManager->getRootSceneNode()->addChild(nodegum);

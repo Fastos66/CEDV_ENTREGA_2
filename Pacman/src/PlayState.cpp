@@ -51,6 +51,7 @@ PlayState::enter ()
   _movementController->setGraph(_scene->getGraph());
   createCharacter();
   createGhosts();
+  _vector_anims_gum = new std::vector<Ogre::AnimationState*>;
   _lanzaranimationPG = true;
 }
 
@@ -86,6 +87,16 @@ PlayState::frameStarted
     _animStatePacmanG->setTimePosition(0.0);
     _animStatePacmanG->setEnabled(true);
     _animStatePacmanG->setLoop(true);
+    int posGum[4] = {0,9,71,80};
+    for (int i = 0; i < 4; ++i){
+        ostringstream os;
+        os << "Gum" << posGum[i];  
+        Ogre::AnimationState* animStateMelonG = _sceneMgr->getEntity(os.str())-> getAnimationState("FlotarMelon");
+        animStateMelonG->setTimePosition(0.0);
+        animStateMelonG->setEnabled(true);
+        animStateMelonG->setLoop(true);
+        _vector_anims_gum -> push_back(animStateMelonG);
+    }
     _lanzaranimationPG = false;
   }
   if (_animStatePacmanG != NULL) {
@@ -96,6 +107,17 @@ PlayState::frameStarted
      else {
        _animStatePacmanG->addTime(deltaT);
      }
+  }
+  for (int i = 0; i < 4; ++i){
+      Ogre::AnimationState* animStateMelon = _vector_anims_gum->at(i);
+      if (animStateMelon != NULL){
+        if (animStateMelon->hasEnded()){
+          animStateMelon->setTimePosition(0.0);
+          animStateMelon->setEnabled(false);
+        }else{
+          animStateMelon->addTime(deltaT);
+        }
+      }
   }
   if (_finalgame){
      pushState(FinalGameState::getSingletonPtr());
@@ -122,21 +144,25 @@ PlayState::keyPressed
   if (e.key == OIS::KC_W && !_inMovement) { // para arriba
     _chara->setDirection('U');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
+    changeCharaFacing();
     _inMovement = true;
   }
   if (e.key == OIS::KC_A && !_inMovement) { // para izquierda
     _chara->setDirection('L');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
+    changeCharaFacing();
     _inMovement = true;
   }
   if (e.key == OIS::KC_S && !_inMovement) { // para abajo
     _chara->setDirection('D');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
+    changeCharaFacing();
     _inMovement = true;
   }
   if (e.key == OIS::KC_D && !_inMovement) { // para derecha
     _chara->setDirection('R');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
+    changeCharaFacing();
     _inMovement = true;
   }
   if (e.key == OIS::KC_P) {
@@ -473,17 +499,21 @@ void PlayState::convertCoordinates(Ogre::Vector3 &vect, double offset){
   vect.z = aux;
 }
 
-void PlayState::changeCharaFacing(Character *chara){
+void PlayState::changeCharaFacing(){
   //Ogre::SceneNode *sceneNode = chara->getSceneNode();
-  char direction = chara->getDirection();
+  char direction = _chara->getDirection();
   switch(direction){
     case 'R':
+      _chara ->getSceneNode()->setOrientation(1,0,0,0);
       break;
     case 'L':
+      _chara ->getSceneNode()->setOrientation(0,0,1,0);
       break;
     case 'U':
+      _chara ->getSceneNode()->setOrientation(1,0,1,0);
       break;
     case 'D':
+      _chara ->getSceneNode()->setOrientation(1,0,-1,0);
       break;
   }
 }

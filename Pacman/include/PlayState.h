@@ -38,7 +38,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   MovementController * getMovementController();
   void setMovementController(MovementController* movementController);
   void convertCoordinates(Ogre::Vector3 &vector, double offset);
-  void changeCharaFacing(Character *chara);
+  void changeCharaFacing();
   void loseLife();
 
   // Heredados de Ogre::Singleton.
@@ -47,6 +47,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
  protected:
   Ogre::AnimationState *_animStatePacmanG;
+  std::vector<Ogre::AnimationState*> *_vector_anims_gum;
   bool _lanzaranimationPG;
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
