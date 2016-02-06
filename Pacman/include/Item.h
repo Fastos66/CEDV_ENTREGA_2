@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string> 
 #include <OGRE/Ogre.h>
+#include "GraphVertex.h"
 
 using namespace std;
 
@@ -16,23 +17,23 @@ class Item
 		~Item();
 		
 		Ogre::SceneNode * getSceneNode();
+		GraphVertex * getGraphVertex();
 		bool isMelon();
 		int getScore();
-		double getPositionX();
-		double getPositionY();
+		bool isActive();
 		
 		void setSceneNode(Ogre::SceneNode * node);
+		void setGraphVertex(GraphVertex * vertex);
 		void setMelon(bool melon);
 		void setScore(int score);
-		void setPositionX(double posX);
-		void setPositionY(double posY);
+		void setActive(bool active);
 
 	private:
 		Ogre::SceneNode * _node;	
+		GraphVertex * _vertex;
 		bool _melon;
 		int _score;
-		double _positionX;
-		double _positionY;
+		bool _active;
 };
 
 #endif

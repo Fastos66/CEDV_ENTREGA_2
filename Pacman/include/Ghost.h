@@ -22,8 +22,6 @@ class Ghost
 		int getLevel();
 		int getHealth();
 		char getDirection();
-		double getPositionX();
-		double getPositionY();
 		char getType();
 		char getMode();
 		double getSpeed();
@@ -37,8 +35,6 @@ class Ghost
 		void setLevel(int level);
 		void setHealth(int hp);
 		void setDirection(char direction);
-		void setPositionX(double posX);
-		void setPositionY(double posY);
 		void setType(char type);
 		void setMode(char mode);
 		void setSpeed(double speed);

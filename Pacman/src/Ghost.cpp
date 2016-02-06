@@ -6,8 +6,6 @@ Ghost::Ghost(Ogre::SceneNode * node, GraphVertex * vertex){
 	_level = 1;
 	_health = 1; //por ejemplo
 	_direction = '-';
-	_positionX = 0.0;
-	_positionY = 0.0;
 	_type = '-';
 	_mode = 'S'; // W-> Weak, C -> Chasing, S -> Scattering
 	_speed = 1.0;
@@ -20,8 +18,6 @@ Ghost::Ghost(){
 	_level = 1;
 	_health = 1; //por ejemplo
 	_direction = '-';
-	_positionX = 0.0;
-	_positionY = 0.0;
 	_type = '-';
 	_mode = 'S'; // W-> Weak, C -> Chasing, S -> Scattering
 	_speed = 1.0;
@@ -46,12 +42,6 @@ int Ghost::getHealth(){
 }
 char Ghost::getDirection(){
 	return _direction;
-}
-double Ghost::getPositionX(){
-	return _positionX;
-}
-double Ghost::getPositionY(){
-	return _positionY;
 }
 char Ghost::getType(){
 	return _type;
@@ -86,12 +76,6 @@ void Ghost::setHealth(int hp){
 }
 void Ghost::setDirection(char direction){
 	_direction = direction;
-}
-void Ghost::setPositionX(double posX){
-	_positionX = posX;
-}
-void Ghost::setPositionY(double posY){
-	_positionY = posY;
 }
 void Ghost::setType(char type){
 	_type = type;

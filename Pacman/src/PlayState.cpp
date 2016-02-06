@@ -70,27 +70,6 @@ bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
-  _vectAux = _ghosts->at(0)->getSceneNode()->getPosition();
-  convertCoordinates(_vectAux,0.0);
-  if((_vectAux == _ghosts->at(0)->getGraphVertex()->getData().getPosition()) || (_vectAux == _ghosts->at(0)->getTarget()->getData().getPosition())){
-    //si se encuentra en un nodo, calcular la direccion
-    _ghosts->at(0)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(0),_chara));
-  }
-  _vectAux = _ghosts->at(1)->getSceneNode()->getPosition();
-  if((_vectAux == _ghosts->at(1)->getGraphVertex()->getData().getPosition()) || (_vectAux == _ghosts->at(1)->getTarget()->getData().getPosition())){
-    //si se encuentra en un nodo, calcular la direccion
-    _ghosts->at(1)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(1),_chara));
-  }
-  _vectAux = _ghosts->at(2)->getSceneNode()->getPosition();
-  if((_vectAux == _ghosts->at(2)->getGraphVertex()->getData().getPosition()) || (_vectAux == _ghosts->at(2)->getTarget()->getData().getPosition())){
-    //si se encuentra en un nodo, calcular la direccion
-    _ghosts->at(2)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(2),_chara));
-  }
-  _vectAux = _ghosts->at(3)->getSceneNode()->getPosition();
-  if((_vectAux == _ghosts->at(3)->getGraphVertex()->getData().getPosition()) || (_vectAux == _ghosts->at(3)->getTarget()->getData().getPosition())){
-    //si se encuentra en un nodo, calcular la direccion
-    _ghosts->at(3)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(3),_chara));
-  }
   moveCharacter();
   moveGhosts();
   Ogre::Real deltaT = evt.timeSinceLastFrame;
@@ -371,10 +350,14 @@ void PlayState::moveGhosts(){
         _ghosts->at(i)->getSceneNode()->setPosition(vecPos);
         //_inMovement = false;
         _ghosts->at(i)->setGraphVertex(_ghosts->at(i)->getTarget());
+        /*if(_movementController->isGhostValidDirection(_ghosts->at(i))){
+          _ghosts->at(i)->setTarget(_movementController->getVertexByDirection(_ghosts->at(i)));
+        }*/
+        _ghosts->at(i)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(i),_chara)); 
         if(_movementController->isGhostValidDirection(_ghosts->at(i))){
           _ghosts->at(i)->setTarget(_movementController->getVertexByDirection(_ghosts->at(i)));
-        }
-        _ghosts->at(i)->setDirection('-');
+        }  
+        //_ghosts->at(i)->setDirection('-');
         //_ghosts->at(0)->setTarget(_ghosts->at(0)->getGraphVertex());
         //recalculo target
       }
