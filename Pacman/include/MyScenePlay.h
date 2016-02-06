@@ -21,6 +21,9 @@ class MyScenePlay
 		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
 		void crearmenuCEGUI();
 		void actualizarPuntos(int newpuntos);
+
+		void cargarlives();
+		void perderlive(int numlive);
 		
 		string getpuntosjugador();
 		string getnombrejugador();

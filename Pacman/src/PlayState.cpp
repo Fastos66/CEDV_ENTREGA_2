@@ -35,6 +35,8 @@ PlayState::enter ()
   _splay -> cargarscenainicial();
   _splay -> creacionMapa(_vItem);
   _splay -> crearmenuCEGUI();
+  _splay -> cargarlives();
+  
   _exitGame = false;
   _inMovement = false;
   _isOver = true;

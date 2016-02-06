@@ -9,7 +9,7 @@
             <Property name="Font" value="DejaVuSans-12-NoScale" />
             <Property name="Text" value="NewName" />
         </Window>
-        <Window type="OgreTray/StaticText" name="StaticText" >
+        <Window type="OgreTray/StaticText" name="IntroduceName" >
             <Property name="Area" value="{{0,86},{0,141},{0,410},{0,208}}" />
             <Property name="Font" value="Jura-18" />
             <Property name="Text" value="Introduce tu nombre:" />
@@ -69,7 +69,7 @@
             <Property name="Area" value="{{0,258},{0,342},{0,429},{0,392}}" />
             <Property name="Text" value="Exit" />
         </Window>
-        <Window type="OgreTray/StaticText" name="StaticText3" >
+        <Window type="OgreTray/StaticText" name="X" >
             <Property name="Area" value="{{0,165},{0,338},{0,233},{0,398}}" />
             <Property name="Text" value="  X" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
@@ -94,7 +94,7 @@
                 </AutoWindow>
             </AutoWindow>
         </Window>
-        <Window type="OgreTray/StaticText" name="StaticText4" >
+        <Window type="OgreTray/StaticText" name="M" >
             <Property name="Area" value="{{0,164},{0,271},{0,231},{0,327}}" />
             <Property name="Text" value="  M" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />

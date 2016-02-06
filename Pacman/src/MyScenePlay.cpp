@@ -108,6 +108,11 @@ void MyScenePlay::pedirelnombre_actualizar_ranking(){
 	  CEGUI::Window* ventpuntos = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Puntuacion.layout");
 	  ventpuntos->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21f,0),CEGUI::UDim(0.20f,0)));
 	  
+    //Act Puntos
+    CEGUI::Window* points = _sheet -> getChild("PointsPlayer");
+    CEGUI::Window* puntosplayer = ventpuntos->getChild("PuntosPlayer");
+    puntosplayer->setText(points->getText().c_str());
+
     CEGUI::Window* exitbutton = ventpuntos->getChild("ExitButton");
       exitbutton->subscribeEvent(CEGUI::PushButton::EventClicked,
           CEGUI::Event::Subscriber(&FinalGameState::exitButtonC, 
@@ -148,4 +153,24 @@ string MyScenePlay::getpuntosjugador(){
 }
 string MyScenePlay::getnombrejugador(){
      return _sheet->getChild("Puntuacion")->getChild("NombrePlayer")->getText().c_str();
+}
+
+void MyScenePlay::cargarlives(){
+     double posx[3] = {3,2.5,2};
+     for (int i = 0; i < 3; ++i){
+          ostringstream os;
+          os << "Live" << i;  
+          Ogre::Entity* elive = _sceneManager->createEntity(os.str(), "FantasmaR.mesh");
+          Ogre::SceneNode* nodelive = _sceneManager->createSceneNode(os.str());
+          nodelive->attachObject(elive);
+          nodelive->setPosition(posx[i],7.7,0);   
+          nodelive->setScale(0.2,0.2,0.2);
+          nodelive->yaw(Ogre::Degree(-82.5));
+          _sceneManager->getRootSceneNode()->addChild(nodelive);
+     }
+}
+void MyScenePlay::perderlive(int numlive){
+    ostringstream os;
+    os << "Live" << numlive;
+    _sceneManager->getSceneNode(os.str())->setVisible(false); 
 }
