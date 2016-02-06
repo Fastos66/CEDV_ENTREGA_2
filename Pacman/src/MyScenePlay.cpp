@@ -25,18 +25,24 @@ void MyScenePlay::cargarscenainicial(){
   nodemapa-> setPosition(0,0.1,0);
   nodemapa-> yaw(Ogre::Degree(180));
 }	
-void MyScenePlay::creacionMapa(){
+void MyScenePlay::creacionMapa(vector<Item*> *vItems){
     GraphVertex* pactual;
     int tamgrafo= _scene->getGraph()->getVertexes().size();
     //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
     for (int i = 0; i < tamgrafo; ++i){
         pactual = _scene->getGraph()->getVertex(i);
         cout << "1Vertex " << pactual->getData().getPosition()  << endl;
+        
         if (pactual->getData().getType().compare("gummelon")==0){
+           
             ostringstream os;
             os << "Gum" << i;
             Ogre::Entity* egum = _sceneManager->createEntity(os.str(), "Melon.mesh");
             Ogre::SceneNode* nodegum = _sceneManager->createSceneNode(os.str());
+            Item *ite = new Item(nodegum,true);
+            ite-> setGraphVertex(pactual);
+            vItems->push_back(ite);
+
             nodegum->attachObject(egum);
             nodegum -> setScale(0.45,0.45,0.45);
             nodegum-> yaw(Ogre::Degree(-45));
@@ -49,6 +55,10 @@ void MyScenePlay::creacionMapa(){
             os << "BolaC" << i;
             Ogre::Entity* ebola = _sceneManager->createEntity(os.str(), "BolaComer.mesh");
             Ogre::SceneNode* nodebola = _sceneManager->createSceneNode(os.str());
+            Item *ite = new Item(nodebola,false);
+            ite->setGraphVertex(pactual);
+            vItems->push_back(ite);
+
             nodebola->attachObject(ebola);
             //nodemapa->addChild(nodebola);
             _sceneManager->getRootSceneNode()->addChild(nodebola);
@@ -85,7 +95,7 @@ void MyScenePlay::crearmenuCEGUI(){
 void MyScenePlay::convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset){
     node-> setPosition(vect.x,vect.z+offset,vect.y); 
 }
-void MyScenePlay::acualizarPuntos(int newpuntos){
+void MyScenePlay::actualizarPuntos(int newpuntos){
     CEGUI::Window* points = _sheet -> getChild("PointsPlayer");
     int points_actuales = atoi(points->getText().c_str());
     cout << "Puntos Actuales:" << points_actuales << endl; 

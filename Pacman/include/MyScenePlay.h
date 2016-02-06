@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string> 
+#include "Item.h"
 class MyScenePlay
 {
 	public:
@@ -16,10 +17,10 @@ class MyScenePlay
 		~MyScenePlay();
 		void cargarscenainicial();
 		void pedirelnombre_actualizar_ranking();
-		void creacionMapa();
+		void creacionMapa(std::vector<Item*> *vItems);
 		void convertCoordinates(const Ogre::Vector3 &vect, Ogre::SceneNode* node, double offset);
 		void crearmenuCEGUI();
-		void acualizarPuntos(int newpuntos);
+		void actualizarPuntos(int newpuntos);
 		
 		string getpuntosjugador();
 		string getnombrejugador();

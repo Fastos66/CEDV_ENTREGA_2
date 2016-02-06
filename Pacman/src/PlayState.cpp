@@ -29,14 +29,18 @@ PlayState::enter ()
   CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setVisible(false);
   //cout << "\t#Vertexes: " << _scene->getGraph()->getVertexes().size() << endl;
   //cout << "\t#Edges: " << _scene->getGraph()->getEdges().size() << endl;
-  
+  _vItem = new std::vector<Item*>;
+
   _splay = new MyScenePlay(_sceneMgr,_scene,_camera);
   _splay -> cargarscenainicial();
-  _splay -> creacionMapa();
+  _splay -> creacionMapa(_vItem);
   _splay -> crearmenuCEGUI();
   _exitGame = false;
   _inMovement = false;
   _isOver = true;
+
+  _contadorItems = 0;
+  _finalgame = false;
 
   _ghosts = new std::vector<Ghost*>;
   _movementController = new MovementController(_ghosts, _chara);
@@ -88,6 +92,9 @@ PlayState::frameStarted
      else {
        _animStatePacmanG->addTime(deltaT);
      }
+  }
+  if (_finalgame){
+     pushState(FinalGameState::getSingletonPtr());
   }
   return true;
 }
@@ -300,6 +307,18 @@ void PlayState::moveCharacter(){
       _chara->getSceneNode()->setPosition(vecPos);
       _inMovement = false;
       _chara->setGraphVertex(_chara->getTarget());
+      //Pacman Come Items
+      Item *item =  _vItem->at(_chara->getGraphVertex()->getData().getIndex());
+      if( item->isActive()){
+          item ->getSceneNode()->setVisible(false);
+          item->setActive(false);
+          _splay->actualizarPuntos(item->getScore());
+          _contadorItems++;
+          if (_contadorItems==81){
+            _finalgame = true;
+          }
+      }
+      
       if(_movementController->isCharValidDirection(_chara)){
          _chara->setTarget(_movementController->getVertexByDirection(_chara));
       }

@@ -61,6 +61,11 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   std::vector<Ghost*> *_ghosts;
   Ogre::Vector3 _vectAux;
   bool _isOver;
+
+
+  int _contadorItems;
+  bool _finalgame;
+  std::vector<Item*> *_vItem;
 };
 
 #endif

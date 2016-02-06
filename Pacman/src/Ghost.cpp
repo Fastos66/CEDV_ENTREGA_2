@@ -10,7 +10,7 @@ Ghost::Ghost(Ogre::SceneNode * node, GraphVertex * vertex){
 	_mode = 'S'; // W-> Weak, C -> Chasing, S -> Scattering
 	_speed = 1.0;
 	_weaknessDuration = 5.0;  //que tambien sirva como tiempo de respawn?
-	_points = 200;
+	_points = 100;
 }
 Ghost::Ghost(){
 	_node = NULL;
@@ -22,7 +22,7 @@ Ghost::Ghost(){
 	_mode = 'S'; // W-> Weak, C -> Chasing, S -> Scattering
 	_speed = 1.0;
 	_weaknessDuration = 5.0;  //que tambien sirva como tiempo de respawn?
-	_points = 200;
+	_points = 100;
 }
 Ghost::~Ghost(){
 

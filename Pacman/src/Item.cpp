@@ -3,10 +3,12 @@
 Item::Item(Ogre::SceneNode * node, bool melon){
 	_node = node;
 	_melon = melon;
+	_active = true;
+	_vertex = NULL;
 	if(_melon)
-		_score = 500; //por ejemplo
+		_score = 25; //por ejemplo
 	else
-		_score = 100; //por ejemplo
+		_score = 5; //por ejemplo
 }
 GraphVertex * Item::getGraphVertex(){
 	return _vertex;
@@ -14,11 +16,13 @@ GraphVertex * Item::getGraphVertex(){
 
 Item::Item(bool melon){
 	_node = NULL;
+	_active = true;
+	_vertex = NULL;
 	_melon = melon;
 	if(_melon)
-		_score = 500; //por ejemplo
+		_score = 25; //por ejemplo
 	else
-		_score = 100; //por ejemplo
+		_score = 5; //por ejemplo
 }
 Item::~Item(){
 	
