@@ -3,6 +3,7 @@
 #include "FinalGameState.h"
 #include "MyScenePlay.h"
 #define EPSILON 0.02
+#define OMICRON 0.4
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
@@ -359,9 +360,28 @@ void PlayState::moveGhosts(){
   for(i=0;i<_ghosts->size();i++){
     Ogre::Vector3 ghostSNPosition = _ghosts->at(i)->getSceneNode()->getPosition();
     Ogre::Vector3 ghostTargetPosition;
+    Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
     convertCoordinates(ghostSNPosition, 0.0);
-  
+    convertCoordinates(charaSNPosition, 0.0);
+
     ghostTargetPosition = _ghosts->at(i)->getTarget()->getData().getPosition();
+    
+    if(abs(ghostSNPosition.x - charaSNPosition.x) <= OMICRON){
+      if(abs(ghostSNPosition.y - charaSNPosition.y) <= OMICRON){
+        if(_ghosts->at(i)->getMode()!='W'){
+          loseLife();
+        }
+        else{
+          Graph *myGraph = _scene->getGraph();
+          int verticesf[4] = {13,27,28,29};
+          _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
+          _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
+          _ghosts->at(i)->getSceneNode()->setPosition(_ghosts->at(i)->getGraphVertex()->getData().getPosition());
+        }      
+      }
+    }
+    
+
     if(std::abs(ghostSNPosition.x - ghostTargetPosition.x) <= EPSILON){
       if(std::abs(ghostSNPosition.y - ghostTargetPosition.y) <= EPSILON){
         // si el personaje esta muy cerca del nodo target
@@ -432,3 +452,47 @@ void PlayState::changeCharaFacing(Character *chara){
   }
 }
 
+void PlayState::loseLife(){
+  //le bajo la vida al personaje
+  Graph *myGraph = _scene->getGraph();
+  Ogre::Vector3 positionAux;
+  if(_chara->getHealth() > 0){
+    _chara->setHealth(_chara->getHealth()-1);  
+  }
+  
+  switch(_chara->getHealth()){
+    case 2:
+      _splay->perderlive(0);  //le quito la vida de la GUI
+      break;
+    case 1:
+      _splay->perderlive(1);  //le quito la vida de la GUI
+      break;
+    case 0:
+      _splay->perderlive(2);  //le quito la vida de la GUI
+      break;
+  }
+  
+  if(_chara->getHealth() > 0){
+    //Devuelvo al personaje a su posicion inicial
+    _chara->setGraphVertex(myGraph->getVertexes().at(57));
+    _chara->setTarget(myGraph->getVertexes().at(57));
+    positionAux = _chara->getGraphVertex()->getData().getPosition();
+    convertCoordinates(positionAux,0.0);
+    _chara->getSceneNode()->setPosition(positionAux);
+    //Devuelvo los fantasmas a sus posiciones iniciales
+    int verticesf[4] = {13,27,28,29};
+    unsigned int i = 0;
+    for(i=0;i<_ghosts->size();i++){
+      _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
+      _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
+      positionAux = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
+      convertCoordinates(positionAux,0.0);
+      _ghosts->at(i)->getSceneNode()->setPosition(positionAux);
+    }
+  }
+  else{
+    //GAMEOVER
+    _chara->getSceneNode()->setVisible(false);
+    _finalgame = true;
+  }
+}

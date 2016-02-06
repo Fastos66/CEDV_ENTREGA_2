@@ -1,6 +1,7 @@
 #include "MovementController.h"
 #include <algorithm>
 #define CHASINGDIST 8
+#define EPSILON 0.03
 
 MovementController::MovementController(std::vector<Ghost*> *ghosts, Character *chara){
 	_ghosts = ghosts;
@@ -110,7 +111,7 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 
 			}*/
 			if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
-				//Va hacia abajo a la derecha
+				//Va hacia abajo a la derecha0
 				difX = _graph->getVertex(80)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
 				difY = _graph->getVertex(80)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
 				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
@@ -181,8 +182,10 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 	}
 	else{  // si no es inteligente
 		if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
-			if(ghost->getGraphVertex()->getData().getIndex() == chara->getGraphVertex()->getData().getIndex()){
-				chosenVertex = chara->getGraphVertex();
+			if(abs(ghost->getSceneNode()->getPosition().x - chara->getSceneNode()->getPosition().x) <=EPSILON){
+				if(abs(ghost->getSceneNode()->getPosition().z - chara->getSceneNode()->getPosition().z) <=EPSILON){
+					chosenVertex = chara->getTarget();
+				}
 			}
 			else{
 				adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
@@ -193,8 +196,10 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 		}
 		else{
 			std::srand(std::time(0));
-			if(ghost->getGraphVertex()->getData().getIndex() == chara->getGraphVertex()->getData().getIndex()){
-				chosenVertex = chara->getGraphVertex();
+			if(abs(ghost->getSceneNode()->getPosition().x - chara->getSceneNode()->getPosition().x) <=EPSILON){
+				if(abs(ghost->getSceneNode()->getPosition().z - chara->getSceneNode()->getPosition().z) <=EPSILON){
+					chosenVertex = chara->getTarget();
+				}
 			}
 			else{
 				adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
