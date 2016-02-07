@@ -250,6 +250,16 @@ void MyScene::controles(){
   imgpuntos -> setSize(CEGUI::USize(CEGUI::UDim(0.20f,0),CEGUI::UDim(0.14f,0)));  
   imgpuntos -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.05f,0),CEGUI::UDim(0.30f,0)));
   ventcontroles -> addChild(imgpuntos);
+
+  CEGUI::Window* imgpuntosPJ = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","ImagenPuntosPJ");
+  CEGUI::ImageManager::getSingleton().addFromImageFile("INamePuntosPJ","puntosControl.png");
+  imgpuntosPJ -> setProperty("Image","INamePuntosPJ");
+  imgpuntosPJ -> setProperty("BackgroundEnabled","False");
+  imgpuntosPJ -> setProperty("FrameEnabled","False");
+  imgpuntosPJ -> setSize(CEGUI::USize(CEGUI::UDim(0.40f,0),CEGUI::UDim(0.40f,0)));  
+  imgpuntosPJ -> setPosition(CEGUI::UVector2(CEGUI::UDim(0.16f,0),CEGUI::UDim(0.40f,0)));
+  ventcontroles -> addChild(imgpuntosPJ);
+
 }
 
 bool MyScene::limpiarpantallaCEGUIControles(){
