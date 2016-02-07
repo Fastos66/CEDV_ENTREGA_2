@@ -4,7 +4,7 @@
 #include "MyScenePlay.h"
 #define EPSILON 0.02
 #define OMICRON 0.4
-#define INVSTEPS 12
+#define INVSTEPS 9
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
@@ -203,7 +203,7 @@ PlayState::keyPressed
     _sceneMgr->getSceneNode("MapaM")->setVisible(false);
   }
   if (e.key == OIS::KC_G) {
-     Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));;
+    Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));;
     cout << ent->getNumSubEntities() << endl;
     for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
       Ogre::SubEntity *aux = ent->getSubEntity(i);
@@ -345,6 +345,13 @@ void PlayState::moveCharacter(){
           _chara->setInvincibleSteps(INVSTEPS);
           cout << "I ON" <<endl;
         //cambiar color?
+          Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));
+          for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
+            Ogre::SubEntity *aux = ent->getSubEntity(i);
+            if (aux->getMaterialName() == "CuerpoPacmanP"){
+              aux->setMaterialName("CuerpoPacmanPower");
+            } 
+          }  
         }
       }
     }
@@ -422,7 +429,15 @@ void PlayState::moveCharacter(){
         for(i=0;i<_ghosts->size();i++){
           _ghosts->at(i)->setMode('C');
         }
-        //volver a color original??
+        //volver a color original
+        Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));
+        for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
+          Ogre::SubEntity *aux = ent->getSubEntity(i);
+          cout<<aux->getMaterialName()<<endl;
+          if (aux->getMaterialName() == "CuerpoPacmanPower"){
+            aux->setMaterialName("CuerpoPacmanP");
+          } 
+        }  
       }
     }
   }
