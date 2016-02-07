@@ -57,6 +57,8 @@ FinalGameState::frameEnded
 void
 FinalGameState::keyPressed
 (const OIS::KeyEvent &e) {
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(static_cast<CEGUI::Key::Scan>(e.key));
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
   // Tecla p --> Estado anterior.
   if (e.key == OIS::KC_ESCAPE) {
     _exitGame = true;
@@ -72,6 +74,7 @@ void
 FinalGameState::keyReleased
 (const OIS::KeyEvent &e)
 {
+  CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(static_cast<CEGUI::Key::Scan>(e.key));
 }
 
 void
