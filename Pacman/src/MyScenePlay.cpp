@@ -27,6 +27,7 @@ void MyScenePlay::cargarscenainicial(){
 }	
 void MyScenePlay::creacionMapa(vector<Item*> *vItems){
     GraphVertex* pactual;
+    Graph* myGraph;
     int tamgrafo= _scene->getGraph()->getVertexes().size();
     //Ogre::SceneNode* nodemapa =  _sceneManager->getSceneNode("MapaM");  
     for (int i = 0; i < tamgrafo; ++i){
@@ -67,6 +68,8 @@ void MyScenePlay::creacionMapa(vector<Item*> *vItems){
             convertCoordinates(position,nodebola,0.2); 
         }
     }
+    myGraph = _scene->getGraph();
+    myGraph->addEdge(myGraph->getVertex(0),myGraph->getVertex(80)); //Para el teletransporte
 }
 
 void MyScenePlay::crearmenuCEGUI(){

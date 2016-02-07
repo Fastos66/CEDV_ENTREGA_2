@@ -4,7 +4,7 @@
 #include "MyScenePlay.h"
 #define EPSILON 0.02
 #define OMICRON 0.4
-#define INVSTEPS 8
+#define INVSTEPS 12
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
@@ -45,6 +45,7 @@ PlayState::enter ()
 
   _contadorItems = 0;
   _finalgame = false;
+  _caught = false;
 
   _ghosts = new std::vector<Ghost*>;
   _movementController = new MovementController(_ghosts, _chara);
@@ -334,8 +335,11 @@ void PlayState::moveCharacter(){
     auxPosition = myGraph->getVertex(verticesm[i])->getData().getPosition();
     if(abs(charaSNPosition.x - auxPosition.x) <= OMICRON){
       if(abs(charaSNPosition.y - auxPosition.y) <= OMICRON){
-        _chara->setInvincibleSteps(INVSTEPS);
+        if(_vItem->at(verticesm[i])->isActive()){  
+          _chara->setInvincibleSteps(INVSTEPS);
+          cout << "I ON" <<endl;
         //cambiar color?
+        }
       }
     }
   }
@@ -345,6 +349,9 @@ void PlayState::moveCharacter(){
       _ghosts->at(i)->setMode('W');
     }
   }
+
+  GraphVertex *previousTargetPtr = _chara->getTarget();
+  int previousTargetIndex = previousTargetPtr->getData().getIndex();
 
   charaTargetPosition = _chara->getTarget()->getData().getPosition();
   if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
@@ -399,17 +406,43 @@ void PlayState::moveCharacter(){
       }*/
     }
   }
-  if(_chara->getInvincibleSteps()>0){
-    //le quitamos 1 paso de invencibilidad
-    _chara->setInvincibleSteps(-1);
-  }
-  if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
-    //poner fantasmas no debiles otra vez
-    for(i=0;i<_ghosts->size();i++){
-      _ghosts->at(i)->setMode('C');
+  else{
+    if(_chara->getInvincibleSteps()>0){
+      //le quitamos 1 paso de invencibilidad
+      _chara->setInvincibleSteps(-1);
+      if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
+        cout << "I OFF" <<endl;
+        //poner fantasmas no debiles otra vez
+        for(i=0;i<_ghosts->size();i++){
+          _ghosts->at(i)->setMode('C');
+        }
+        //volver a color original??
+      }
     }
-    //volver a color original??
   }
+  /*if(previousTarget->getData().getPosition() != _chara->getTarget()->getData().getPosition()){
+    //si se ha movido
+    if(_chara->getInvincibleSteps()>0){
+      //le quitamos 1 paso de invencibilidad
+      _chara->setInvincibleSteps(-1);
+    }
+  }*/
+  /*if(_chara->getInvincibleSteps()>0){
+    if(previousTargetIndex != _chara->getTarget()->getData().getIndex()){
+      //si se ha movido
+      //le quitamos 1 paso de invencibilidad
+      _chara->setInvincibleSteps(-1);
+    }
+    if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
+      cout << "Invencibilidad OFF" <<endl;
+      //poner fantasmas no debiles otra vez
+      for(i=0;i<_ghosts->size();i++){
+        _ghosts->at(i)->setMode('C');
+      }
+      //volver a color original??
+    }
+  }*/
+
 }
 
 void PlayState::moveGhosts(){
@@ -522,43 +555,46 @@ void PlayState::loseLife(){
   //le bajo la vida al personaje
   Graph *myGraph = _scene->getGraph();
   Ogre::Vector3 positionAux;
-  if(_chara->getHealth() > 0){
-    _chara->setHealth(_chara->getHealth()-1);  
-  }
-  
-  switch(_chara->getHealth()){
-    case 2:
-      _splay->perderlive(0);  //le quito la vida de la GUI
-      break;
-    case 1:
-      _splay->perderlive(1);  //le quito la vida de la GUI
-      break;
-    case 0:
-      _splay->perderlive(2);  //le quito la vida de la GUI
-      break;
-  }
-  
-  if(_chara->getHealth() > 0){
-    //Devuelvo al personaje a su posicion inicial
-    _chara->setGraphVertex(myGraph->getVertexes().at(57));
-    _chara->setTarget(myGraph->getVertexes().at(57));
-    positionAux = _chara->getGraphVertex()->getData().getPosition();
-    convertCoordinates(positionAux,0.0);
-    _chara->getSceneNode()->setPosition(positionAux);
-    //Devuelvo los fantasmas a sus posiciones iniciales
-    int verticesf[4] = {13,27,28,29};
-    unsigned int i = 0;
-    for(i=0;i<_ghosts->size();i++){
-      _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
-      _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
-      positionAux = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
-      convertCoordinates(positionAux,0.0);
-      _ghosts->at(i)->getSceneNode()->setPosition(positionAux);
+  if(!_caught){
+    if(_chara->getHealth() > 0){
+      _chara->setHealth(_chara->getHealth()-1);  
     }
-  }
-  else{
-    //GAMEOVER
-    _chara->getSceneNode()->setVisible(false);
-    _finalgame = true;
+  
+    switch(_chara->getHealth()){
+      case 2:
+        _splay->perderlive(0);  //le quito la vida de la GUI
+        break;
+      case 1:
+        _splay->perderlive(1);  //le quito la vida de la GUI
+        break;
+      case 0:
+        _splay->perderlive(2);  //le quito la vida de la GUI
+        break;
+    }
+  
+    if(_chara->getHealth() > 0){
+      //Devuelvo al personaje a su posicion inicial
+      _chara->setGraphVertex(myGraph->getVertexes().at(57));
+      _chara->setTarget(myGraph->getVertexes().at(57));
+      positionAux = _chara->getGraphVertex()->getData().getPosition();
+      convertCoordinates(positionAux,0.0);
+      _chara->getSceneNode()->setPosition(positionAux);
+      //Devuelvo los fantasmas a sus posiciones iniciales
+      int verticesf[4] = {13,27,28,29};
+      unsigned int i = 0;
+      for(i=0;i<_ghosts->size();i++){
+        _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
+        _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
+        positionAux = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
+        convertCoordinates(positionAux,0.0);
+        _ghosts->at(i)->getSceneNode()->setPosition(positionAux);
+      }
+      _caught = false;
+    }
+    else{
+      //GAMEOVER
+      _chara->getSceneNode()->setVisible(false);
+      _finalgame = true;
+    }  
   }
 }
