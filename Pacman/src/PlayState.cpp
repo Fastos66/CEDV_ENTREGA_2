@@ -203,8 +203,14 @@ PlayState::keyPressed
     _sceneMgr->getSceneNode("MapaM")->setVisible(false);
   }
   if (e.key == OIS::KC_G) {
-     //Graph *myGraph = _scene->getGraph();
-    //_movementController->printAdjList(myGraph);
+     Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));;
+    cout << ent->getNumSubEntities() << endl;
+    for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
+      Ogre::SubEntity *aux = ent->getSubEntity(i);
+      cout << aux->getMaterialName() << endl;
+      if (aux->getMaterialName() == "CuerpoPacmanP") 
+        aux->setMaterialName("CuerpoPacmanPower");
+      }  
   }
   // Tecla p --> PauseState.
   if (e.key == OIS::KC_M) {
