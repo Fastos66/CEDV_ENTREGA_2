@@ -409,7 +409,7 @@ void PlayState::moveCharacter(){
             item->setActive(false);
             _splay->actualizarPuntos(item->getScore());
             _contadorItems++;
-            if (_contadorItems==81){
+            if (_contadorItems==83){
               _finalgame = true;
             }
         }
