@@ -64,6 +64,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Ogre::Vector3 _vectAux;
   bool _isOver;
   bool _caught;
+  bool _justTeleported;
 
 
   int _contadorItems;

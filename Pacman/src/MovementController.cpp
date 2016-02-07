@@ -142,55 +142,61 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 		
 		for(i=0;i<adjacentVerts.size();i++){
 			vertex = adjacentVerts.at(i);
-			if((ghost->getMode() == 'C')||(ghost->getMode() == 'W')){
-				difX = chara->getGraphVertex()->getData().getPosition().x - vertex->getData().getPosition().x;
-				difY = chara->getGraphVertex()->getData().getPosition().y - vertex->getData().getPosition().y;
-				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));	
-				if((ghost->getMode() == 'C')&& (minDistance > auxDistance)){
-					minDistance = auxDistance;
-					chosenVertex = vertex;
+			if(vertex->getData().getType().compare("pozo")!=0){ //Si el vertice no es un pozo
+				if((ghost->getMode() == 'C')||(ghost->getMode() == 'W')){
+					difX = chara->getGraphVertex()->getData().getPosition().x - vertex->getData().getPosition().x;
+					difY = chara->getGraphVertex()->getData().getPosition().y - vertex->getData().getPosition().y;
+					auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));	
+					if((ghost->getMode() == 'C')&& (minDistance > auxDistance)){
+						minDistance = auxDistance;
+						chosenVertex = vertex;
+					}
+					else if((ghost->getMode() == 'W')&&(minDistance < auxDistance)){ //si esta debil, se aleja
+						minDistance = auxDistance;
+						chosenVertex = vertex;
+					}
 				}
-				else if((ghost->getMode() == 'W')&&(minDistance < auxDistance)){ //si esta debil, se aleja
-					minDistance = auxDistance;
-					chosenVertex = vertex;
+				else{
+					/*if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
+						vertIndex=9;
+					}*/
+					if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
+						vertIndex=80;
+					}
+					/*else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
+						vertIndex=71;
+					}*/
+					else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
+						vertIndex=0;
+					}
+					difX = _graph->getVertex(vertIndex)->getData().getPosition().x - vertex->getData().getPosition().x;
+					difY = _graph->getVertex(vertIndex)->getData().getPosition().y - vertex->getData().getPosition().y;
+					auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
+					if(minDistance > auxDistance){
+						minDistance = auxDistance;
+						chosenVertex = vertex;
+					}
 				}
 			}
-			else{
-				/*if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
-					vertIndex=9;
-				}*/
-				if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
-					vertIndex=80;
-				}
-				/*else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
-					vertIndex=71;
-				}*/
-				else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
-					
-					vertIndex=0;
-				}
-				difX = _graph->getVertex(vertIndex)->getData().getPosition().x - vertex->getData().getPosition().x;
-				difY = _graph->getVertex(vertIndex)->getData().getPosition().y - vertex->getData().getPosition().y;
-				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
-				if(minDistance > auxDistance){
-					minDistance = auxDistance;
-					chosenVertex = vertex;
-				}
-			}
-
 		}
 	}
 	else{  // si no es inteligente
 		if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
 			if(abs(ghost->getSceneNode()->getPosition().x - chara->getSceneNode()->getPosition().x) <=EPSILON){
 				if(abs(ghost->getSceneNode()->getPosition().z - chara->getSceneNode()->getPosition().z) <=EPSILON){
-					chosenVertex = chara->getTarget();
+					if(vertex->getData().getType().compare("pozo")!=0){ //Si el vertice no es un pozo
+						chosenVertex = chara->getTarget();
+					}
 				}
 			}
 			else{
 				adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
 				int randomIndex = std::rand()%adjacentVerts.size();
-				chosenVertex = adjacentVerts.at(randomIndex);	
+				if(vertex->getData().getType().compare("pozo")!=0){ //Si el vertice no es un pozo
+					chosenVertex = adjacentVerts.at(randomIndex);
+				}
+				
+					
 			}
 			
 		}
@@ -198,13 +204,17 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 			std::srand(std::time(0));
 			if(abs(ghost->getSceneNode()->getPosition().x - chara->getSceneNode()->getPosition().x) <=EPSILON){
 				if(abs(ghost->getSceneNode()->getPosition().z - chara->getSceneNode()->getPosition().z) <=EPSILON){
-					chosenVertex = chara->getTarget();
+					if(vertex->getData().getType().compare("pozo")!=0){ //Si el vertice no es un pozo
+						chosenVertex = chara->getTarget();
+					}
 				}
 			}
 			else{
 				adjacentVerts = _graph->adjacents(ghost->getGraphVertex()->getData().getIndex());
 				int randomIndex = (std::rand()+3)%adjacentVerts.size();
-				chosenVertex = adjacentVerts.at(randomIndex);
+				if(vertex->getData().getType().compare("pozo")!=0){ //Si el vertice no es un pozo
+					chosenVertex = adjacentVerts.at(randomIndex);
+				}
 			}
 			
 		}

@@ -46,6 +46,7 @@ PlayState::enter ()
   _contadorItems = 0;
   _finalgame = false;
   _caught = false;
+  _justTeleported = false;
 
   _ghosts = new std::vector<Ghost*>;
   _movementController = new MovementController(_ghosts, _chara);
@@ -153,12 +154,18 @@ PlayState::keyPressed
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
     changeCharaFacing();
     _inMovement = true;
+    if(_chara->getGraphVertex()->getData().getIndex()<81){
+      _justTeleported = false;
+    }
   }
   if (e.key == OIS::KC_S && !_inMovement) { // para abajo
     _chara->setDirection('D');
     _chara->setTarget(_movementController->getVertexByDirection(_chara));
     changeCharaFacing();
     _inMovement = true;
+     if(_chara->getGraphVertex()->getData().getIndex()<81){
+      _justTeleported = false;
+    }
   }
   if (e.key == OIS::KC_D && !_inMovement) { // para derecha
     _chara->setDirection('R');
@@ -337,107 +344,127 @@ void PlayState::moveCharacter(){
   unsigned int i = 0;
   int verticesm[4] = {0,9,71,80};
   Ogre::Vector3 auxPosition;
-  for(i=0;i<4;i++){
-    auxPosition = myGraph->getVertex(verticesm[i])->getData().getPosition();
-    if(abs(charaSNPosition.x - auxPosition.x) <= OMICRON){
-      if(abs(charaSNPosition.y - auxPosition.y) <= OMICRON){
-        if(_vItem->at(verticesm[i])->isActive()){  
-          _chara->setInvincibleSteps(INVSTEPS);
-          cout << "I ON" <<endl;
-        //cambiar color?
+  int indexAux = _chara->getGraphVertex()->getData().getIndex();
+  if((indexAux > 80)&& !_justTeleported){
+    if(indexAux == 81){
+      auxPosition = myGraph->getVertex(82)->getData().getPosition();
+      _chara->setGraphVertex(myGraph->getVertex(82));
+      _chara->setTarget(myGraph->getVertex(82));
+      convertCoordinates(auxPosition,0.0);
+      _chara->getSceneNode()->setPosition(auxPosition);
+    }
+    else{
+      auxPosition = myGraph->getVertex(81)->getData().getPosition();
+      _chara->setGraphVertex(myGraph->getVertex(81));
+      _chara->setTarget(myGraph->getVertex(81));
+      convertCoordinates(auxPosition,0.0);
+      _chara->getSceneNode()->setPosition(auxPosition);
+    }
+    _justTeleported = true;
+  }
+  else{
+    for(i=0;i<4;i++){
+      auxPosition = myGraph->getVertex(verticesm[i])->getData().getPosition();
+      if(abs(charaSNPosition.x - auxPosition.x) <= OMICRON){
+        if(abs(charaSNPosition.y - auxPosition.y) <= OMICRON){
+          if(_vItem->at(verticesm[i])->isActive()){  
+            _chara->setInvincibleSteps(INVSTEPS);
+            cout << "I ON" <<endl;
+          //cambiar color?
+            Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));
+            for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
+              Ogre::SubEntity *aux = ent->getSubEntity(i);
+              if (aux->getMaterialName() == "CuerpoPacmanP"){
+                aux->setMaterialName("CuerpoPacmanPower");
+              } 
+            }  
+          }
+        }
+      }
+    }
+    if(_chara->getInvincibleSteps()>0){
+      //hacer fantasmas debiles
+      for(i=0;i<_ghosts->size();i++){
+        _ghosts->at(i)->setMode('W');
+      }
+    }
+
+    GraphVertex *previousTargetPtr = _chara->getTarget();
+    //int previousTargetIndex = previousTargetPtr->getData().getIndex();
+
+    charaTargetPosition = _chara->getTarget()->getData().getPosition();
+    if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
+      if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
+        // si el personaje esta muy cerca del nodo target
+        //cout<<"ESTOY EN TARGET\n";
+        Ogre::Vector3 vecPos = _chara->getTarget()->getData().getPosition();
+        convertCoordinates(vecPos,0.0);
+        _chara->getSceneNode()->setPosition(vecPos);
+        _inMovement = false;
+        _chara->setGraphVertex(_chara->getTarget());
+        //Pacman Come Items
+        Item *item =  _vItem->at(_chara->getGraphVertex()->getData().getIndex());
+        if( item->isActive()){
+            item ->getSceneNode()->setVisible(false);
+            item->setActive(false);
+            _splay->actualizarPuntos(item->getScore());
+            _contadorItems++;
+            if (_contadorItems==81){
+              _finalgame = true;
+            }
+        }
+        
+        if(_movementController->isCharValidDirection(_chara)){
+           _chara->setTarget(_movementController->getVertexByDirection(_chara));
+        }
+        _chara->setDirection('-');
+        _chara->setTarget(_chara->getGraphVertex());
+        //recalculo target
+      }
+    }
+    if(_chara->getGraphVertex()->getData().getIndex()!=_chara->getTarget()->getData().getIndex()){
+      if(_movementController->isCharValidDirection(_chara)){
+        if(_chara->getDirection() == 'R'){
+        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(-_chara->getSpeed(),0,0));
+        }
+        else if(_chara->getDirection() == 'D'){
+          _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-_chara->getSpeed()));
+        }
+        else if(_chara->getDirection() == 'L'){
+          _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(_chara->getSpeed(),0,0));
+        }
+        else if(_chara->getDirection() == 'U'){
+          _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_chara->getSpeed()));
+        }
+        //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
+        /*if(_chara->getTarget()!= NULL){
+          cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
+        }
+        else{
+          cout<< "MI TARGET ES NULL\n";
+        }*/
+      }
+    }
+    else{
+      if(_chara->getInvincibleSteps()>0){
+        //le quitamos 1 paso de invencibilidad
+        _chara->setInvincibleSteps(-1);
+        if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
+          cout << "I OFF" <<endl;
+          //poner fantasmas no debiles otra vez
+          for(i=0;i<_ghosts->size();i++){
+            _ghosts->at(i)->setMode('C');
+          }
+          //volver a color original
           Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));
           for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
             Ogre::SubEntity *aux = ent->getSubEntity(i);
-            if (aux->getMaterialName() == "CuerpoPacmanP"){
-              aux->setMaterialName("CuerpoPacmanPower");
+            cout<<aux->getMaterialName()<<endl;
+            if (aux->getMaterialName() == "CuerpoPacmanPower"){
+              aux->setMaterialName("CuerpoPacmanP");
             } 
           }  
         }
-      }
-    }
-  }
-  if(_chara->getInvincibleSteps()>0){
-    //hacer fantasmas debiles
-    for(i=0;i<_ghosts->size();i++){
-      _ghosts->at(i)->setMode('W');
-    }
-  }
-
-  GraphVertex *previousTargetPtr = _chara->getTarget();
-  int previousTargetIndex = previousTargetPtr->getData().getIndex();
-
-  charaTargetPosition = _chara->getTarget()->getData().getPosition();
-  if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
-    if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
-      // si el personaje esta muy cerca del nodo target
-      //cout<<"ESTOY EN TARGET\n";
-      Ogre::Vector3 vecPos = _chara->getTarget()->getData().getPosition();
-      convertCoordinates(vecPos,0.0);
-      _chara->getSceneNode()->setPosition(vecPos);
-      _inMovement = false;
-      _chara->setGraphVertex(_chara->getTarget());
-      //Pacman Come Items
-      Item *item =  _vItem->at(_chara->getGraphVertex()->getData().getIndex());
-      if( item->isActive()){
-          item ->getSceneNode()->setVisible(false);
-          item->setActive(false);
-          _splay->actualizarPuntos(item->getScore());
-          _contadorItems++;
-          if (_contadorItems==81){
-            _finalgame = true;
-          }
-      }
-      
-      if(_movementController->isCharValidDirection(_chara)){
-         _chara->setTarget(_movementController->getVertexByDirection(_chara));
-      }
-      _chara->setDirection('-');
-      _chara->setTarget(_chara->getGraphVertex());
-      //recalculo target
-    }
-  }
-  if(_chara->getGraphVertex()->getData().getIndex()!=_chara->getTarget()->getData().getIndex()){
-    if(_movementController->isCharValidDirection(_chara)){
-      if(_chara->getDirection() == 'R'){
-      _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(-_chara->getSpeed(),0,0));
-      }
-      else if(_chara->getDirection() == 'D'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,-_chara->getSpeed()));
-      }
-      else if(_chara->getDirection() == 'L'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(_chara->getSpeed(),0,0));
-      }
-      else if(_chara->getDirection() == 'U'){
-        _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_chara->getSpeed()));
-      }
-      //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
-      /*if(_chara->getTarget()!= NULL){
-        cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
-      }
-      else{
-        cout<< "MI TARGET ES NULL\n";
-      }*/
-    }
-  }
-  else{
-    if(_chara->getInvincibleSteps()>0){
-      //le quitamos 1 paso de invencibilidad
-      _chara->setInvincibleSteps(-1);
-      if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
-        cout << "I OFF" <<endl;
-        //poner fantasmas no debiles otra vez
-        for(i=0;i<_ghosts->size();i++){
-          _ghosts->at(i)->setMode('C');
-        }
-        //volver a color original
-        Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));
-        for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
-          Ogre::SubEntity *aux = ent->getSubEntity(i);
-          cout<<aux->getMaterialName()<<endl;
-          if (aux->getMaterialName() == "CuerpoPacmanPower"){
-            aux->setMaterialName("CuerpoPacmanP");
-          } 
-        }  
       }
     }
   }
