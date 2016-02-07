@@ -246,6 +246,18 @@
   <vertex index="80" type ="gummelon">
     <x>-6.413754</x> <y>-6.413755</y> <z>0.000000</z>
   </vertex>
+  <vertex index="82" type ="pozo">
+    <x>8</x> <y>6.413755</y> <z>0.000000</z>
+  </vertex>
+  <vertex index="81" type ="pozo">
+    <x>-6.413754</x> <y>-8</y> <z>0.000000</z>
+  </vertex>
+  <edge>
+    <vertex>80</vertex> <vertex>81</vertex>
+  </edge>
+  <edge>
+    <vertex>0</vertex> <vertex>82</vertex>
+  </edge>
   <edge>
     <vertex>10</vertex> <vertex>0</vertex>
   </edge>
