@@ -3,10 +3,12 @@
 #include "GameManager.h"
 #include "GameState.h"
 
+
 template<> GameManager* Ogre::Singleton<GameManager>::msSingleton = 0;
 
 GameManager::GameManager ()
 {
+  _initSDL();
   _root = 0;
 }
 
@@ -42,6 +44,10 @@ GameManager::start
 
   // El GameManager es un FrameListener.
   _root->addFrameListener(this);
+
+  //sonidos
+  _pTrackManager = OGRE_NEW TrackManager;
+  _pSoundFXManager = OGRE_NEW SoundFXManager;
 
   // Transición al estado inicial.
   changeState(state);
@@ -204,4 +210,22 @@ GameManager::mouseReleased
 
 OIS::Mouse* GameManager::getMouse(){
   return _inputMgr -> getMouse();
+}
+
+bool GameManager::_initSDL () {
+  if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+    return false;
+  }
+  // Llamar a  SDL_Quit al terminar.
+  atexit(SDL_Quit);
+ 
+  // Inicializando SDL mixer...
+  if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS, 4096) < 0) {
+    return false;
+  }
+ 
+  // Llamar a Mix_CloseAudio al terminar.
+  atexit(Mix_CloseAudio);
+ 
+  return true;    
 }

@@ -32,6 +32,10 @@ IntroState::enter ()
   _lanzaranimacion = true;
   _exitGame = false;
 
+  GameManager::getSingletonPtr()->_mainTrack = GameManager::getSingletonPtr()->_pTrackManager->load("s_song.mp3");
+  GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_gameOver.wav");
+  GameManager::getSingletonPtr()->_mainTrack->play();
+
 }
 void
 IntroState::exit()

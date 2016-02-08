@@ -49,8 +49,6 @@ class Ghost
 		int _level;
 		int _health;
 		char _direction; // U-> up, R-> right, D-> down, L-> left
-		double _positionX;
-		double _positionY;
 		char _type;
     	char _mode;  // W-> Weak, C -> Chasing, S -> Scattering
     	double _speed;

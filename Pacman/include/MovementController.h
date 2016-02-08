@@ -41,8 +41,6 @@ class MovementController
 		std::vector<Ghost*> *_ghosts;
 		Character *_chara;
 		std::vector<char> *_validDirections;
-		//int _adjListGraph[N_VERTICES][N_VERTICES];
-		//int **_adjListGraph;
 };
 
 #endif

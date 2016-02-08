@@ -101,15 +101,6 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 		}
 		minDistance = auxDistance;
 		if(ghost->getMode() == 'S'){
-			//TO DO
-			/*if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
-				//Va hacia arriba a la derecha
-				difX = _graph->getVertex(9)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
-				difY = _graph->getVertex(9)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
-				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
-				minDistance = auxDistance;
-
-			}*/
 			if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
 				//Va hacia abajo a la derecha0
 				difX = _graph->getVertex(80)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
@@ -118,14 +109,6 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 				minDistance = auxDistance;
 
 			}
-			/*else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
-				//Va hacia abajo a la izquierda
-				difX = _graph->getVertex(71)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
-				difY = _graph->getVertex(71)->getData().getPosition().y - ghost->getGraphVertex()->getData().getPosition().y;
-				auxDistance = sqrt(abs(difX) * abs(difX) + abs(difY) * abs(difY));
-				minDistance = auxDistance;
-			
-			}*/
 			else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
 				//Va hacia arriba a la izquierda
 				difX = _graph->getVertex(0)->getData().getPosition().x - ghost->getGraphVertex()->getData().getPosition().x;
@@ -157,15 +140,9 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 					}
 				}
 				else{
-					/*if(ghost->getSceneNode()->getName().compare("fantasmaTomate")==0){
-						vertIndex=9;
-					}*/
 					if(ghost->getSceneNode()->getName().compare("fantasmaCebolla")==0){
 						vertIndex=80;
 					}
-					/*else if(ghost->getSceneNode()->getName().compare("fantasmaGuisante")==0){
-						vertIndex=71;
-					}*/
 					else if(ghost->getSceneNode()->getName().compare("fantasmaBerenjena")==0){
 						vertIndex=0;
 					}
@@ -237,9 +214,7 @@ char MovementController::getGhostNextDirection(Ghost *ghost, Character *chara){
 			direction = '-';
 		}
 	}
-	//cout << "DIR GHOST 0: "<<direction << "\n";
 	return direction;
-	//TO_DO
 }
 
 bool MovementController::isCharValidDirection(Character *chara){
@@ -375,5 +350,4 @@ void MovementController::printAdjList(Graph* graph){
 		}
 		cout << "\n";
 	}
-	//cout << adjList[0][0] << " " << adjList[0][1] << " " << adjList[0][2] << " " << adjList[0][3] << " " << adjList[0][4] << " " << adjList[0][5] << " " << adjList[0][6] << " " << adjList[0][7] << " " << adjList[0][8] << " " << adjList[0][9]       << "\n";
 }

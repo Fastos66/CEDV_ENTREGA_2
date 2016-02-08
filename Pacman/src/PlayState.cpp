@@ -173,58 +173,9 @@ PlayState::keyPressed
     changeCharaFacing();
     _inMovement = true;
   }
-  if (e.key == OIS::KC_P) {
-    Ogre::Vector3 charaSNPosition = _chara->getSceneNode()->getPosition();
-    Ogre::Vector3 charaTargetPosition;
-    Ogre::Vector3 charaVertexPosition;
-    convertCoordinates(charaSNPosition, 0.0);
-    charaVertexPosition = _chara->getGraphVertex()->getData().getPosition();
-    if(_chara->getTarget()!= NULL){
-      charaTargetPosition = _chara->getTarget()->getData().getPosition();
-      //cout<< "DIRECTION: " << _chara->getDirection();
-      //cout<< "\nSCENE NODE: X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " \nMI TARGET ES: "<<_chara->getTarget()->getData().getIndex()<<" X= "<< charaTargetPosition.x <<" Y= " << charaTargetPosition.y <<" Z=" << charaTargetPosition.z << "\n";
-      cout<< "VERTEX: "<<_chara->getGraphVertex()->getData().getIndex()<<" X= "<< charaVertexPosition.x <<" Y= " << charaVertexPosition.y <<" Z= " << charaVertexPosition.z << "\n";
-      //_movementController->printVecinos(_chara->getGraphVertex());
-      //_movementController->getGhostNextDirection(_ghosts->at(0),_chara);
-      vectAux = _ghosts->at(0)->getSceneNode()->getPosition();
-      convertCoordinates(vectAux,0.0);
-      //cout <<vectAux<<"\n";
-      //cout << "DIR GHOST 0: "<<_ghosts->at(0)->getDirection()<< "\n";
-      cout << "DIR GHOST 0: "<<_movementController->getGhostNextDirection(_ghosts->at(0),_chara)<< "\n";
-      cout << "DIR GHOST 1: "<<_movementController->getGhostNextDirection(_ghosts->at(1),_chara)<< "\n";
-      cout << "DIR GHOST 2: "<<_movementController->getGhostNextDirection(_ghosts->at(2),_chara)<< "\n";
-      cout << "DIR GHOST 3: "<<_movementController->getGhostNextDirection(_ghosts->at(3),_chara)<< "\n";
-      cout << "SN GHOST 0: "<<_ghosts->at(0)->getSceneNode()->getPosition()<< "\n";
-      cout << "VER GHOST 0: "<<_ghosts->at(0)->getGraphVertex()->getData().getPosition()<< "\n";
-      cout << "TAR GHOST 0: "<<_ghosts->at(0)->getTarget()->getData().getPosition()<< "\n";
-    }
-    else{
-      cout<< "MI TARGET ES NULL\n";
-    }
-  }
-  if (e.key == OIS::KC_V) {
-    _sceneMgr->getSceneNode("MapaM")->setVisible(true);
-    _movementController->printVecinos(_chara->getGraphVertex());
-  }
-  if (e.key == OIS::KC_B) {
-    _sceneMgr->getSceneNode("MapaM")->setVisible(false);
-  }
-  if (e.key == OIS::KC_G) {
-    Ogre::Entity *ent = static_cast<Ogre::Entity*>(_chara->getSceneNode()->getAttachedObject(0));;
-    cout << ent->getNumSubEntities() << endl;
-    for (unsigned int i=0; i<ent->getNumSubEntities(); i++) {
-      Ogre::SubEntity *aux = ent->getSubEntity(i);
-      cout << aux->getMaterialName() << endl;
-      if (aux->getMaterialName() == "CuerpoPacmanP") 
-        aux->setMaterialName("CuerpoPacmanPower");
-      }  
-  }
   // Tecla p --> PauseState.
-  if (e.key == OIS::KC_M) {
+  if (e.key == OIS::KC_P) {
       pushState(PauseState::getSingletonPtr());
-  }
-  if (e.key == OIS::KC_F) {
-      pushState(FinalGameState::getSingletonPtr());
   }
 }
 
@@ -347,6 +298,8 @@ void PlayState::moveCharacter(){
   int indexAux = _chara->getGraphVertex()->getData().getIndex();
   if((indexAux > 80)&& !_justTeleported){
     if(indexAux == 81){
+      GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_teleport2.aiff");
+      GameManager::getSingletonPtr()->_soundEffect->play();
       auxPosition = myGraph->getVertex(82)->getData().getPosition();
       _chara->setGraphVertex(myGraph->getVertex(82));
       _chara->setTarget(myGraph->getVertex(82));
@@ -354,6 +307,8 @@ void PlayState::moveCharacter(){
       _chara->getSceneNode()->setPosition(auxPosition);
     }
     else{
+      GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_teleport2.aiff");
+      GameManager::getSingletonPtr()->_soundEffect->play();
       auxPosition = myGraph->getVertex(81)->getData().getPosition();
       _chara->setGraphVertex(myGraph->getVertex(81));
       _chara->setTarget(myGraph->getVertex(81));
@@ -368,6 +323,8 @@ void PlayState::moveCharacter(){
       if(abs(charaSNPosition.x - auxPosition.x) <= OMICRON){
         if(abs(charaSNPosition.y - auxPosition.y) <= OMICRON){
           if(_vItem->at(verticesm[i])->isActive()){  
+            GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_melon.wav");
+            GameManager::getSingletonPtr()->_soundEffect->play();
             _chara->setInvincibleSteps(INVSTEPS);
             cout << "I ON" <<endl;
           //cambiar color?
@@ -388,10 +345,6 @@ void PlayState::moveCharacter(){
         _ghosts->at(i)->setMode('W');
       }
     }
-
-    GraphVertex *previousTargetPtr = _chara->getTarget();
-    //int previousTargetIndex = previousTargetPtr->getData().getIndex();
-
     charaTargetPosition = _chara->getTarget()->getData().getPosition();
     if(std::abs(charaSNPosition.x - charaTargetPosition.x) <= EPSILON){
       if(std::abs(charaSNPosition.y - charaTargetPosition.y) <= EPSILON){
@@ -410,6 +363,9 @@ void PlayState::moveCharacter(){
             _splay->actualizarPuntos(item->getScore());
             _contadorItems++;
             if (_contadorItems==83){
+              GameManager::getSingletonPtr()->_mainTrack->pause();
+              GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_win.wav");
+              GameManager::getSingletonPtr()->_soundEffect->play();
               _finalgame = true;
             }
         }
@@ -436,13 +392,6 @@ void PlayState::moveCharacter(){
         else if(_chara->getDirection() == 'U'){
           _chara->getSceneNode()->setPosition(_chara->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_chara->getSpeed()));
         }
-        //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
-        /*if(_chara->getTarget()!= NULL){
-          cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
-        }
-        else{
-          cout<< "MI TARGET ES NULL\n";
-        }*/
       }
     }
     else{
@@ -468,29 +417,6 @@ void PlayState::moveCharacter(){
       }
     }
   }
-  /*if(previousTarget->getData().getPosition() != _chara->getTarget()->getData().getPosition()){
-    //si se ha movido
-    if(_chara->getInvincibleSteps()>0){
-      //le quitamos 1 paso de invencibilidad
-      _chara->setInvincibleSteps(-1);
-    }
-  }*/
-  /*if(_chara->getInvincibleSteps()>0){
-    if(previousTargetIndex != _chara->getTarget()->getData().getIndex()){
-      //si se ha movido
-      //le quitamos 1 paso de invencibilidad
-      _chara->setInvincibleSteps(-1);
-    }
-    if(_chara->getInvincibleSteps() == 0){ //Si no quedan pasos de invencibilidad
-      cout << "Invencibilidad OFF" <<endl;
-      //poner fantasmas no debiles otra vez
-      for(i=0;i<_ghosts->size();i++){
-        _ghosts->at(i)->setMode('C');
-      }
-      //volver a color original??
-    }
-  }*/
-
 }
 
 void PlayState::moveGhosts(){
@@ -512,6 +438,10 @@ void PlayState::moveGhosts(){
         }
         else{
           //el fantasma ha sido comido
+          //reproducir efecto de sonido
+          GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_eat.wav");
+          GameManager::getSingletonPtr()->_soundEffect->play();
+
           _splay->actualizarPuntos(_ghosts->at(i)->getPoints());
           Graph *myGraph = _scene->getGraph();
           int verticesf[4] = {13,27,28,29};
@@ -520,34 +450,23 @@ void PlayState::moveGhosts(){
           auxPosition = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
           convertCoordinates(auxPosition, 0.0);
           _ghosts->at(i)->getSceneNode()->setPosition(auxPosition);
-        }      
+        }    
       }
     }
     
 
     if(std::abs(ghostSNPosition.x - ghostTargetPosition.x) <= EPSILON){
       if(std::abs(ghostSNPosition.y - ghostTargetPosition.y) <= EPSILON){
-        // si el personaje esta muy cerca del nodo target
-        //cout<<"ESTOY EN TARGET\n";
         Ogre::Vector3 vecPos = _ghosts->at(i)->getTarget()->getData().getPosition();
         convertCoordinates(vecPos,0.0);
         _ghosts->at(i)->getSceneNode()->setPosition(vecPos);
-        //_inMovement = false;
         _ghosts->at(i)->setGraphVertex(_ghosts->at(i)->getTarget());
-        /*if(_movementController->isGhostValidDirection(_ghosts->at(i))){
-          _ghosts->at(i)->setTarget(_movementController->getVertexByDirection(_ghosts->at(i)));
-        }*/
         _ghosts->at(i)->setDirection(_movementController->getGhostNextDirection(_ghosts->at(i),_chara)); 
         if(_movementController->isGhostValidDirection(_ghosts->at(i))){
           _ghosts->at(i)->setTarget(_movementController->getVertexByDirection(_ghosts->at(i)));
         }  
-        //_ghosts->at(i)->setDirection('-');
-        //_ghosts->at(0)->setTarget(_ghosts->at(0)->getGraphVertex());
-        //recalculo target
       }
     }
-    //if(_ghosts->at(0)->getGraphVertex()->getData().getIndex()!=_ghosts->at(0)->getTarget()->getData().getIndex()){
-      //if(_movementController->isGhostValidDirection(_ghosts->at(0))){
         if(_ghosts->at(i)->getDirection() == 'R'){
           _ghosts->at(i)->getSceneNode()->setPosition(_ghosts->at(i)->getSceneNode()->getPosition() + Ogre::Vector3(-_ghosts->at(i)->getSpeed(),0,0));
         }
@@ -560,15 +479,6 @@ void PlayState::moveGhosts(){
         else if(_ghosts->at(i)->getDirection() == 'U'){
           _ghosts->at(i)->getSceneNode()->setPosition(_ghosts->at(i)->getSceneNode()->getPosition() + Ogre::Vector3(0,0,_ghosts->at(i)->getSpeed()));
         }
-        //cout<< "ESTOY EN EL VERTICE " << _chara->getGraphVertex()->getData().getIndex() << "\n";
-        /*if(_chara->getTarget()!= NULL){
-          cout<< "X "<< charaSNPosition.x <<"Y " << charaSNPosition.y <<"Z " << charaSNPosition.z << " MI TARGET ES X "<< charaTargetPosition.x <<"Y " << charaTargetPosition.y <<"Z " << charaTargetPosition.z << "\n";
-        }
-        else{
-          cout<< "MI TARGET ES NULL\n";
-        }*/
-      //}
-    //}
   }
 
   
@@ -642,7 +552,11 @@ void PlayState::loseLife(){
     else{
       //GAMEOVER
       _chara->getSceneNode()->setVisible(false);
+      GameManager::getSingletonPtr()->_mainTrack->stop();
+      GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_gameOver.wav");
+      GameManager::getSingletonPtr()->_soundEffect->play();
       _finalgame = true;
+
     }  
   }
 }

@@ -9,12 +9,23 @@
 #include <RendererModules/Ogre/Renderer.h>
 
 #include "InputManager.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include "TrackManager.h"
+#include "SoundFXManager.h"
 
 class GameState;
 
 class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManager>, public OIS::KeyListener, public OIS::MouseListener
 {
  public:
+
+  TrackManager *_pTrackManager;
+  SoundFXManager *_pSoundFXManager;
+
+  TrackPtr _mainTrack;
+  SoundFXPtr _soundEffect;
+
   GameManager ();
   ~GameManager (); // Limpieza de todos los estados.
 
@@ -30,6 +41,7 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   static GameManager& getSingleton ();
   static GameManager* getSingletonPtr ();
   OIS::Mouse* getMouse();
+  bool _initSDL();
 
 
  protected:

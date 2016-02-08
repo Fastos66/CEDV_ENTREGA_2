@@ -2,7 +2,7 @@
 # Makefile Genérico :: Módulo 2. Curso Experto Desarrollo Videojuegos
 # Carlos González Morcillo     Escuela Superior de Informática (UCLM)
 # --------------------------------------------------------------------
-EXEC := Pacman
+EXEC := animacion
 
 DIRSRC := src/
 DIROBJ := obj/
@@ -11,11 +11,11 @@ DIRHEA := include/
 CXX := g++
 
 # Flags de compilación -----------------------------------------------
-CXXFLAGS := -I $(DIRHEA) -Wall `pkg-config --cflags OIS OGRE OGRE-Overlay` -I/usr/local/include/cegui-0/CEGUI -I/usr/local/include/cegui-0
+CXXFLAGS := -I $(DIRHEA) -Wall -I/usr/local/include/cegui-0/CEGUI -I/usr/local/include/cegui-0 `pkg-config --cflags OGRE` `pkg-config --cflags OIS` `pkg-config --cflags OGRE OGRE-Overlay` 
 
 # Flags del linker ---------------------------------------------------
-LDFLAGS := `pkg-config --libs OGRE` -L/usr/local/lib
-LDLIBS := `pkg-config --libs-only-l gl OIS OGRE xerces-c OGRE-Overlay SDL2_mixer` -lstdc++ -lboost_system -lCEGUIBase-0 -lCEGUIOgreRenderer-0
+LDFLAGS := `pkg-config --libs OGRE` 
+LDLIBS := `pkg-config --libs gl OGRE xerces-c` -lboost_system -lOIS -lGL -lstdc++ -lCEGUIBase-0 -lCEGUIOgreRenderer-0
 
 # Modo de compilación (-mode=release -mode=debug) --------------------
 ifeq ($(mode), release) 
@@ -48,7 +48,7 @@ $(EXEC): $(OBJS)
 
 # Compilación --------------------------------------------------------
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LDLIBS)
 
 # Limpieza de temporales ---------------------------------------------
 clean:

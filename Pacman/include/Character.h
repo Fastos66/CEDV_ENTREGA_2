@@ -38,8 +38,6 @@ class Character
 		GraphVertex * _target;
 		int _health;
 		char _direction; // U-> up, R-> right, D-> down, L-> left
-		double _positionX;
-		double _positionY;
 		double _speed;
 		int _invincibleSteps;
 };
