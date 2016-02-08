@@ -25,7 +25,8 @@ Item::Item(bool melon){
 		_score = 5; //por ejemplo
 }
 Item::~Item(){
-	
+	delete _node;
+	delete _vertex;
 }
 		
 Ogre::SceneNode * Item::getSceneNode(){

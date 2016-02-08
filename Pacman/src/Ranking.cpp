@@ -93,7 +93,7 @@ void Ranking::setrankingtxt(string name, string puntos){
     cout << "Modificando Ranking" << endl; 
     std::fstream fs;
   	fs.open ("./ranking.txt", std::fstream::out | std::fstream::app);
-	fs << endl << name << " " << puntos;
+	fs << name << " " << puntos << endl;
 	fs.close();
 }
 

@@ -25,7 +25,9 @@ Ghost::Ghost(){
 	_points = 100;
 }
 Ghost::~Ghost(){
-
+	delete _node;
+	delete _target;
+	delete _vertex;
 }
 		
 Ogre::SceneNode * Ghost::getSceneNode(){

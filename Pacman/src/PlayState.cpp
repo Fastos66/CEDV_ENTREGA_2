@@ -233,13 +233,13 @@ void PlayState::createCharacter(){
   Ogre::SceneNode *myNode = _sceneMgr->createSceneNode("character");
   myNode->setScale(0.75,0.75,0.75);
   myNode->attachObject(myEntity); 
-  Character *character = new Character(myNode, myGraph->getVertexes().at(57));
+  Character *character = new Character(myNode, myGraph->getVertexes().at(74));
   _chara = character;
   _chara->setSpeed(0.015);
   _chara->setDirection('-');
-  _chara->setTarget(myGraph->getVertexes().at(57));
+  _chara->setTarget(myGraph->getVertexes().at(74));
   _sceneMgr->getRootSceneNode()->addChild(myNode);
-  Ogre::Vector3 vectAux = myGraph->getVertexes().at(57)->getData().getPosition();
+  Ogre::Vector3 vectAux = myGraph->getVertexes().at(74)->getData().getPosition();
   convertCoordinates(vectAux,0.0);
   //Coordenadas cambiadas. El grafo sigue mal
   _chara->getSceneNode()->setPosition(vectAux);
@@ -249,7 +249,7 @@ void PlayState::createCharacter(){
 void PlayState::createGhosts(){
   Graph *myGraph = _scene->getGraph();
   //CREACION FANTASMAS
-  int verticesf[4] = {13,27,28,29};
+  int verticesf[4] = {13,27,20,29};
   string nombresfantasma[4] = {"Cebolla","Tomate","Berenjena","Guisante"};
   string nombresfantasmamesh[4] = {"FantasmaJCebolla","FantasmaJTomate",
                                     "FantasmaJBerenjena","FantasmaJGuisante"};
@@ -444,7 +444,7 @@ void PlayState::moveGhosts(){
 
           _splay->actualizarPuntos(_ghosts->at(i)->getPoints());
           Graph *myGraph = _scene->getGraph();
-          int verticesf[4] = {13,27,28,29};
+          int verticesf[4] = {13,27,20,29};
           _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));
           _ghosts->at(i)->setTarget(myGraph->getVertexes().at(verticesf[i]));
           auxPosition = _ghosts->at(i)->getGraphVertex()->getData().getPosition();
@@ -532,13 +532,13 @@ void PlayState::loseLife(){
   
     if(_chara->getHealth() > 0){
       //Devuelvo al personaje a su posicion inicial
-      _chara->setGraphVertex(myGraph->getVertexes().at(57));
-      _chara->setTarget(myGraph->getVertexes().at(57));
+      _chara->setGraphVertex(myGraph->getVertexes().at(74));
+      _chara->setTarget(myGraph->getVertexes().at(74));
       positionAux = _chara->getGraphVertex()->getData().getPosition();
       convertCoordinates(positionAux,0.0);
       _chara->getSceneNode()->setPosition(positionAux);
       //Devuelvo los fantasmas a sus posiciones iniciales
-      int verticesf[4] = {13,27,28,29};
+      int verticesf[4] = {13,27,20,29};
       unsigned int i = 0;
       for(i=0;i<_ghosts->size();i++){
         _ghosts->at(i)->setGraphVertex(myGraph->getVertexes().at(verticesf[i]));

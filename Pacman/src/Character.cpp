@@ -17,7 +17,9 @@ Character::Character(){
 	_invincibleSteps = 0;
 }
 Character::~Character(){
-
+	delete _node;
+	delete _target;
+	delete _vertex;
 }
 		
 Ogre::SceneNode * Character::getSceneNode(){

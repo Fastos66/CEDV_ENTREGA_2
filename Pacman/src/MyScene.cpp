@@ -11,7 +11,9 @@ MyScene::MyScene(Ogre::SceneManager* sceneManager){
   _sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
   _sceneManager = sceneManager;
 }
-MyScene::~MyScene(){}
+MyScene::~MyScene(){
+  
+}
 
 void MyScene::crearMenuInicio(){
   Ogre::Entity* mapae = _sceneManager->createEntity("MapaR", "ParedesM.mesh");
