@@ -47,6 +47,7 @@ FinalGameState::exit ()
   //sheet->destroyChild();
 
   //CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton()->;
+  actualizarranking();
   LimpiarTodo();
   _root->getAutoCreatedWindow()->removeAllViewports();
 

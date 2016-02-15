@@ -5,3 +5,6 @@ Crystal 234
 Esteroids 21
 Quique 1095
 Pacmanian 515
+Pro 1790
+CEDV 600
+CEDVY 620
