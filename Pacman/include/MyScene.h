@@ -11,7 +11,6 @@
 
 class MyScene {
 public:
-	MyScene(Ogre::SceneManager *sceneManager, CEGUI::Window* sheet);
 	MyScene(Ogre::SceneManager *sceneManager);
 	~MyScene();
 	void crearMenuInicio();
@@ -23,7 +22,8 @@ public:
 	bool limpiarpantallaCEGUIControles();
 	void ActRanking();
 	void controles();
-	
+	void limpiarCeguiIntro();
+	void limpiarCeguiControl();
 private:
 	Ogre::SceneManager* _sceneManager;
 	CEGUI::Window* _sheet;

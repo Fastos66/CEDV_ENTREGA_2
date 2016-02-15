@@ -30,6 +30,7 @@ ControlState::exit ()
   //_sceneMgr->clearScene();
   _sceneMgr->getEntity("Pacman")->setVisible(false);
   _sceneMgr->getEntity("FantasmaP")->setVisible(false);	
+  _scena -> limpiarCeguiControl();
   _root->getAutoCreatedWindow()->removeAllViewports();
 }
 

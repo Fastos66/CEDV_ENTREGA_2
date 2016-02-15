@@ -3,10 +3,6 @@
 #include "IntroState.h"
 #include "ControlState.h"
 
-MyScene::MyScene(Ogre::SceneManager* sceneManager, CEGUI::Window* sheet){
-	_sheet = sheet;
-	_sceneManager = sceneManager;
-}
 MyScene::MyScene(Ogre::SceneManager* sceneManager){
   _sheet = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
   _sceneManager = sceneManager;
@@ -16,14 +12,14 @@ MyScene::~MyScene(){
 }
 
 void MyScene::crearMenuInicio(){
-  Ogre::Entity* mapae = _sceneManager->createEntity("MapaR", "ParedesM.mesh");
+  Ogre::Entity* mapae = _sceneManager->createEntity("MapaM", "ParedesM.mesh");
   Ogre::SceneNode* nodemapa = _sceneManager->createSceneNode("MapaM");
   nodemapa->attachObject(mapae);
   nodemapa-> setPosition(0,1,0);
   _sceneManager->getRootSceneNode()->addChild(nodemapa);
 
-   Ogre::SceneNode* nodeinv = _sceneManager->createSceneNode("nodeinv");
-  _sceneManager->getRootSceneNode()->addChild(nodeinv);
+  //Ogre::SceneNode* nodeinv = _sceneManager->createSceneNode("nodeinv");
+  //_sceneManager->getRootSceneNode()->addChild(nodeinv);
 
   Ogre::Entity* ent1 = _sceneManager->createEntity("Pacman", "Pacman.mesh");
   Ogre::SceneNode* node1 = _sceneManager->createSceneNode("Pacman");
@@ -77,7 +73,10 @@ void MyScene::crearMenuInicio(){
   node2->attachObject(light);
 
   _sceneManager->getRootSceneNode()->addChild(node2);
+  cout << "LANZAR CEGUI" << endl;
   crearMenuInicioCEGUI();
+  cout << "TERMINAR CEGUI" << endl;
+  
 }
 void MyScene::crearMenuInicioCEGUI(){
   CEGUI::Window* vent = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("MenuInicialPacman.layout");
@@ -274,3 +273,33 @@ bool MyScene::limpiarpantallaCEGUIControles(){
   return dev;
 }
 
+void MyScene::limpiarCeguiIntro(){
+  _sheet->getChild("VI")->destroyChild("MenuInicialPacman");
+  CEGUI::ImageManager::getSingleton().destroy("ImagenLOGO");
+  //CEGUI::Renderer::getSingleton().getTexture("ImagenLOGO");
+  //Ogre::TextureManager::getSingleton().remove("ImagenLOGO");
+  //Ogre::TextureManager::getSingleton().remove("ImagenLOGO");
+  //renderer->destroyAllTextures();
+  _sheet->getChild("VI")->destroyChild("VentImagen");
+  _sheet->getChild("RankingL")->destroyChild("ImagenNameRanking");
+  CEGUI::ImageManager::getSingleton().destroy("INameRanking");
+  _sheet->getChild("RankingL")->destroyChild("ImagenPointRanking");
+  CEGUI::ImageManager::getSingleton().destroy("IPointRanking");
+  
+  string windowsc[3] ={"VI","Creditos","RankingL"};
+  for (int i = 0; i < 3; ++i){
+    _sheet-> destroyChild(windowsc[i]);
+  }
+}
+
+void MyScene::limpiarCeguiControl(){
+  CEGUI::ImageManager::getSingleton().destroy("INameControles");
+  CEGUI::ImageManager::getSingleton().destroy("IControlesT");
+  CEGUI::ImageManager::getSingleton().destroy("INamePuntos");
+  CEGUI::ImageManager::getSingleton().destroy("INamePuntosPJ");
+  string windowsc[4] ={"ImagenControles","ImagenControlesT","ImagenPuntosPJ","ImagenPuntos"};
+   for (int i = 0; i < 4; ++i){
+     _sheet->getChild("ControlesLayout")->destroyChild(windowsc[i]);
+  }
+  _sheet->destroyChild("ControlesLayout");
+}

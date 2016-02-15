@@ -8,11 +8,22 @@
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
+PlayState::PlayState () { 
+  try {
+    cout << "Cursor -1 MyScenePlay" << endl;
+    _importer = new Importer;
+    cout << "Cursor 0 MyScenePlay" << endl;
+    _scene = new Scene;
+    _importer->parseScene("./data/grafo.xml",_scene);
+  }catch (...){
+    cerr << "Unexpected exception!" << endl;
+  }
+}
+
 void
 PlayState::enter ()
 {
   _root = Ogre::Root::getSingletonPtr();
-
   // Se recupera el gestor de escena y la cámara.
   _sceneMgr = _root->getSceneManager("SceneManager");
   _camera = _sceneMgr->getCamera("IntroCamera");
@@ -21,24 +32,31 @@ PlayState::enter ()
   _viewport->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
   //Ogre::SceneNode* sn = _sceneMgr->getSceneNode("ground");
   printf("Estado:Play\n"); 
-  try {
+  /*try {
+    cout << "Cursor -1 MyScenePlay" << endl;
     _importer = new Importer;
+    cout << "Cursor 0 MyScenePlay" << endl;
     _scene = new Scene;
     _importer->parseScene("./data/grafo.xml",_scene);
   }catch (...){
     cerr << "Unexpected exception!" << endl;
-  }
+  }*/
   CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setVisible(false);
+  cout << "Cursor 1 MyScenePlay" << endl;
+  
   //cout << "\t#Vertexes: " << _scene->getGraph()->getVertexes().size() << endl;
   //cout << "\t#Edges: " << _scene->getGraph()->getEdges().size() << endl;
   _vItem = new std::vector<Item*>;
 
   _splay = new MyScenePlay(_sceneMgr,_scene,_camera);
   _splay -> cargarscenainicial();
+  cout << "Metodos 2 MyScenePlay inicial" << endl;
+  
   _splay -> creacionMapa(_vItem);
   _splay -> crearmenuCEGUI();
   _splay -> cargarlives();
   
+  cout << "Metodos 3 MyScenePlay" << endl;
   _exitGame = false;
   _inMovement = false;
   _isOver = true;

@@ -15,7 +15,7 @@
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
  public:
-  PlayState () { }
+  PlayState ();
 
   void enter ();
   void exit ();
@@ -66,7 +66,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   bool _caught;
   bool _justTeleported;
 
-
+  //int _importerCreated;
   int _contadorItems;
   bool _finalgame;
   std::vector<Item*> *_vItem;

@@ -122,6 +122,11 @@ void MyScenePlay::pedirelnombre_actualizar_ranking(){
           CEGUI::Event::Subscriber(&FinalGameState::exitButtonC, 
                 FinalGameState::getSingletonPtr())); 
 
+    CEGUI::Window* mmbutton = ventpuntos->getChild("MainMenuButton");
+      mmbutton->subscribeEvent(CEGUI::PushButton::EventClicked,
+          CEGUI::Event::Subscriber(&FinalGameState::menuPrincipalButtonC, 
+                FinalGameState::getSingletonPtr())); 
+
     CEGUI::Window* imglogo = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage","VentImagenTop");
   	CEGUI::ImageManager::getSingleton().addFromImageFile("ImagenLOGOTop","puntuaciontop.png");
   	imglogo -> setProperty("Image","ImagenLOGOTop");
@@ -177,4 +182,37 @@ void MyScenePlay::perderlive(int numlive){
     ostringstream os;
     os << "Live" << numlive;
     _sceneManager->getSceneNode(os.str())->setVisible(false); 
+}
+
+void MyScenePlay::limpiarCeguiPlay(){
+  _sheet->destroyChild("VentImagenLivesPoints");
+  _sheet->destroyChild("PointsPlayer");
+  CEGUI::ImageManager::getSingleton().destroy("ImagenLivesPuntos");  
+}
+
+void MyScenePlay::CEGUIinvPlay(){
+  _sheet-> getChild("VentImagenLivesPoints")->setVisible(false);
+  _sheet-> getChild("PointsPlayer")->setVisible(false);
+}
+
+void MyScenePlay::limpiarCeguiFinal(){
+  _sheet -> getChild("Puntuacion")->destroyChild("VentImagenTop");
+  _sheet -> getChild("Puntuacion")->destroyChild("VentImagenOnRanking");
+  _sheet->destroyChild("Puntuacion");
+  
+  CEGUI::ImageManager::getSingleton().destroy("ImagenLOGOTop");
+  CEGUI::ImageManager::getSingleton().destroy("ImagenOR");
+     
+}
+void MyScenePlay::CEGUIinvFinal(){
+  _sheet-> getChild("Puntuacion")->setVisible(false);
+}
+
+void MyScenePlay::limpiarCeguiPausa(){
+  _sheet->destroyChild("Menupausa");
+  
+     
+}
+void MyScenePlay::CEGUIinvPausa(){
+  _sheet-> getChild("Menupausa")->setVisible(false);
 }

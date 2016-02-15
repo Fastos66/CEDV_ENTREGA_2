@@ -2,14 +2,24 @@
 #include "ControlState.h"
 #include "MyScene.h"
 #include "Ranking.h"
+#include <iterator>
 template<> IntroState* Ogre::Singleton<IntroState>::msSingleton = 0;
+
+IntroState::IntroState (){  
+  _root = Ogre::Root::getSingletonPtr();
+  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "SceneManager");
+  _timesCreated = 0;
+  
+  //_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
+}
 
 void
 IntroState::enter ()
 {
-  _root = Ogre::Root::getSingletonPtr();
-
-  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "SceneManager");
+  
+  /* Se recupera el gestor de escena. */
+  _sceneMgr = _root->getSceneManager("SceneManager");
+    
   _sceneMgr -> setAmbientLight(Ogre::ColourValue(1,1,1));
   _camera = _sceneMgr->createCamera("IntroCamera");
   _camera->setPosition(Ogre::Vector3(5,20,22));
@@ -23,24 +33,29 @@ IntroState::enter ()
   _camera->setAspectRatio(width / height);
   printf("Estado:Intro\n");
   
-  loadCEGUI();
+ if (_timesCreated<1){
+    loadCEGUI();
+    _timesCreated++;
+  }
  
-  _scena = new MyScene(_sceneMgr,_sheet);
+  _scena = new MyScene(_sceneMgr);
   _scena -> crearMenuInicio();
   _scena -> ActRanking();
+  cout << "ActRanking terminado" <<endl;
   _animState = NULL;
   _lanzaranimacion = true;
   _exitGame = false;
-
+  cout << "true false asignados" << endl;
   GameManager::getSingletonPtr()->_mainTrack = GameManager::getSingletonPtr()->_pTrackManager->load("s_song.mp3");
   GameManager::getSingletonPtr()->_soundEffect = GameManager::getSingletonPtr()->_pSoundFXManager->load("s_gameOver.wav");
   GameManager::getSingletonPtr()->_mainTrack->play();
-
+  cout << "music asignados" << endl;
 }
 void
 IntroState::exit()
 {
   //_sceneMgr->clearScene();
+  _scena->limpiarCeguiIntro(); //MOVER AL FINAL?
   _sceneMgr->getSceneNode("Pacman")-> setVisible(false);
   _root->getAutoCreatedWindow()->removeAllViewports();
 }
@@ -225,4 +240,7 @@ void IntroState::loadCEGUI(){
   _sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Ex1/Sheet");
   CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_sheet);
   
+}
+CEGUI::Renderer * IntroState::getRenderer(){
+  return renderer;
 }

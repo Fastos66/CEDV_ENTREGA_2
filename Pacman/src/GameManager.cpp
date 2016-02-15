@@ -9,7 +9,8 @@ template<> GameManager* Ogre::Singleton<GameManager>::msSingleton = 0;
 GameManager::GameManager ()
 {
   _initSDL();
-  _root = 0;
+  /* Creación del objeto Ogre::Root. */
+  _root = new Ogre::Root();
 }
 
 GameManager::~GameManager ()
@@ -28,7 +29,7 @@ GameManager::start
 (GameState* state)
 {
   // Creación del objeto Ogre::Root.
-  _root = new Ogre::Root();
+  //_root = new Ogre::Root();
   
   loadResources();
   
@@ -54,6 +55,8 @@ GameManager::start
 
   // Bucle de rendering.
   _root->startRendering();
+
+
 }
 
 void

@@ -11,7 +11,7 @@
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
  public:
-  IntroState() { }
+  IntroState();
 
   void enter ();
   void exit ();
@@ -39,6 +39,9 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   bool exitButtonC(const CEGUI::EventArgs& e);
   bool atrasCreditsButtonC(const CEGUI::EventArgs& e);
   bool atrasRankingButtonC(const CEGUI::EventArgs& e);
+  CEGUI::Renderer * getRenderer();
+
+
 
  protected:
   
@@ -51,6 +54,7 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   void loadCEGUI();
   MyScene* _scena;
   CEGUI::Window* _sheet;
+  int _timesCreated;
 
  private:
   Ogre::AnimationState *_animState;

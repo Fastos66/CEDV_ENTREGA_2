@@ -24,6 +24,13 @@ class MyScenePlay
 
 		void cargarlives();
 		void perderlive(int numlive);
+
+		void limpiarCeguiPlay();
+		void CEGUIinvPlay();
+		void limpiarCeguiFinal();
+		void CEGUIinvFinal();
+		void limpiarCeguiPausa();
+		void CEGUIinvPausa();
 		
 		string getpuntosjugador();
 		string getnombrejugador();

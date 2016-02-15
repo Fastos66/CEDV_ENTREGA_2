@@ -31,13 +31,19 @@ class FinalGameState : public Ogre::Singleton<FinalGameState>, public GameState
   static FinalGameState* getSingletonPtr ();
 
   CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+  bool menuPrincipalButtonC(const CEGUI::EventArgs& e);
 
   bool actualizarranking();
 
-  bool exitButtonC(const CEGUI::EventArgs& e);
+  void LimpiarPlayState();
+  void LimpiarFinalState();
+  void LimpiarPausaState();
 
+  bool exitButtonC(const CEGUI::EventArgs& e);
+  void DestroyAllAttachedMovableObjects(Ogre::SceneNode* i_pSceneNode );
+  void LimpiarTodo();
  protected:
- 
+
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
